@@ -9,4 +9,42 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!-- Pets Services -->
+    <!-- Connexion screen -->
+    <string name="login_email">Adresse mail</string>
+    <string name="login_password">Mot de passe</string>
+    <string name="login_connection_button">Connexion</string>
+    <string name="login_registration">Pas encore de compte ? Inscrivez-vous !</string>
+
+    <!-- Inscription screen -->
+    <!-- Title and field -->
+    <string name="title_registration">Inscription</string>
+    <string name="email_registration">Adresse mail</string>
+    <string name="password_registration">Mot de passe</string>
+    <string name="validation_password_registration">Validation mot de passe</string>
+    <string name="name_registration">Nom et prénom</string>
+    <string name="latsname_registration">Nom</string>
+    <string name="fisrtname_registration">Prénom</string>
+    <string name="adress_registration">Adresse</string>
+    <string name="street_name_registration">Rue</string>
+    <string name="city_registration">Ville</string>
+    <string name="street_number_registration">Numéro</string>
+    <string name="postal_code_registration">Code postal</string>
+    <string name="role_registration">Rôles</string>
+    <!-- checkbox -->
+    <string name="animal_walker_registration">Je promène</string>
+    <string name="host_registration">J\'accueil</string>
+    <string name="search_walker_registration">Je cherche un promeneur</string>
+    <string name="search_host_registration">Je cherche un hôte</string>
+
+    <!-- combobox -->
+
+
+    <!-- Button -->
+    <string name="registration_back_button">Retour</string>
+    <string name="registration_button">Je m\'inscris</string>
+
+
+
 </resources>

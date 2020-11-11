@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.smartcity.petsservices.FirstFragment"
+        android:name="com.smartcity.petsservices.ui.LoginFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/login_fragment">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.smartcity.petsservices.SecondFragment"
+        android:name="com.smartcity.petsservices.ui.RegistrationFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 

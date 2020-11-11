@@ -1,27 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SecondFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/textview_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <variable
+            name="dataBindingSecondFragment"
+            type="com.smartcity.petsservices.ui.RegistrationFragment" />
+    </data>
 
-    <Button
-        android:id="@+id/button_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        tools:context=".ui.RegistrationFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/inscription_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_registration" />
+
+
+            <TextView
+                android:id="@+id/email_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/email_registration" />
+
+            <EditText
+                android:id="@+id/email_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:hint="@string/email_registration"
+                android:autofillHints="@string/email_registration"
+                android:layout_margin="20dp"/>
+
+            <TextView
+                android:id="@+id/password_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/password_registration" />
+
+            <EditText
+                android:id="@+id/password_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="@string/password_registration"
+                android:autofillHints="@string/password_registration"
+                android:layout_margin="20dp"/>
+
+            <TextView
+                android:id="@+id/validation_password_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/validation_password_registration" />
+
+            <EditText
+                android:id="@+id/validation_password_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="@string/validation_password_registration"
+                android:autofillHints="@string/validation_password_registration"
+                android:layout_margin="20dp"/>
+
+            <TextView
+                android:id="@+id/name_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name_registration" />
+
+            <EditText
+                android:id="@+id/lastname_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="@string/latsname_registration"
+                android:autofillHints="@string/latsname_registration"
+                android:layout_margin="20dp"/>
+
+            <EditText
+                android:id="@+id/firstname_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="@string/fisrtname_registration"
+                android:autofillHints="@string/fisrtname_registration"
+                android:layout_margin="20dp"/>
+
+            <TextView
+                android:id="@+id/address_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adress_registration" />
+
+            <GridLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:rowCount="2"
+                android:columnCount="2">
+
+                <EditText
+                    android:id="@+id/street_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:hint="@string/street_name_registration"
+                    android:autofillHints="@string/street_name_registration"
+                    android:layout_margin="20dp"/>
+
+                <EditText
+                    android:id="@+id/street_number_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:hint="@string/street_number_registration"
+                    android:autofillHints="@string/street_number_registration"
+                    android:layout_margin="20dp"/>
+
+                <EditText
+                    android:id="@+id/city_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:hint="@string/city_registration"
+                    android:autofillHints="@string/city_registration"
+                    android:layout_margin="20dp"/>
+
+                <EditText
+                    android:id="@+id/postal_code_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPostalAddress"
+                    android:hint="@string/postal_code_registration"
+                    android:autofillHints="@string/postal_code_registration"
+                    android:layout_margin="20dp"/>
+            </GridLayout>
+
+
+            <Spinner
+                android:id="@+id/country_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown" />
+            <TextView
+                android:id="@+id/role_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/role_registration" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:rowCount="2"
+                android:columnCount="2">
+
+                <CheckBox android:id="@+id/checkbox_animal_walker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/animal_walker_registration"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/checkbox_search_walker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_walker_registration"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/checkbox_host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/host_registration"
+                    android:onClick="onCheckboxClicked"/>
+
+                <CheckBox android:id="@+id/checkbox_search_host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_host_registration"
+                    android:onClick="onCheckboxClicked"/>
+            </GridLayout>
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:rowCount="1"
+                android:columnCount="2">
+
+                <Button
+                    android:id="@+id/registration_back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registration_back_button" />
+
+                <Button
+                    android:id="@+id/registration_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registration_button" />
+            </GridLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</layout>
