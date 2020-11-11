@@ -25,7 +25,10 @@ class LoginFragment : Fragment() {
         binding = LoginFragmentBinding.inflate(inflater, container, false)
         var root : View  = binding.root
 
-        binding.loginConnectionButton.setOnClickListener {
+        /*binding.loginConnectionButton.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }*/
+        binding.loginRegistration.setOnClickListener{
             NavHostFragment.findNavController(this).navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
