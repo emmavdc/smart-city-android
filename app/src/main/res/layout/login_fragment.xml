@@ -21,6 +21,13 @@
         android:gravity="center"
         tools:context=".ui.LoginFragment">
 
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="462dp"
+            android:layout_height="274dp"
+            app:srcCompat="@drawable/pets_services_logo" />
+
         <EditText
             android:id="@+id/login_email"
             android:layout_width="wrap_content"
