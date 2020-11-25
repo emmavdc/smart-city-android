@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="dataBindingFirstFragment"
-            type="com.smartcity.petsservices.ui.fragment.LoginFragment" />
+            name="viewModel"
+            type="com.smartcity.petsservices.ui.viewModel.LoginViewModel" />
     </data>
 
     <LinearLayout

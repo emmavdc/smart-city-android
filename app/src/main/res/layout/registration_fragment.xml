@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="dataBindingSecondFragment"
-            type="com.smartcity.petsservices.ui.fragment.RegistrationFragment" />
+            name="viewModel"
+            type="com.smartcity.petsservices.ui.viewModel.RegistrationViewModel" />
     </data>
 
     <ScrollView
