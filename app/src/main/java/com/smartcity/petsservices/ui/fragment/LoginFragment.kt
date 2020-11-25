@@ -1,4 +1,4 @@
-package com.smartcity.petsservices.ui
+package com.smartcity.petsservices.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="dataBindingFirstFragment"
-            type="com.smartcity.petsservices.ui.LoginFragment" />
+            type="com.smartcity.petsservices.ui.fragment.LoginFragment" />
     </data>
 
     <LinearLayout
@@ -19,7 +19,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
         android:gravity="center"
-        tools:context=".ui.LoginFragment">
+        tools:context=".ui.fragment.LoginFragment">
 
 
         <ImageView
