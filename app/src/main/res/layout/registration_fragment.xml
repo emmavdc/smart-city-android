@@ -230,7 +230,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/animal_walker_registration"
-                    android:onClick="onCheckboxClicked"
                     android:layout_marginStart="20dp"
                     android:textSize="14dp"/>
 
@@ -238,7 +237,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/search_walker_registration"
-                    android:onClick="onCheckboxClicked"
                     android:layout_marginStart="20dp"
                     android:textSize="14dp"/>
 
@@ -246,7 +244,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/host_registration"
-                    android:onClick="onCheckboxClicked"
                     android:layout_marginStart="20dp"
                     android:textSize="14dp"/>
 
@@ -254,7 +251,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/search_host_registration"
-                    android:onClick="onCheckboxClicked"
                     android:layout_marginStart="20dp"
                     android:textSize="14dp"/>
             </GridLayout>

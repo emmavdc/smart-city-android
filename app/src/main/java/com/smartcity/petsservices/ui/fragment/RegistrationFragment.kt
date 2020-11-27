@@ -74,7 +74,7 @@ class RegistrationFragment : Fragment() {
             NavHostFragment.findNavController(this).navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
 
-        //Registratio button
+        //Registration button
         binding.registrationButton.setOnClickListener {
             //registrationViewModel.addUser(addUser());
             addUser()
@@ -95,6 +95,7 @@ class RegistrationFragment : Fragment() {
 
        return binding.root;
     }
+
 
     // ----------------- ADD USER & AsyncTask  -------------------------
 
