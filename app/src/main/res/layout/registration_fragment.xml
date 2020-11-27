@@ -127,6 +127,26 @@
                 android:textSize="14dp"/>
 
             <TextView
+                android:id="@+id/phone_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_registration"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:textSize="14dp"/>
+
+            <EditText
+                android:id="@+id/phone_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="@string/phone_registration"
+                android:autofillHints="@string/phone_registration"
+                android:layout_margin="20dp"
+                android:textSize="14dp"/>
+
+            <TextView
                 android:id="@+id/address_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

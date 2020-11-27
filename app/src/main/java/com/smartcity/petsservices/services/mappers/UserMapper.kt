@@ -19,7 +19,6 @@ object UserMapper {
                     user.firstname,
                     user.lastname,
                     user.phone,
-                    false,
                     user.locality,
                     user.postalCode, user.streetNumber, user.streetName, user.country, user.picture, mapToCustomerDto(user.customer), mapToSupplierDto(user.supplier))
         }

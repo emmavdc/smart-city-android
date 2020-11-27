@@ -13,7 +13,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class RetrofitConfigurationService {
 
-    private static final String BASE_URL = "http://localhost:80/";
+    private static final String BASE_URL = "http://localhost:8080/";
 
     // Retrofit client creation
     private Retrofit retrofitClient;
