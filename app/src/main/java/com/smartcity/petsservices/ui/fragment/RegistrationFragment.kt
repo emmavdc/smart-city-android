@@ -2,12 +2,14 @@ package com.smartcity.petsservices.ui.fragment
 
 import android.os.AsyncTask
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -17,6 +19,7 @@ import com.smartcity.petsservices.model.Customer
 import com.smartcity.petsservices.model.Supplier
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.ui.viewModel.RegistrationViewModel
+
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -82,23 +85,24 @@ class RegistrationFragment : Fragment() {
             addUser()
         }
         //test
-        binding.emailEditText.setText("nico.allegro@domain.be");
-        binding.passwordEditText.setText("123");
-        binding.firstnameEditText.setText("Nicolas");
-        binding.lastnameEditText.setText("Allegro");
-        binding.validationPasswordEditText.setText("123");
-        binding.phoneEditText.setText("0497898965");
-        binding.streetNameEditText.setText("Rue de l'Ecluse");
-        binding.streetNumberEditText.setText("12");
-        binding.cityEditText.setText("Lobbes");
-        binding.postalCodeEditText.setText("6540");
+        //binding.emailEditText.setText("nico.allegro@domain.be");
+        passwordEditText.setText("123");
+        firstnameEditText.setText("Nicolas");
+        lastnameEditText.setText("Allegro");
+        passwordValidationEditText.setText("123");
+        phoneEditText.setText("0497898965");
+        streetNameEditText.setText("Rue de l'Ecluse");
+        streetNumberEditText.setText("12");
+        cityEditText.setText("Lobbes");
+        postalCodeEditText.setText("6540");
         //System.out.println(emailEditText.text.toString())
 
+        emailInputVerifier()
 
        return binding.root;
     }
 
-    private fun addCustomer(searchHost : Boolean, searchAnimalWalker :Boolean) : Customer?{
+    private fun addCustomer(searchHost: Boolean, searchAnimalWalker: Boolean) : Customer?{
 
         if(searchHost || searchAnimalWalker){
             var customer = Customer(null, searchAnimalWalker, searchHost)
@@ -109,9 +113,9 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    private fun addSuppplier(isHost : Boolean, isAnimalWalker :Boolean) : Supplier? {
+    private fun addSuppplier(isHost: Boolean, isAnimalWalker: Boolean) : Supplier? {
         if(isHost || isAnimalWalker){
-            var supplier = Supplier(isHost, isAnimalWalker, null, null,null)
+            var supplier = Supplier(isHost, isAnimalWalker, null, null, null)
             return supplier
         }
         else{
@@ -119,43 +123,74 @@ class RegistrationFragment : Fragment() {
         }
     }
 
+    // ----------------- Fields validation -------------------------
+    private fun emailInputVerifier(){
+        emailEditText.addTextChangedListener(object : TextWatcher{
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(emailEditText.text.isEmpty()){
+                    emailEditText.setError("Adresse mail requise !")
+                }
+                else{
+                    if(!(Patterns.EMAIL_ADDRESS.matcher(emailEditText.text).matches())){
+                        emailEditText.setError("Adresse mail n'est pas valide!")
+                    }
+                }
+            }
+        })
+    }
+
+    private fun validateEmail() : Boolean{
+        return emailEditText.text.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailEditText.text).matches()
+    }
+
+
+
+
     // ----------------- ADD USER & AsyncTask  -------------------------
 
     private fun addUser(){
-        var email : String = emailEditText.text.toString()
-        var password : String = passwordEditText.text.toString()
-        var firstname : String = firstnameEditText.text.toString()
-        var lastname : String = lastnameEditText.text.toString()
-        var phone : String = phoneEditText.text.toString()
-        var streetNumber : String = streetNumberEditText.text.toString()
-        var streetName : String = streetNameEditText.text.toString()
-        var locality : String = cityEditText.text.toString()
-        var postalCode : Int = (postalCodeEditText.text.toString()).toInt()
-        var isHost : Boolean = isHostCheckBox.isChecked
-        var isAnimalWalker : Boolean = isAnimalWalkerCheckBox.isChecked
-        var searchHost : Boolean = searchHostCheckBox.isChecked
-        var searchAnimalWalker : Boolean = searchAnimalWalkerCheckBox.isChecked
 
-        var customer : Customer? = addCustomer(searchHost, searchAnimalWalker)
-        var supplier : Supplier? = addSuppplier(isHost, isAnimalWalker)
 
-         var user = User(email,
-                password,
-                firstname,
-                lastname,
-                phone,
-                locality,
-                postalCode,
-                streetNumber,
-                streetName,
-                country = "Belgique",
-                null,
-                 customer,
-                 supplier)
+            var email: String = emailEditText.text.toString()
+            var password: String = passwordEditText.text.toString()
+            var firstname: String = firstnameEditText.text.toString()
+            var lastname: String = lastnameEditText.text.toString()
+            var phone: String = phoneEditText.text.toString()
+            var streetNumber: String = streetNumberEditText.text.toString()
+            var streetName: String = streetNameEditText.text.toString()
+            var locality: String = cityEditText.text.toString()
+            var postalCode: Int = (postalCodeEditText.text.toString()).toInt()
+            var isHost: Boolean = isHostCheckBox.isChecked
+            var isAnimalWalker: Boolean = isAnimalWalkerCheckBox.isChecked
+            var searchHost: Boolean = searchHostCheckBox.isChecked
+            var searchAnimalWalker: Boolean = searchAnimalWalkerCheckBox.isChecked
 
-        //return user
+            var customer: Customer? = addCustomer(searchHost, searchAnimalWalker)
+            var supplier: Supplier? = addSuppplier(isHost, isAnimalWalker)
 
-        AddUserTask().execute(user)
+            var user = User(email,
+                    password,
+                    firstname,
+                    lastname,
+                    phone,
+                    locality,
+                    postalCode,
+                    streetNumber,
+                    streetName,
+                    country = "Belgique",
+                    null,
+                    customer,
+                    supplier)
+
+            //return user
+
+            AddUserTask().execute(user)
     }
 
 
@@ -171,7 +206,6 @@ class RegistrationFragment : Fragment() {
         }*/
 
     }
-
 
 
 }
