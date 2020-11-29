@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.smartcity.petsservices.R
 import com.smartcity.petsservices.databinding.RegistrationFragmentBinding
+import com.smartcity.petsservices.model.Customer
+import com.smartcity.petsservices.model.Supplier
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.ui.viewModel.RegistrationViewModel
 
@@ -80,22 +82,42 @@ class RegistrationFragment : Fragment() {
             addUser()
         }
         //test
-        binding.emailEditText.setText("coucouc@yahoo.fr");
+        binding.emailEditText.setText("nico.allegro@domain.be");
         binding.passwordEditText.setText("123");
-        binding.firstnameEditText.setText("Emma");
-        binding.lastnameEditText.setText("vandecasteele");
+        binding.firstnameEditText.setText("Nicolas");
+        binding.lastnameEditText.setText("Allegro");
         binding.validationPasswordEditText.setText("123");
         binding.phoneEditText.setText("0497898965");
-        binding.streetNameEditText.setText("chemin");
+        binding.streetNameEditText.setText("Rue de l'Ecluse");
         binding.streetNumberEditText.setText("12");
-        binding.cityEditText.setText("Thuin");
-        binding.postalCodeEditText.setText("6530");
+        binding.cityEditText.setText("Lobbes");
+        binding.postalCodeEditText.setText("6540");
         //System.out.println(emailEditText.text.toString())
 
 
        return binding.root;
     }
 
+    private fun addCustomer(searchHost : Boolean, searchAnimalWalker :Boolean) : Customer?{
+
+        if(searchHost || searchAnimalWalker){
+            var customer = Customer(null, searchAnimalWalker, searchHost)
+            return customer
+        }
+        else{
+            return null
+        }
+    }
+
+    private fun addSuppplier(isHost : Boolean, isAnimalWalker :Boolean) : Supplier? {
+        if(isHost || isAnimalWalker){
+            var supplier = Supplier(isHost, isAnimalWalker, null, null,null)
+            return supplier
+        }
+        else{
+            return null
+        }
+    }
 
     // ----------------- ADD USER & AsyncTask  -------------------------
 
@@ -110,9 +132,12 @@ class RegistrationFragment : Fragment() {
         var locality : String = cityEditText.text.toString()
         var postalCode : Int = (postalCodeEditText.text.toString()).toInt()
         var isHost : Boolean = isHostCheckBox.isChecked
-        var isAnimalWalker : Boolean = isHostCheckBox.isChecked
-        var searchHost : Boolean = isHostCheckBox.isChecked
-        var searchAnimalWalker : Boolean = isHostCheckBox.isChecked
+        var isAnimalWalker : Boolean = isAnimalWalkerCheckBox.isChecked
+        var searchHost : Boolean = searchHostCheckBox.isChecked
+        var searchAnimalWalker : Boolean = searchAnimalWalkerCheckBox.isChecked
+
+        var customer : Customer? = addCustomer(searchHost, searchAnimalWalker)
+        var supplier : Supplier? = addSuppplier(isHost, isAnimalWalker)
 
          var user = User(email,
                 password,
@@ -125,13 +150,14 @@ class RegistrationFragment : Fragment() {
                 streetName,
                 country = "Belgique",
                 null,
-                null,
-                null)
+                 customer,
+                 supplier)
 
         //return user
 
         AddUserTask().execute(user)
     }
+
 
     inner class AddUserTask : AsyncTask<User, Void, String>(){
         override fun doInBackground(vararg users: User): String {
@@ -140,9 +166,9 @@ class RegistrationFragment : Fragment() {
             return users[0].firstname
         }
 
-        override fun onPostExecute(result: String) {
+        /*override fun onPostExecute(result: String) {
             Toast.makeText(activity!!.applicationContext, "User $result added", Toast.LENGTH_SHORT).show()
-        }
+        }*/
 
     }
 
