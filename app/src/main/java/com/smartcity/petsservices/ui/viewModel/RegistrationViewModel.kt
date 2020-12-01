@@ -1,8 +1,10 @@
 package com.smartcity.petsservices.ui.viewModel
 
 import android.app.Application
+import android.util.Patterns
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.repositories.web.configuration.RetrofitConfigurationService
@@ -15,8 +17,12 @@ import retrofit2.Response
 
 class RegistrationViewModel(application: Application) : AndroidViewModel(application){
 
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User> = _user
+    val email = MutableLiveData<String>()
+    private val validatorFormMediator = MediatorLiveData<Boolean>()
+
+    init {
+        validatorFormMediator.addSource(email) { validateForm() }
+    }
 
     //TODO add connection error
 
@@ -25,12 +31,11 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     private var userMapper  = UserMapper
 
     fun addUser(user: User){
-        webService.postUser(userMapper.mapToUserDto(user)!!).enqueue(object : Callback<UserDto>{
+        webService.postUser(userMapper.mapToUserDto(user)!!).enqueue(object : Callback<UserDto> {
             override fun onResponse(call: Call<UserDto>, response: Response<UserDto>) {
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     System.out.println("chouette")
-                }
-                else{
+                } else {
                     System.out.println("pas chouette")
                 }
             }
@@ -44,6 +49,23 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
             }
 
         })
+    }
+
+    private fun validateForm(){
+        validatorFormMediator.value = validateEmail()
+    }
+
+    private fun validateEmail() : Boolean {
+        return email.value!!.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.value).matches()
+    }
+
+    override fun onCleared() {
+        // DO NOT forget to remove sources from mediator
+        validatorFormMediator.removeSource(email)
+    }
+
+    fun getValidatorFormMediator(): LiveData<Boolean> {
+        return validatorFormMediator
     }
 
 

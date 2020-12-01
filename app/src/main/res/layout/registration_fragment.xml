@@ -59,6 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:inputType="textEmailAddress"
+                    android:text="@={viewModel.email}"
                     android:textSize="14dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>

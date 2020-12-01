@@ -8,10 +8,13 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.smartcity.petsservices.R
@@ -86,8 +89,20 @@ class RegistrationFragment : Fragment() {
             addUser()
         }
 
+        // init registration button to enable = false
+        binding.registrationButton.isEnabled = false
+        binding.registrationButton.isClickable = false
+
+
+
         fillFields();
         inputsVerifier()
+
+        registrationViewModel.getValidatorFormMediator().observe(viewLifecycleOwner, Observer { validationResult ->
+            binding.registrationButton.isEnabled = validationResult
+            binding.registrationButton.isClickable = validationResult
+        })
+
 
        return binding.root
     }
@@ -118,13 +133,14 @@ class RegistrationFragment : Fragment() {
         passwordEditText.setText("235")
         firstnameEditText.setText("Samy");
         lastnameEditText.setText("Demarthe");
-        passwordValidationEditText.setText("123");
+        passwordValidationEditText.setText("235");
         phoneEditText.setText("0497898965");
         streetNameEditText.setText("Rue de l'Ecluse");
         streetNumberEditText.setText("12");
         cityEditText.setText("Lobbes");
         postalCodeEditText.setText("6540");
     }
+
 
     // ----------------- Fields validation -------------------------
 
@@ -170,7 +186,7 @@ class RegistrationFragment : Fragment() {
                     passwordValidationEditText.error = getString(R.string.validation_password_empty_error)
                 }
                 else{
-                    if(passwordEditText.text != passwordValidationEditText.text){
+                    if(passwordEditText.text.equals(passwordValidationEditText.text)){
                         passwordValidationEditText.error = getString(R.string.validation_password_format_error)
                     }
                     else{
@@ -180,15 +196,6 @@ class RegistrationFragment : Fragment() {
             }
         })
     }
-
-    private fun validateEmail() : Boolean{
-        return emailEditText.text.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailEditText.text).matches()
-    }
-
-    private fun validateValidationPassword() : Boolean{
-        return passwordEditText.text == passwordValidationEditText.text && passwordValidationEditText.text.isNotEmpty()
-    }
-
 
 
 
