@@ -21,8 +21,10 @@
     <string name="required">* Champs requis</string>
     <!-- Title and field -->
     <string name="title_registration">Inscription</string>
-    <string name="email_registration">Adresse mail*</string>
-    <string name="password_registration">Mot de passe*</string>
+    <string name="email_title">Adresse mail*</string>
+    <string name="email_registration">Adresse mail</string>
+    <string name="password_title">Mot de passe*</string>
+    <string name="password_registration">Mot de passe</string>
     <string name="validation_password_registration">Validation mot de passe*</string>
     <string name="name_registration">Nom et prénom*</string>
     <string name="latsname_registration">Nom</string>
@@ -48,5 +50,10 @@
     <string name="registration_button">Je m\'inscris</string>
 
 
+    <!-- Error  -->
+    <string name="email_format_error">Adresse mail n\'est pas valide!</string>
+    <string name="email_empty_error">Adresse mail requise !</string>
+    <string name="validation_password_format_error">Mot de passe incorrect</string>
+    <string name="validation_password_empty_error">Mot de passe de validation requis !</string>
 
 </resources>

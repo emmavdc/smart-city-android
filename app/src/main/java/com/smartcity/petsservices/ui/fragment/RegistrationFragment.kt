@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
@@ -19,6 +20,7 @@ import com.smartcity.petsservices.model.Customer
 import com.smartcity.petsservices.model.Supplier
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.ui.viewModel.RegistrationViewModel
+import retrofit2.Response.error
 
 
 /**
@@ -56,16 +58,16 @@ class RegistrationFragment : Fragment() {
         binding.lifecycleOwner = this
 
         //EditText
-        emailEditText = binding.emailEditText
-        passwordEditText = binding.passwordEditText
-        passwordValidationEditText = binding.validationPasswordEditText
-        firstnameEditText = binding.firstnameEditText
-        lastnameEditText = binding.lastnameEditText
-        phoneEditText = binding.phoneEditText
-        streetNumberEditText = binding.streetNumberEditText
-        streetNameEditText = binding.streetNameEditText
-        cityEditText = binding.cityEditText
-        postalCodeEditText = binding.postalCodeEditText
+        emailEditText = binding.emailEditText.editText!!
+        passwordEditText = binding.passwordEditText.editText!!
+        passwordValidationEditText = binding.validationPasswordEditText.editText!!
+        firstnameEditText = binding.firstnameEditText.editText!!
+        lastnameEditText = binding.lastnameEditText.editText!!
+        phoneEditText = binding.phoneEditText.editText!!
+        streetNumberEditText = binding.streetNumberEditText.editText!!
+        streetNameEditText = binding.streetNameEditText.editText!!
+        cityEditText = binding.cityEditText.editText!!
+        postalCodeEditText = binding.postalCodeEditText.editText!!
 
         // CHeck Box
         isHostCheckBox = binding.checkboxHost
@@ -81,25 +83,13 @@ class RegistrationFragment : Fragment() {
 
         //Registration button
         binding.registrationButton.setOnClickListener {
-            //registrationViewModel.addUser(addUser());
             addUser()
         }
-        //test
-        //binding.emailEditText.setText("nico.allegro@domain.be");
-        passwordEditText.setText("123");
-        firstnameEditText.setText("Nicolas");
-        lastnameEditText.setText("Allegro");
-        passwordValidationEditText.setText("123");
-        phoneEditText.setText("0497898965");
-        streetNameEditText.setText("Rue de l'Ecluse");
-        streetNumberEditText.setText("12");
-        cityEditText.setText("Lobbes");
-        postalCodeEditText.setText("6540");
-        //System.out.println(emailEditText.text.toString())
 
-        emailInputVerifier()
+        fillFields();
+        inputsVerifier()
 
-       return binding.root;
+       return binding.root
     }
 
     private fun addCustomer(searchHost: Boolean, searchAnimalWalker: Boolean) : Customer?{
@@ -123,7 +113,26 @@ class RegistrationFragment : Fragment() {
         }
     }
 
+    private fun fillFields(){
+        //emailEditText.setText("samy.demarthe@domain.be")
+        passwordEditText.setText("235")
+        firstnameEditText.setText("Samy");
+        lastnameEditText.setText("Demarthe");
+        passwordValidationEditText.setText("123");
+        phoneEditText.setText("0497898965");
+        streetNameEditText.setText("Rue de l'Ecluse");
+        streetNumberEditText.setText("12");
+        cityEditText.setText("Lobbes");
+        postalCodeEditText.setText("6540");
+    }
+
     // ----------------- Fields validation -------------------------
+
+    private fun inputsVerifier(){
+        emailInputVerifier()
+        validationPasswordInputtVerifier()
+    }
+
     private fun emailInputVerifier(){
         emailEditText.addTextChangedListener(object : TextWatcher{
 
@@ -134,11 +143,38 @@ class RegistrationFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 if(emailEditText.text.isEmpty()){
-                    emailEditText.setError("Adresse mail requise !")
+                    emailEditText.error = getString(R.string.email_empty_error)
                 }
                 else{
                     if(!(Patterns.EMAIL_ADDRESS.matcher(emailEditText.text).matches())){
-                        emailEditText.setError("Adresse mail n'est pas valide!")
+                        emailEditText.error = getString(R.string.email_format_error)
+                    }
+                    else{
+                        emailEditText.error = null
+                    }
+                }
+            }
+        })
+    }
+
+    private fun validationPasswordInputtVerifier(){
+        passwordValidationEditText.addTextChangedListener(object : TextWatcher{
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(passwordValidationEditText.text.isEmpty()){
+                    passwordValidationEditText.error = getString(R.string.validation_password_empty_error)
+                }
+                else{
+                    if(passwordEditText.text != passwordValidationEditText.text){
+                        passwordValidationEditText.error = getString(R.string.validation_password_format_error)
+                    }
+                    else{
+                        passwordValidationEditText.error = null
                     }
                 }
             }
@@ -147,6 +183,10 @@ class RegistrationFragment : Fragment() {
 
     private fun validateEmail() : Boolean{
         return emailEditText.text.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailEditText.text).matches()
+    }
+
+    private fun validateValidationPassword() : Boolean{
+        return passwordEditText.text == passwordValidationEditText.text && passwordValidationEditText.text.isNotEmpty()
     }
 
 

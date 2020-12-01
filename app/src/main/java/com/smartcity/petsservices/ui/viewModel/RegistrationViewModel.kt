@@ -18,7 +18,6 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
 
-
     //TODO add connection error
 
 

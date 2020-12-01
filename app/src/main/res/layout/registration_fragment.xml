@@ -37,12 +37,33 @@
                 android:id="@+id/email_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/email_registration"
+                android:text="@string/email_title"
                 android:layout_marginStart="20dp"
                 android:textColor="@color/black"
                 android:textSize="14dp"/>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email_registration"
+                app:boxStrokeColor = "@color/colorPrimary"
+                app:boxStrokeErrorColor = "@color/red"
+                app:hintTextColor="@color/colorPrimary"
+
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:inputType="textEmailAddress"
+                    android:textSize="14dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--<EditText
                 android:id="@+id/email_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,18 +72,37 @@
                 android:hint="@string/email_registration"
                 android:autofillHints="@string/email_registration"
                 android:layout_margin="20dp"
-                android:textSize="14dp"/>
+                android:textSize="14dp"/>-->
 
             <TextView
                 android:id="@+id/password_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/password_registration"
+                android:text="@string/password_title"
                 android:layout_marginStart="20dp"
                 android:textColor="@color/black"
                 android:textSize="14dp"/>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password_registration"
+                app:boxStrokeColor = "@color/colorPrimary"
+                app:hintTextColor="@color/colorPrimary"
+                app:endIconMode="password_toggle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:inputType="textPassword"
+                    android:textSize="14dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--<EditText
                 android:id="@+id/password_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,7 +111,7 @@
                 android:hint="@string/password_registration"
                 android:autofillHints="@string/password_registration"
                 android:layout_margin="20dp"
-                android:textSize="14dp"/>
+                android:textSize="14dp"/>-->
 
             <TextView
                 android:id="@+id/validation_password_title"
@@ -82,7 +122,26 @@
                 android:textColor="@color/black"
                 android:textSize="14dp"/>
 
-            <EditText
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/validation_password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/validation_password_registration"
+                app:boxStrokeColor = "@color/colorPrimary"
+                app:hintTextColor="@color/colorPrimary"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:inputType="textPassword"
+                    android:textSize="14dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--<EditText
                 android:id="@+id/validation_password_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,7 +150,7 @@
                 android:hint="@string/validation_password_registration"
                 android:autofillHints="@string/validation_password_registration"
                 android:layout_margin="20dp"
-                android:textSize="14dp"/>
+                android:textSize="14dp"/>-->
 
             <TextView
                 android:id="@+id/name_title"
@@ -102,7 +161,29 @@
                 android:textColor="@color/black"
                 android:textSize="14dp"/>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lastname_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/latsname_registration"
+                app:boxStrokeColor = "@color/colorPrimary"
+                app:hintTextColor="@color/colorPrimary"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="textPersonName"
+                    android:textSize="14dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--<EditText
                 android:id="@+id/lastname_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -113,9 +194,28 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
-                android:textSize="14dp"/>
+                android:textSize="14dp"/>-->
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/firstname_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/fisrtname_registration"
+                app:boxStrokeColor = "@color/colorPrimary"
+                app:hintTextColor="@color/colorPrimary"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:inputType="textPersonName"
+                    android:textSize="14dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--<EditText
                 android:id="@+id/firstname_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,7 +224,7 @@
                 android:hint="@string/fisrtname_registration"
                 android:autofillHints="@string/fisrtname_registration"
                 android:layout_margin="20dp"
-                android:textSize="14dp"/>
+                android:textSize="14dp"/>-->
 
             <TextView
                 android:id="@+id/phone_title"
@@ -135,7 +235,26 @@
                 android:textColor="@color/black"
                 android:textSize="14dp"/>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phone_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_registration"
+                app:boxStrokeColor = "@color/colorPrimary"
+                app:hintTextColor="@color/colorPrimary"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:inputType="textPersonName"
+                    android:textSize="14dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--<EditText
                 android:id="@+id/phone_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -144,7 +263,7 @@
                 android:hint="@string/phone_registration"
                 android:autofillHints="@string/phone_registration"
                 android:layout_margin="20dp"
-                android:textSize="14dp"/>
+                android:textSize="14dp"/>-->
 
             <TextView
                 android:id="@+id/address_title"
@@ -160,7 +279,26 @@
                 android:rowCount="2"
                 android:columnCount="2">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/street_name_edit_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/street_name_registration"
+                    app:boxStrokeColor="@color/colorPrimary"
+
+                    app:hintTextColor="@color/colorPrimary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="176dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:inputType="text"
+                        android:textSize="14dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--<EditText
                     android:id="@+id/street_name_edit_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -169,9 +307,31 @@
                     android:hint="@string/street_name_registration"
                     android:autofillHints="@string/street_name_registration"
                     android:layout_margin="20dp"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp"/>-->
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/street_number_edit_text"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/street_number_registration"
+                    app:boxStrokeColor = "@color/colorPrimary"
+                    app:hintTextColor="@color/colorPrimary"
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="176dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginStart="15dp"
+                        android:inputType="text"
+                        android:textSize="14dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--<EditText
                     android:id="@+id/street_number_edit_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -180,9 +340,28 @@
                     android:hint="@string/street_number_registration"
                     android:autofillHints="@string/street_number_registration"
                     android:layout_margin="20dp"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp"/>-->
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/city_edit_text"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/city_registration"
+                    app:boxStrokeColor = "@color/colorPrimary"
+                    app:hintTextColor="@color/colorPrimary"
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="176dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:inputType="text"
+                        android:textSize="14dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--<EditText
                     android:id="@+id/city_edit_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -191,9 +370,31 @@
                     android:hint="@string/city_registration"
                     android:autofillHints="@string/city_registration"
                     android:layout_margin="20dp"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp"/>-->
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/postal_code_edit_text"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/postal_code_registration"
+                    app:boxStrokeColor = "@color/colorPrimary"
+                    app:hintTextColor="@color/colorPrimary"
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="176dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginStart="15dp"
+                        android:inputType="textPostalAddress"
+                        android:textSize="14dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--<EditText
                     android:id="@+id/postal_code_edit_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -202,7 +403,7 @@
                     android:hint="@string/postal_code_registration"
                     android:autofillHints="@string/postal_code_registration"
                     android:layout_margin="20dp"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp"/>-->
             </GridLayout>
 
 
