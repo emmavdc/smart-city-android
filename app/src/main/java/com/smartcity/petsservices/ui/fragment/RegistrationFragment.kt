@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -24,6 +25,8 @@ import com.smartcity.petsservices.model.Supplier
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.ui.viewModel.RegistrationViewModel
 import retrofit2.Response.error
+import java.util.regex.Pattern
+import kotlin.properties.Delegates
 
 
 /**
@@ -50,6 +53,17 @@ class RegistrationFragment : Fragment() {
     lateinit var searchAnimalWalkerCheckBox: CheckBox
     lateinit var searchHostCheckBox: CheckBox
 
+    // check form
+    var isValidateEmail : Boolean = false
+    var isValidatePassword : Boolean = false
+    var isValidateValidationPassword : Boolean = false
+    var isValidateFirstname : Boolean = false
+    var isValidateLastname : Boolean = false
+    var isValidatePhone : Boolean = false
+    var isValidateStreetName : Boolean = false
+    var isValidateStreetNumber : Boolean = false
+    var isValidateLocality : Boolean = false
+    var isValidatePostalCode : Boolean = false
 
 
 
@@ -86,23 +100,62 @@ class RegistrationFragment : Fragment() {
 
         //Registration button
         binding.registrationButton.setOnClickListener {
-            addUser()
+
+            if(validateForm() && validateRoles()){
+                addUser()
+            }
+            else{
+                if(!validateForm()){
+                    Toast.makeText(activity, R.string.form_error, Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Toast.makeText(activity, R.string.roles_error, Toast.LENGTH_SHORT).show()
+                }
+
+            }
         }
 
-        // init registration button to enable = false
-        binding.registrationButton.isEnabled = false
-        binding.registrationButton.isClickable = false
-
-
-
-        fillFields();
         inputsVerifier()
 
-        registrationViewModel.getValidatorFormMediator().observe(viewLifecycleOwner, Observer { validationResult ->
-            binding.registrationButton.isEnabled = validationResult
-            binding.registrationButton.isClickable = validationResult
+        registrationViewModel.getEmailMediator().observe(viewLifecycleOwner, Observer { validationResult ->
+            isValidateEmail = validationResult
         })
 
+        registrationViewModel.getValidationPasswordMediator().observe(viewLifecycleOwner, Observer { validationResult ->
+            isValidateValidationPassword = validationResult
+        })
+
+        registrationViewModel.getPasswordMediator().observe(viewLifecycleOwner, Observer { validationResult ->
+            isValidatePassword = validationResult
+        })
+
+        registrationViewModel.getLastnameMediator().observe(viewLifecycleOwner, Observer { validationResult ->
+            isValidateLastname = validationResult
+        })
+
+        registrationViewModel.getFirstnameMediator().observe(viewLifecycleOwner, Observer { validationResult ->
+            isValidateFirstname = validationResult
+        })
+
+        registrationViewModel.getPhoneMediator().observe(viewLifecycleOwner, Observer { validationResult ->
+            isValidatePhone = validationResult
+        })
+
+        registrationViewModel.getStreetNameMediator().observe(viewLifecycleOwner, Observer { validationResult ->
+            isValidateStreetName = validationResult
+        })
+
+        registrationViewModel.getStreetNumberMediator().observe(viewLifecycleOwner, Observer { validationResult ->
+            isValidateStreetNumber = validationResult
+        })
+
+        registrationViewModel.getLocalityMediator().observe(viewLifecycleOwner, Observer { validationResult ->
+            isValidateLocality = validationResult
+        })
+
+        registrationViewModel.getPostalCodeMediator().observe(viewLifecycleOwner, Observer { validationResult ->
+            isValidatePostalCode = validationResult
+        })
 
        return binding.root
     }
@@ -144,9 +197,38 @@ class RegistrationFragment : Fragment() {
 
     // ----------------- Fields validation -------------------------
 
+    private fun validateForm():Boolean{
+        return isValidateEmail
+                && isValidatePassword
+                && isValidateValidationPassword
+                && isValidateFirstname
+                && isValidateLastname
+                && isValidatePhone
+                && isValidateStreetName
+                && isValidateStreetNumber
+                && isValidateLocality
+                && isValidatePostalCode
+    }
+
+    private fun validateRoles():Boolean{
+        return isHostCheckBox.isChecked
+                || isAnimalWalkerCheckBox.isChecked
+                || searchAnimalWalkerCheckBox.isChecked
+                || searchHostCheckBox.isChecked
+    }
+
     private fun inputsVerifier(){
         emailInputVerifier()
         validationPasswordInputtVerifier()
+        passwordInputVerifier()
+        lastnameInputVerifier()
+        firstnameInputVerifier()
+        phoneInputVerifier()
+        streetNameInputVerifier()
+        streetNumberInputVerifier()
+        localityInputVerifier()
+        postalCodeInputVerifier()
+
     }
 
     private fun emailInputVerifier(){
@@ -173,6 +255,25 @@ class RegistrationFragment : Fragment() {
         })
     }
 
+    private fun passwordInputVerifier(){
+        passwordEditText.addTextChangedListener(object : TextWatcher{
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(passwordEditText.text.isEmpty()){
+                    passwordEditText.error = getString(R.string.password_empty_error)
+                }
+                else{
+                    passwordEditText.error = null
+                }
+            }
+        })
+    }
+
     private fun validationPasswordInputtVerifier(){
         passwordValidationEditText.addTextChangedListener(object : TextWatcher{
 
@@ -191,6 +292,172 @@ class RegistrationFragment : Fragment() {
                     }
                     else{
                         passwordValidationEditText.error = null
+                    }
+                }
+            }
+        })
+    }
+
+    private fun lastnameInputVerifier(){
+        lastnameEditText.addTextChangedListener(object : TextWatcher{
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(lastnameEditText.text.isEmpty()){
+                    lastnameEditText.error = getString(R.string.lastname_empty_error)
+                }
+                else{
+                    if(!(Pattern.compile("^[a-zéèçàïôëA-Z]{1,50}(-| )?([a-zéèçàïôëA-Z]{1,50})?$").matcher(lastnameEditText.text).matches())){
+                        lastnameEditText.error = getString(R.string.lastname_format_error)
+                    }
+                    else{
+                        lastnameEditText.error = null
+                    }
+                }
+            }
+        })
+    }
+
+    private fun firstnameInputVerifier(){
+        firstnameEditText.addTextChangedListener(object : TextWatcher{
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(firstnameEditText.text.isEmpty()){
+                    firstnameEditText.error = getString(R.string.firstname_empty_error)
+                }
+                else{
+                    if(!(Pattern.compile("^[a-zéèçàïôëA-Z]{1,50}(-| )?([a-zéèçàïôëA-Z]{1,50})?$").matcher(firstnameEditText.text).matches())){
+                        firstnameEditText.error = getString(R.string.firstname_format_error)
+                    }
+                    else{
+                        firstnameEditText.error = null
+                    }
+                }
+            }
+        })
+    }
+
+    private fun phoneInputVerifier(){
+        phoneEditText.addTextChangedListener(object : TextWatcher{
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(phoneEditText.text.isEmpty()){
+                    phoneEditText.error = getString(R.string.phone_empty_error)
+                }
+                else{
+                    if(!(Patterns.PHONE.matcher(phoneEditText.text).matches())){
+                        phoneEditText.error = getString(R.string.phone_format_error)
+                    }
+                    else{
+                        phoneEditText.error = null
+                    }
+                }
+            }
+        })
+    }
+
+    private fun streetNameInputVerifier(){
+        streetNameEditText.addTextChangedListener(object : TextWatcher{
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(streetNameEditText.text.isEmpty()){
+                    streetNameEditText.error = getString(R.string.street_name_empty_error)
+                }
+                else{
+                    if(!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(streetNameEditText.text).matches())){
+                        streetNameEditText.error = getString(R.string.street_name_format_error)
+                    }
+                    else{
+                        streetNameEditText.error = null
+
+                    }
+                }
+            }
+        })
+    }
+
+    private fun streetNumberInputVerifier(){
+        streetNumberEditText.addTextChangedListener(object : TextWatcher{
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(streetNumberEditText.text.isEmpty()){
+                    streetNumberEditText.error = getString(R.string.street_number_empty_error)
+                }
+                else{
+                    streetNumberEditText.error = null
+                }
+            }
+        })
+    }
+
+    private fun localityInputVerifier(){
+        cityEditText.addTextChangedListener(object : TextWatcher{
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(cityEditText.text.isEmpty()){
+                    cityEditText.error = getString(R.string.locality_empty_error)
+                }
+                else{
+                    if(!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(cityEditText.text).matches())){
+                        cityEditText.error = getString(R.string.locality_format_error)
+                    }
+                    else{
+                        cityEditText.error = null
+
+                    }
+                }
+            }
+        })
+    }
+
+    private fun postalCodeInputVerifier(){
+        postalCodeEditText.addTextChangedListener(object : TextWatcher{
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if(postalCodeEditText.text.isEmpty()){
+                    postalCodeEditText.error = getString(R.string.postale_code_empty_error)
+                }
+                else{
+                    if(!(Pattern.compile("^(\\d{4,10})\$").matcher(postalCodeEditText.text).matches())){
+                        postalCodeEditText.error = getString(R.string.postale_code_format_error)
+                    }
+                    else{
+                        postalCodeEditText.error = null
+
                     }
                 }
             }

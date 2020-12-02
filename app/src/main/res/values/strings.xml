@@ -35,7 +35,7 @@
     <string name="city_registration">Ville</string>
     <string name="street_number_registration">Numéro</string>
     <string name="postal_code_registration">Code postal</string>
-    <string name="role_registration">Rôles</string>
+    <string name="role_registration">Rôles (Sélectionnez au moins un rôle)</string>
     <!-- checkbox -->
     <string name="animal_walker_registration">Je promène</string>
     <string name="host_registration">J\'accueil</string>
@@ -51,9 +51,26 @@
 
 
     <!-- Error  -->
+    <string name="form_error">Vous avez des champs incorrects!</string>
+    <string name="roles_error">Vous devez choisir au moins un rôle!</string>
     <string name="email_format_error">Adresse mail n\'est pas valide!</string>
     <string name="email_empty_error">Adresse mail requise !</string>
+    <string name="password_empty_error">Mot de passe requis!</string>
     <string name="validation_password_format_error">Mot de passe incorrect</string>
     <string name="validation_password_empty_error">Mot de passe de validation requis !</string>
+    <string name="lastname_format_error">Nom incorrect</string>
+    <string name="lastname_empty_error">Nom requis !</string>
+    <string name="firstname_format_error">Prénom incorrect</string>
+    <string name="firstname_empty_error">Prénom requis !</string>
+    <string name="phone_format_error">Numéro de téléphone incorrect</string>
+    <string name="phone_empty_error">Numéro de téléphone requis !</string>
+    <string name="street_name_format_error">Rue incorrecte</string>
+    <string name="street_name_empty_error">Rue requise !</string>
+    <string name="street_number_format_error">Numéro incorrect</string>
+    <string name="street_number_empty_error">Numéro requis !</string>
+    <string name="locality_format_error">Ville incorrecte</string>
+    <string name="locality_empty_error">Ville requis !</string>
+    <string name="postale_code_format_error">Code postal incorrect</string>
+    <string name="postale_code_empty_error">Code postal requis !</string>
 
 </resources>
