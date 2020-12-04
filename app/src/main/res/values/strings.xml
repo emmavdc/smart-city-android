@@ -35,6 +35,8 @@
     <string name="city_registration">Ville</string>
     <string name="street_number_registration">Numéro</string>
     <string name="postal_code_registration">Code postal</string>
+    <string name="country_title">Pays*</string>
+    <string name="country_registration">Pays</string>
     <string name="role_registration">Rôles (Sélectionnez au moins un rôle)</string>
     <!-- checkbox -->
     <string name="animal_walker_registration">Je promène</string>
