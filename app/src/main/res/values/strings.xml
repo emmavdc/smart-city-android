@@ -51,6 +51,10 @@
     <string name="registration_back_button">Retour</string>
     <string name="registration_button">Je m\'inscris</string>
 
+    <!-- Country -->
+    <string name="country_belgique">Belgique</string>
+    <string name="country_france">France</string>
+    <string name="country_luxembourg">Luxembourg</string>
 
     <!-- Error  -->
     <string name="form_error">Vous avez des champs incorrects!</string>
@@ -58,7 +62,7 @@
     <string name="email_format_error">Adresse mail n\'est pas valide!</string>
     <string name="email_empty_error">Adresse mail requise !</string>
     <string name="password_empty_error">Mot de passe requis!</string>
-    <string name="validation_password_format_error">Mot de passe incorrect</string>
+    <string name="validation_password_format_error">Mot de passe de validation incorrect</string>
     <string name="validation_password_empty_error">Mot de passe de validation requis !</string>
     <string name="lastname_format_error">Nom incorrect</string>
     <string name="lastname_empty_error">Nom requis !</string>
@@ -74,5 +78,6 @@
     <string name="locality_empty_error">Ville requis !</string>
     <string name="postale_code_format_error">Code postal incorrect</string>
     <string name="postale_code_empty_error">Code postal requis !</string>
+    <string name="country_error">Pays requis !</string>
 
 </resources>

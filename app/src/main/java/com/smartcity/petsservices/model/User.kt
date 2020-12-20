@@ -11,7 +11,7 @@ data class User (val email : String,
                  val streetName :  String,
                  val country : String,
                  val picture : String?,
-                 val customer: Customer?,
-                 val supplier: Supplier?){
+                 val customer: Customer,
+                 val supplier: Supplier){
 
 }

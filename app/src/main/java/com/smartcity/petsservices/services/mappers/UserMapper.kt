@@ -24,14 +24,12 @@ object UserMapper {
         }
     }
 
-    private fun mapToCustomerDto(customer: Customer?) : CustomerDto?{
-        if(customer == null)  return null
-        else return CustomerDto(customer.commune, customer.searchWalker, customer.searchHost)
+    private fun mapToCustomerDto(customer: Customer) : CustomerDto{
+        return CustomerDto(customer.commune, customer.searchWalker, customer.searchHost)
     }
 
-    private fun mapToSupplierDto(supplier: Supplier?) : SupplierDto?{
-        if(supplier == null)  return null
-        else return SupplierDto(supplier.isHost,
+    private fun mapToSupplierDto(supplier: Supplier) : SupplierDto{
+        return SupplierDto(supplier.isHost,
                 supplier.isAnimalWalker,
                 supplier.slogan,
                 supplier.commune,

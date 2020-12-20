@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.smartcity.petsservices.R
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.repositories.web.configuration.RetrofitConfigurationService
 import com.smartcity.petsservices.repositories.web.dto.UserDto
@@ -38,6 +39,8 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     private val localityMediator = MediatorLiveData<Boolean>()
     val postalCode = MutableLiveData<String>()
     private val postalCodeMediator = MediatorLiveData<Boolean>()
+    val country = MutableLiveData<String>()
+    private val countryMediator = MediatorLiveData<Boolean>()
 
 
     init {
@@ -63,9 +66,9 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
         webService.postUser(userMapper.mapToUserDto(user)!!).enqueue(object : Callback<UserDto> {
             override fun onResponse(call: Call<UserDto>, response: Response<UserDto>) {
                 if (response.isSuccessful) {
-                    System.out.println("chouette")
+                    System.out.println("chouette " + response   )
                 } else {
-                    System.out.println("pas chouette")
+                    System.out.println("pas chouette " + response)
                 }
             }
 
@@ -73,7 +76,7 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
                 if (t is NoConnectivityException) {
                     System.out.println("error connectivity")
                 } else {
-                    System.out.println("error error")
+                    System.out.println(t)
                 }
             }
 
@@ -110,7 +113,7 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     }
 
     private fun validateStreetNumber(){
-        streetNumberMediator.value = streetNumber.value!!.isNotEmpty()
+        streetNumberMediator.value = streetNumber.value!!.isNotEmpty() && Pattern.compile("^(\\d{1,3})\\w{0,3}\$").matcher(streetNumber.value).matches()
     }
 
     private fun validateLocality(){
@@ -120,6 +123,7 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     private fun validatePostalCode(){
         postalCodeMediator.value = postalCode.value!!.isNotEmpty() && Pattern.compile("^(\\d{4,10})\$").matcher(postalCode.value).matches()
     }
+
 
 
 

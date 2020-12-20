@@ -10,7 +10,7 @@ import retrofit2.http.Path
 
 interface WebService {
 
-    @POST("users")
+    @POST("v1/users")
     fun postUser(@Body userDto: UserDto) : Call<UserDto>
 
     /*@GET("pizza/{pizzaId}")

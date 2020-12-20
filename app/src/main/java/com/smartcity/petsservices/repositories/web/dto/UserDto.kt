@@ -12,6 +12,6 @@ data class UserDto(val email : String,
                    val streetName :  String,
                    val country : String,
                    val picture : String?,
-                   val customer : CustomerDto?,
-                   val supplier: SupplierDto?) {
+                   val customer : CustomerDto,
+                   val supplier: SupplierDto) {
 }
