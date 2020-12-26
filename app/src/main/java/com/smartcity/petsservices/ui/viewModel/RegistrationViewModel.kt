@@ -10,6 +10,7 @@ import com.smartcity.petsservices.R
 import com.smartcity.petsservices.model.NetworkError
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.repositories.web.configuration.RetrofitConfigurationService
+import com.smartcity.petsservices.repositories.web.dto.TokenDto
 import com.smartcity.petsservices.repositories.web.dto.UserDto
 import com.smartcity.petsservices.services.mappers.UserMapper
 import com.smartcity.petsservices.utils.NoConnectivityException
@@ -66,10 +67,10 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     private var userMapper  = UserMapper
 
     fun addUser(user: User){
-        webService.postUser(userMapper.mapToUserDto(user)!!).enqueue(object : Callback<UserDto> {
-            override fun onResponse(call: Call<UserDto>, response: Response<UserDto>) {
+        webService.postUser(userMapper.mapToUserDto(user)!!).enqueue(object : Callback<TokenDto> {
+            override fun onResponse(call: Call<TokenDto>, response: Response<TokenDto>) {
                 if (response.isSuccessful) {
-                    System.out.println("chouette " + response.code())
+                    System.out.println("chouette " + response.code() + "  "+ response.body())
                     _error.value = NetworkError.NO_ERROR
                 } else {
                     System.out.println("pas chouette " + response.code())
@@ -82,7 +83,7 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
                 }
             }
 
-            override fun onFailure(call: Call<UserDto>, t: Throwable) {
+            override fun onFailure(call: Call<TokenDto>, t: Throwable) {
                 if (t is NoConnectivityException) {
                     System.out.println("error connectivity")
                     //result.message = R.string.connectivity_error.toString()

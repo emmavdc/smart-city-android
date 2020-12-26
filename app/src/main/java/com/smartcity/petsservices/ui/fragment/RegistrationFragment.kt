@@ -125,11 +125,9 @@ class RegistrationFragment : Fragment() {
 
         //Registration button
         binding.registrationButton.setOnClickListener {
+
             if(validateForm() && validateRoles()){
                 addUser()
-                if(isRegister){
-                    Toast.makeText(activity, "C'est ok !", Toast.LENGTH_SHORT).show()
-                }
             }
             else{
                 showFieldsError()
@@ -186,6 +184,10 @@ class RegistrationFragment : Fragment() {
 
         registrationViewModel.getError().observe(viewLifecycleOwner){
             error : NetworkError -> this.displayErrorScreen(error)
+            if(isRegister){
+                //here we will have the navigation to go to the profile of the new user
+                Toast.makeText(activity, "C'est ok !", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return binding.root
