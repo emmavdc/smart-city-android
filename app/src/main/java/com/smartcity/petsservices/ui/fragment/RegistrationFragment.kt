@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.smartcity.petsservices.R
 import com.smartcity.petsservices.databinding.RegistrationFragmentBinding
 import com.smartcity.petsservices.model.Customer
+import com.smartcity.petsservices.model.NetworkError
 import com.smartcity.petsservices.model.Supplier
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.ui.viewModel.RegistrationViewModel
@@ -71,6 +72,7 @@ class RegistrationFragment : Fragment() {
     var isValidateStreetNumber : Boolean = false
     var isValidateLocality : Boolean = false
     var isValidatePostalCode : Boolean = false
+    var isRegister : Boolean = false
 
 
 
@@ -125,6 +127,9 @@ class RegistrationFragment : Fragment() {
         binding.registrationButton.setOnClickListener {
             if(validateForm() && validateRoles()){
                 addUser()
+                if(isRegister){
+                    Toast.makeText(activity, "C'est ok !", Toast.LENGTH_SHORT).show()
+                }
             }
             else{
                 showFieldsError()
@@ -179,8 +184,11 @@ class RegistrationFragment : Fragment() {
             isValidatePostalCode = validationResult
         })
 
+        registrationViewModel.getError().observe(viewLifecycleOwner){
+            error : NetworkError -> this.displayErrorScreen(error)
+        }
 
-       return binding.root
+        return binding.root
     }
 
     private fun addCustomer(searchHost: Boolean, searchAnimalWalker: Boolean) : Customer{
@@ -211,10 +219,23 @@ class RegistrationFragment : Fragment() {
     private fun initCountryDropDown(){
         val COUNTRIES = arrayOf(getString((R.string.country_belgique)), getString((R.string.country_france)), getString((R.string.country_luxembourg)))
         val adapter = ArrayAdapter(
-            requireContext(),
-            R.layout.country_item,
-            COUNTRIES)
+                requireContext(),
+                R.layout.country_item,
+                COUNTRIES)
         countryDropDown.setAdapter(adapter)
+    }
+
+    // ----------------- Network Error -------------------------
+    private  fun displayErrorScreen(error: NetworkError){
+        when(error){
+            NetworkError.TECHNICAL_ERROR ->  Toast.makeText(activity, R.string.technical_error, Toast.LENGTH_SHORT).show()
+            NetworkError.NO_CONNECTION ->  Toast.makeText(activity, R.string.connectivity_error, Toast.LENGTH_SHORT).show()
+            NetworkError.REQUEST_ERROR ->  Toast.makeText(activity, R.string.request_error, Toast.LENGTH_SHORT).show()
+            NetworkError.USER_ALREADY_EXIST ->  Toast.makeText(activity, R.string.user_already_exist, Toast.LENGTH_SHORT).show()
+            else -> {
+              isRegister = true
+            }
+        }
     }
 
     // ----------------- Fields validation -------------------------
@@ -651,8 +672,9 @@ class RegistrationFragment : Fragment() {
             return users[0].firstname
         }
 
-        /*override fun onPostExecute(result: String) {
-            Toast.makeText(activity!!.applicationContext, "User $result added", Toast.LENGTH_SHORT).show()
+        /*override fun onPostExecute(user: String) {
+            Toast.makeText(activity!!.applicationContext, "${user}", Toast.LENGTH_SHORT).show()
+
         }*/
 
     }

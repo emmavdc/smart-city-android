@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.smartcity.petsservices.R
+import com.smartcity.petsservices.model.NetworkError
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.repositories.web.configuration.RetrofitConfigurationService
 import com.smartcity.petsservices.repositories.web.dto.UserDto
@@ -57,6 +58,8 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     }
 
     //TODO add connection error
+    private var _error: MutableLiveData<NetworkError> = MutableLiveData()
+    private val error: LiveData<NetworkError> = _error
 
 
     private var webService = RetrofitConfigurationService.getInstance(application).webService()
@@ -66,17 +69,28 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
         webService.postUser(userMapper.mapToUserDto(user)!!).enqueue(object : Callback<UserDto> {
             override fun onResponse(call: Call<UserDto>, response: Response<UserDto>) {
                 if (response.isSuccessful) {
-                    System.out.println("chouette " + response   )
+                    System.out.println("chouette " + response.code())
+                    _error.value = NetworkError.NO_ERROR
                 } else {
-                    System.out.println("pas chouette " + response)
+                    System.out.println("pas chouette " + response.code())
+                    //result.message = R.string.user_already_exist.toString()
+                    //result.code = response.code()
+                    if (response.code() == 409)
+                        _error.value = NetworkError.USER_ALREADY_EXIST
+                    else
+                        _error.value = NetworkError.REQUEST_ERROR
                 }
             }
 
             override fun onFailure(call: Call<UserDto>, t: Throwable) {
                 if (t is NoConnectivityException) {
                     System.out.println("error connectivity")
+                    //result.message = R.string.connectivity_error.toString()
+                    _error.value = NetworkError.NO_CONNECTION
                 } else {
-                    System.out.println(t)
+                    System.out.println("******************* " + t)
+                    //result = R.string.user_added.toString()
+                    _error.value = NetworkError.TECHNICAL_ERROR
                 }
             }
 
@@ -173,6 +187,10 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     }
     fun getPostalCodeMediator(): LiveData<Boolean> {
         return postalCodeMediator
+    }
+
+    fun getError() : LiveData<NetworkError>{
+        return error
     }
 
 

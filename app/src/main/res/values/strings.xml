@@ -80,4 +80,13 @@
     <string name="postale_code_empty_error">Code postal requis !</string>
     <string name="country_error">Pays requis !</string>
 
+
+    <!-- Registration Success -->
+    <string name="user_added">Utilisateur enregistré</string>
+    <string name="user_already_exist">L\'adresse mail existe déjà !</string>
+    <string name="connectivity_error">Aucune connexion internet</string>
+    <string name="request_error">Une erreur s’est produite pendant votre demande</string>
+    <string name="technical_error">Erreur technique</string>
+    <string name="no_error">Pas d\'erreur</string>
+
 </resources>
