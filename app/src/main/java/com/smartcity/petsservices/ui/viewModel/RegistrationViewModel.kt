@@ -8,10 +8,12 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.smartcity.petsservices.R
 import com.smartcity.petsservices.model.NetworkError
+import com.smartcity.petsservices.model.Token
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.repositories.web.configuration.RetrofitConfigurationService
 import com.smartcity.petsservices.repositories.web.dto.TokenDto
 import com.smartcity.petsservices.repositories.web.dto.UserDto
+import com.smartcity.petsservices.services.mappers.TokenMapper
 import com.smartcity.petsservices.services.mappers.UserMapper
 import com.smartcity.petsservices.utils.NoConnectivityException
 import retrofit2.Call
@@ -62,16 +64,25 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     private var _error: MutableLiveData<NetworkError> = MutableLiveData()
     private val error: LiveData<NetworkError> = _error
 
+    //jwt
+    private var _jwt : MutableLiveData<Token> = MutableLiveData()
+    private var jwt : LiveData<Token> = _jwt
+
 
     private var webService = RetrofitConfigurationService.getInstance(application).webService()
     private var userMapper  = UserMapper
+    private  var tokenMapper = TokenMapper
 
     fun addUser(user: User){
+
         webService.postUser(userMapper.mapToUserDto(user)!!).enqueue(object : Callback<TokenDto> {
             override fun onResponse(call: Call<TokenDto>, response: Response<TokenDto>) {
                 if (response.isSuccessful) {
                     System.out.println("chouette " + response.code() + "  "+ response.body())
+                    System.out.println(response.body()!!.token)
+
                     _error.value = NetworkError.NO_ERROR
+                    _jwt.value = tokenMapper.mapToToken(response.body()!!)
                 } else {
                     System.out.println("pas chouette " + response.code())
                     //result.message = R.string.user_already_exist.toString()
@@ -192,6 +203,10 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
 
     fun getError() : LiveData<NetworkError>{
         return error
+    }
+
+    fun getJwt() : LiveData<Token>{
+        return jwt
     }
 
 

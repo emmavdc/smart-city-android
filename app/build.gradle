@@ -67,4 +67,7 @@ dependencies {
 
     // material design
     implementation 'com.google.android.material:material:<version>'
+
+    // JWTDecode.Android
+    implementation 'com.auth0.android:jwtdecode:2.0.0'
 }

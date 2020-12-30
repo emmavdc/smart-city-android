@@ -92,5 +92,10 @@
     <!-- After Registration -->
     <string name="welcome_popup">Merci de votre inscription ! Veuillez complèter votre profil !</string>
 
+    <!-- Set SharedPreferences  -->
+    <string name="email_payload">email</string>
+    <string name="exp_date_payload">expDate</string>
+    <string name="user_id_payload">userId</string>
+
 
 </resources>

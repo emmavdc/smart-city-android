@@ -1,5 +1,8 @@
 package com.smartcity.petsservices.ui.fragment
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
@@ -16,10 +19,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.textfield.TextInputLayout
 import com.smartcity.petsservices.R
 import com.smartcity.petsservices.databinding.RegistrationFragmentBinding
-import com.smartcity.petsservices.model.Customer
-import com.smartcity.petsservices.model.NetworkError
-import com.smartcity.petsservices.model.Supplier
-import com.smartcity.petsservices.model.User
+import com.smartcity.petsservices.model.*
+import com.smartcity.petsservices.ui.activity.EditProfileActivity
 import com.smartcity.petsservices.ui.viewModel.RegistrationViewModel
 import java.util.regex.Pattern
 
@@ -74,14 +75,24 @@ class RegistrationFragment : Fragment() {
     var isValidatePostalCode : Boolean = false
     var isRegister : Boolean = false
 
+    //SharedPreferences
+    lateinit var sharedPref : SharedPreferences
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         registrationViewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
         binding = RegistrationFragmentBinding.inflate(inflater, container, false)
         binding.viewModel = registrationViewModel
         binding.lifecycleOwner = this
+
+        // get preferences
+        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
 
         // TextInputLayout
         emailTextInputLayout = binding.emailTextInputLayout
@@ -142,52 +153,80 @@ class RegistrationFragment : Fragment() {
 
         inputsVerifier()
 
-        registrationViewModel.getEmailMediator().observe(viewLifecycleOwner, Observer { validationResult ->
-            isValidateEmail = validationResult
-        })
+        registrationViewModel.getEmailMediator().observe(
+            viewLifecycleOwner,
+            Observer { validationResult ->
+                isValidateEmail = validationResult
+            })
 
-        registrationViewModel.getValidationPasswordMediator().observe(viewLifecycleOwner, Observer { validationResult ->
-            isValidateValidationPassword = validationResult
-        })
+        registrationViewModel.getValidationPasswordMediator().observe(
+            viewLifecycleOwner,
+            Observer { validationResult ->
+                isValidateValidationPassword = validationResult
+            })
 
-        registrationViewModel.getPasswordMediator().observe(viewLifecycleOwner, Observer { validationResult ->
-            isValidatePassword = validationResult
-        })
+        registrationViewModel.getPasswordMediator().observe(
+            viewLifecycleOwner,
+            Observer { validationResult ->
+                isValidatePassword = validationResult
+            })
 
-        registrationViewModel.getLastnameMediator().observe(viewLifecycleOwner, Observer { validationResult ->
-            isValidateLastname = validationResult
-        })
+        registrationViewModel.getLastnameMediator().observe(
+            viewLifecycleOwner,
+            Observer { validationResult ->
+                isValidateLastname = validationResult
+            })
 
-        registrationViewModel.getFirstnameMediator().observe(viewLifecycleOwner, Observer { validationResult ->
-            isValidateFirstname = validationResult
-        })
+        registrationViewModel.getFirstnameMediator().observe(
+            viewLifecycleOwner,
+            Observer { validationResult ->
+                isValidateFirstname = validationResult
+            })
 
-        registrationViewModel.getPhoneMediator().observe(viewLifecycleOwner, Observer { validationResult ->
-            isValidatePhone = validationResult
-        })
+        registrationViewModel.getPhoneMediator().observe(
+            viewLifecycleOwner,
+            Observer { validationResult ->
+                isValidatePhone = validationResult
+            })
 
-        registrationViewModel.getStreetNameMediator().observe(viewLifecycleOwner, Observer { validationResult ->
-            isValidateStreetName = validationResult
-        })
+        registrationViewModel.getStreetNameMediator().observe(
+            viewLifecycleOwner,
+            Observer { validationResult ->
+                isValidateStreetName = validationResult
+            })
 
-        registrationViewModel.getStreetNumberMediator().observe(viewLifecycleOwner, Observer { validationResult ->
-            isValidateStreetNumber = validationResult
-        })
+        registrationViewModel.getStreetNumberMediator().observe(
+            viewLifecycleOwner,
+            Observer { validationResult ->
+                isValidateStreetNumber = validationResult
+            })
 
-        registrationViewModel.getLocalityMediator().observe(viewLifecycleOwner, Observer { validationResult ->
-            isValidateLocality = validationResult
-        })
+        registrationViewModel.getLocalityMediator().observe(
+            viewLifecycleOwner,
+            Observer { validationResult ->
+                isValidateLocality = validationResult
+            })
 
-        registrationViewModel.getPostalCodeMediator().observe(viewLifecycleOwner, Observer { validationResult ->
-            isValidatePostalCode = validationResult
-        })
+        registrationViewModel.getPostalCodeMediator().observe(
+            viewLifecycleOwner,
+            Observer { validationResult ->
+                isValidatePostalCode = validationResult
+            })
 
-        registrationViewModel.getError().observe(viewLifecycleOwner){
-            error : NetworkError -> this.displayErrorScreen(error)
+        registrationViewModel.getError().observe(viewLifecycleOwner){ error: NetworkError -> this.displayErrorScreen(
+            error
+        )
             if(isRegister){
-                //here we will have the navigation to go to the profile of the new user
-                Toast.makeText(activity, "C'est ok !", Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(activity, "Vous êtes inscrit !", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        registrationViewModel.getJwt().observe(viewLifecycleOwner){ token: Token -> this.savePreferedValue(
+            token
+        )
+            //navigate here ?
+            goToProfileActivity()
         }
 
         return binding.root
@@ -219,25 +258,63 @@ class RegistrationFragment : Fragment() {
     // ----------------- Country Dropdown -------------------------
 
     private fun initCountryDropDown(){
-        val COUNTRIES = arrayOf(getString((R.string.country_belgique)), getString((R.string.country_france)), getString((R.string.country_luxembourg)))
+        val COUNTRIES = arrayOf(
+            getString((R.string.country_belgique)), getString((R.string.country_france)), getString(
+                (R.string.country_luxembourg)
+            )
+        )
         val adapter = ArrayAdapter(
-                requireContext(),
-                R.layout.country_item,
-                COUNTRIES)
+            requireContext(),
+            R.layout.country_item,
+            COUNTRIES
+        )
         countryDropDown.setAdapter(adapter)
     }
 
     // ----------------- Network Error -------------------------
     private  fun displayErrorScreen(error: NetworkError){
         when(error){
-            NetworkError.TECHNICAL_ERROR ->  Toast.makeText(activity, R.string.technical_error, Toast.LENGTH_SHORT).show()
-            NetworkError.NO_CONNECTION ->  Toast.makeText(activity, R.string.connectivity_error, Toast.LENGTH_SHORT).show()
-            NetworkError.REQUEST_ERROR ->  Toast.makeText(activity, R.string.request_error, Toast.LENGTH_SHORT).show()
-            NetworkError.USER_ALREADY_EXIST ->  Toast.makeText(activity, R.string.user_already_exist, Toast.LENGTH_SHORT).show()
+            NetworkError.TECHNICAL_ERROR -> Toast.makeText(
+                activity,
+                R.string.technical_error,
+                Toast.LENGTH_SHORT
+            ).show()
+            NetworkError.NO_CONNECTION -> Toast.makeText(
+                activity,
+                R.string.connectivity_error,
+                Toast.LENGTH_SHORT
+            ).show()
+            NetworkError.REQUEST_ERROR -> Toast.makeText(
+                activity,
+                R.string.request_error,
+                Toast.LENGTH_SHORT
+            ).show()
+            NetworkError.USER_ALREADY_EXIST -> Toast.makeText(
+                activity,
+                R.string.user_already_exist,
+                Toast.LENGTH_SHORT
+            ).show()
             else -> {
               isRegister = true
             }
         }
+    }
+
+    // ----------------- SharedPreferences  -------------------------
+    private fun savePreferedValue(token: Token){
+        var editor : SharedPreferences.Editor = sharedPref.edit()
+        editor.putString(getString(R.string.email_payload), token.email)
+        editor.putInt(getString(R.string.user_id_payload), token.userId!!)
+        editor.putLong(getString(R.string.exp_date_payload), token.expDate!!.getTime()).apply()
+    }
+
+    // ----------------- Navigation -------------------------
+    private fun goToProfileActivity(){
+        var intent : Intent = Intent(
+            requireActivity().applicationContext,
+            EditProfileActivity::class.java
+        )
+        startActivity(intent)
     }
 
     // ----------------- Fields validation -------------------------
@@ -504,7 +581,9 @@ class RegistrationFragment : Fragment() {
             lastnameTextInputLayout.setErrorEnabled(true)
             lastnameTextInputLayout.error = getString(R.string.lastname_empty_error)
         } else {
-            if (!(Pattern.compile("^[a-zéèçàïôëA-Z]{1,50}(-| )?([a-zéèçàïôëA-Z]{1,50})?$").matcher(lastnameEditText.text).matches())) {
+            if (!(Pattern.compile("^[a-zéèçàïôëA-Z]{1,50}(-| )?([a-zéèçàïôëA-Z]{1,50})?$").matcher(
+                    lastnameEditText.text
+                ).matches())) {
                 lastnameTextInputLayout.setErrorEnabled(true)
                 lastnameTextInputLayout.error = getString(R.string.lastname_format_error)
             } else {
@@ -519,7 +598,9 @@ class RegistrationFragment : Fragment() {
             firstnameTextInputLayout.setErrorEnabled(true)
             firstnameTextInputLayout.error = getString(R.string.firstname_empty_error)
         } else {
-            if (!(Pattern.compile("^[a-zéèçàïôëA-Z]{1,50}(-| )?([a-zéèçàïôëA-Z]{1,50})?$").matcher(firstnameEditText.text).matches())) {
+            if (!(Pattern.compile("^[a-zéèçàïôëA-Z]{1,50}(-| )?([a-zéèçàïôëA-Z]{1,50})?$").matcher(
+                    firstnameEditText.text
+                ).matches())) {
                 firstnameTextInputLayout.setErrorEnabled(true)
                 firstnameTextInputLayout.error = getString(R.string.firstname_format_error)
             } else {
@@ -550,7 +631,9 @@ class RegistrationFragment : Fragment() {
             streetNameTextInputLayout.error = getString(R.string.street_name_empty_error)
         }
         else {
-            if (!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(streetNameEditText.text).matches())) {
+            if (!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(
+                    streetNameEditText.text
+                ).matches())) {
                 streetNameTextInputLayout.setErrorEnabled(true)
                 streetNameTextInputLayout.error = getString(R.string.street_name_format_error)
             } else {
@@ -647,19 +730,21 @@ class RegistrationFragment : Fragment() {
             var customer: Customer = addCustomer(searchHost, searchAnimalWalker)
             var supplier: Supplier = addSuppplier(isHost, isAnimalWalker)
 
-            var user = User(email,
-                    password,
-                    firstname,
-                    lastname,
-                    phone,
-                    locality,
-                    postalCode,
-                    streetNumber,
-                    streetName,
-                    country,
-                    null,
-                    customer,
-                    supplier)
+            var user = User(
+                email,
+                password,
+                firstname,
+                lastname,
+                phone,
+                locality,
+                postalCode,
+                streetNumber,
+                streetName,
+                country,
+                null,
+                customer,
+                supplier
+            )
 
             //return user
 
