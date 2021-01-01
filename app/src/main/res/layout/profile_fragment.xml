@@ -18,17 +18,58 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/inscription_title"
+            <!--<com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/title_registration"
-                android:layout_marginStart="20dp"
+                app:menu="@menu/bottom_navigation_menu" />-->
+
+            <TextView
+                android:id="@+id/edit_profile_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/edit_profile_registration"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="30dp"
                 android:textStyle ="bold"
                 android:textColor="@color/black"
                 android:textSize="30dp"/>
+
+            <GridLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:rowCount="1"
+                android:columnCount="3"
+                >
+                <Button
+                    android:id="@+id/absences_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/absences_button"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="11dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_gravity="right"/>
+                <Button
+                    android:id="@+id/animals_type_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/animal_type_button"
+                    android:layout_marginEnd="20dp"
+                    android:textSize="11dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_gravity="right"/>
+                <Button
+                    android:id="@+id/animals_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/animals_button"
+                    android:layout_marginEnd="20dp"
+                    android:textSize="11dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_gravity="right"/>
+            </GridLayout>
 
         </LinearLayout>
     </ScrollView>

@@ -16,4 +16,7 @@ interface WebService {
 
     /*@GET("pizza/{pizzaId}")
     fun getPizza(@Path("pizzaId") pizzaId: Int?): Call<PizzaDto?>?*/
+
+    @GET("v1/users/{userId}")
+    fun getUser(@Path("userId") userId : Int) : Call<UserDto>
 }

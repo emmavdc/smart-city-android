@@ -44,7 +44,6 @@
     <string name="search_walker_registration">Je cherche un promeneur</string>
     <string name="search_host_registration">Je cherche un hôte</string>
 
-    <!-- combobox -->
 
 
     <!-- Button -->
@@ -96,6 +95,21 @@
     <string name="email_payload">email</string>
     <string name="exp_date_payload">expDate</string>
     <string name="user_id_payload">userId</string>
+
+    <!-- Profile -->
+    <string name="edit_profile_registration">Mon profil</string>
+    <string name="absences_button">Mes absences</string>
+    <string name="animal_type_button">Animaux acceptés</string>
+    <string name="animals_button">Mes animaux</string>
+    <string name="update_profile_button">Modifier</string>
+    <string name="weight_max">Poids maximum d\'un animal</string>
+    <string name="supplier_rating">Note: </string>
+    <string name="supplier_ratings">Mes notes:</string>
+
+    <!-- Bottom navigation menu -->
+    <string name="home_space">Accueil</string>
+    <string name="profile_space">Profil</string>
+
 
 
 </resources>
