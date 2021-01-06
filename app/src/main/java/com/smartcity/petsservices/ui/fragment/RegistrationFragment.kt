@@ -18,9 +18,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.textfield.TextInputLayout
 import com.smartcity.petsservices.R
-import com.smartcity.petsservices.databinding.RegistrationFragmentBinding
+import com.smartcity.petsservices.databinding.FragmentRegistrationBinding
 import com.smartcity.petsservices.model.*
-import com.smartcity.petsservices.ui.activity.EditProfileActivity
+import com.smartcity.petsservices.ui.activity.MainActivity
 import com.smartcity.petsservices.ui.viewModel.RegistrationViewModel
 import java.util.regex.Pattern
 
@@ -30,7 +30,7 @@ import java.util.regex.Pattern
  */
 class RegistrationFragment : Fragment() {
 
-    lateinit var binding: RegistrationFragmentBinding
+    lateinit var binding: FragmentRegistrationBinding
     lateinit var registrationViewModel : RegistrationViewModel
     // TextInputLayout
     lateinit var emailTextInputLayout: TextInputLayout
@@ -87,7 +87,7 @@ class RegistrationFragment : Fragment() {
     ): View? {
 
         registrationViewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
-        binding = RegistrationFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentRegistrationBinding.inflate(inflater, container, false)
         binding.viewModel = registrationViewModel
         binding.lifecycleOwner = this
 
@@ -213,7 +213,7 @@ class RegistrationFragment : Fragment() {
                 isValidatePostalCode = validationResult
             })
 
-        registrationViewModel.getError().observe(viewLifecycleOwner){ error: NetworkError -> this.displayErrorScreen(
+        registrationViewModel.error.observe(viewLifecycleOwner){ error: NetworkError -> this.displayErrorScreen(
             error
         )
             if(isRegister){
@@ -222,7 +222,7 @@ class RegistrationFragment : Fragment() {
             }
         }
 
-        registrationViewModel.getJwt().observe(viewLifecycleOwner){ token: Token -> this.savePreferedValue(
+        registrationViewModel.jwt.observe(viewLifecycleOwner){ token: Token -> this.savePreferedValue(
             token
         )
             //navigate here ?
@@ -265,7 +265,7 @@ class RegistrationFragment : Fragment() {
         )
         val adapter = ArrayAdapter(
             requireContext(),
-            R.layout.country_item,
+            R.layout.item_countries,
             COUNTRIES
         )
         countryDropDown.setAdapter(adapter)
@@ -312,7 +312,7 @@ class RegistrationFragment : Fragment() {
     private fun goToProfileActivity(){
         var intent : Intent = Intent(
             requireActivity().applicationContext,
-            EditProfileActivity::class.java
+            MainActivity::class.java
         )
         startActivity(intent)
     }

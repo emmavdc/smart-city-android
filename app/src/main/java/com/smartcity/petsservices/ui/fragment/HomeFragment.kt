@@ -9,18 +9,17 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.smartcity.petsservices.R
-import com.smartcity.petsservices.databinding.HomeFragmentBinding
-import com.smartcity.petsservices.databinding.ProfileFragmentBinding
+import com.smartcity.petsservices.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(){
 
-    lateinit var binding : HomeFragmentBinding
+    lateinit var binding : FragmentHomeBinding
     lateinit var sharedPref : SharedPreferences
     lateinit var test: EditText
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = HomeFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         // get preferences
         sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)

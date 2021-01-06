@@ -61,12 +61,12 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     }
 
     //TODO add connection error
-    private var _error: MutableLiveData<NetworkError> = MutableLiveData()
-    private val error: LiveData<NetworkError> = _error
+    private val _error: MutableLiveData<NetworkError> = MutableLiveData()
+    val error: LiveData<NetworkError> = _error
 
     //jwt
-    private var _jwt : MutableLiveData<Token> = MutableLiveData()
-    private var jwt : LiveData<Token> = _jwt
+    private val _jwt : MutableLiveData<Token> = MutableLiveData()
+    val jwt : LiveData<Token> = _jwt
 
 
     private var webService = RetrofitConfigurationService.getInstance(application).webService()
@@ -201,13 +201,7 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
         return postalCodeMediator
     }
 
-    fun getError() : LiveData<NetworkError>{
-        return error
-    }
 
-    fun getJwt() : LiveData<Token>{
-        return jwt
-    }
 
 
 

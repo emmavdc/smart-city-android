@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.smartcity.petsservices.R
-import com.smartcity.petsservices.databinding.LoginFragmentBinding
+import com.smartcity.petsservices.databinding.FragmentLoginBinding
 import com.smartcity.petsservices.ui.viewModel.LoginViewModel
 import com.smartcity.petsservices.ui.viewModel.RegistrationViewModel
 
@@ -20,13 +20,13 @@ import com.smartcity.petsservices.ui.viewModel.RegistrationViewModel
  */
 class LoginFragment : Fragment() {
 
-    private lateinit var binding : LoginFragmentBinding
+    private lateinit var binding : FragmentLoginBinding
     private lateinit var loginViewModel : LoginViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
 
         loginViewModel =  ViewModelProvider(this).get(LoginViewModel::class.java)
-        binding = LoginFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         binding.viewModel = loginViewModel
         binding.lifecycleOwner = this
 

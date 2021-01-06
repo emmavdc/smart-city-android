@@ -56,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
+                android:text="@{viewModel.email}"
                 android:textSize="14dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -75,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:text="@{viewModel.password}"
                 android:textSize="14dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>

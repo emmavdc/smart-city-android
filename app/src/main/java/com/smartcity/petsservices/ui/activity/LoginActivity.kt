@@ -8,7 +8,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_activity_main)
+        setContentView(R.layout.activity_login)
         //setSupportActionBar(findViewById(R.id.toolbar))
 
         /*findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->

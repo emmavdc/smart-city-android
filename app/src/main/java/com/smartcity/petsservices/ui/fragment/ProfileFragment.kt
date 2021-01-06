@@ -9,17 +9,17 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.smartcity.petsservices.R
-import com.smartcity.petsservices.databinding.ProfileFragmentBinding
+import com.smartcity.petsservices.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
-    lateinit var binding : ProfileFragmentBinding
+    lateinit var binding : FragmentProfileBinding
     lateinit var sharedPref : SharedPreferences
     lateinit var test: EditText
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = ProfileFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
         // get preferences
