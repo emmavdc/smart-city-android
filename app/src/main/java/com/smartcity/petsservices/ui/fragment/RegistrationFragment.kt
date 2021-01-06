@@ -213,7 +213,7 @@ class RegistrationFragment : Fragment() {
                 isValidatePostalCode = validationResult
             })
 
-        registrationViewModel.error.observe(viewLifecycleOwner){ error: NetworkError -> this.displayErrorScreen(
+        registrationViewModel.error.observe(viewLifecycleOwner){ error: Error -> this.displayErrorScreen(
             error
         )
             if(isRegister){
@@ -272,24 +272,24 @@ class RegistrationFragment : Fragment() {
     }
 
     // ----------------- Network Error -------------------------
-    private  fun displayErrorScreen(error: NetworkError){
+    private  fun displayErrorScreen(error: Error){
         when(error){
-            NetworkError.TECHNICAL_ERROR -> Toast.makeText(
+            Error.TECHNICAL_ERROR -> Toast.makeText(
                 activity,
                 R.string.technical_error,
                 Toast.LENGTH_SHORT
             ).show()
-            NetworkError.NO_CONNECTION -> Toast.makeText(
+            Error.NO_CONNECTION -> Toast.makeText(
                 activity,
                 R.string.connectivity_error,
                 Toast.LENGTH_SHORT
             ).show()
-            NetworkError.REQUEST_ERROR -> Toast.makeText(
+            Error.REQUEST_ERROR -> Toast.makeText(
                 activity,
                 R.string.request_error,
                 Toast.LENGTH_SHORT
             ).show()
-            NetworkError.USER_ALREADY_EXIST -> Toast.makeText(
+            Error.USER_ALREADY_EXIST -> Toast.makeText(
                 activity,
                 R.string.user_already_exist,
                 Toast.LENGTH_SHORT

@@ -87,6 +87,7 @@
     <string name="request_error">Une erreur s’est produite pendant votre demande</string>
     <string name="technical_error">Erreur technique</string>
     <string name="no_error">Pas d\'erreur</string>
+    <string name="bad_credentials">Identifiant ou mot de passe incorrect</string>
 
     <!-- After Registration -->
     <string name="welcome_popup">Merci de votre inscription ! Veuillez complèter votre profil !</string>
