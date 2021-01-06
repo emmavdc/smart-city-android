@@ -48,16 +48,15 @@ class LoginFragment : Fragment() {
         binding.viewModel = loginViewModel
         binding.lifecycleOwner = this
 
+        // get preferences
+        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
+
         // TextInputLayout
         emailTextInputLayout = binding.emailTextInputLayout
         passwordTextInputLayout = binding.passwordTextInputLayout
         //EditText
         emailEditText = binding.emailTextInputLayout.editText!!
         passwordEditText = binding.passwordTextInputLayout.editText!!
-
-        // get preferences
-        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
-
 
         loginViewModel.error.observe(viewLifecycleOwner){ error: Error -> this.displayErrorScreen(
             error
