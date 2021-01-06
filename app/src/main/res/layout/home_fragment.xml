@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/edit_profile_registration"
+                android:text="Test"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="30dp"
                 android:textStyle ="bold"

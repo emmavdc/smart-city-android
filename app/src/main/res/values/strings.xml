@@ -4,6 +4,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="profile_fragment_label">Profile Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -43,7 +44,6 @@
     <string name="host_registration">J\'accueil</string>
     <string name="search_walker_registration">Je cherche un promeneur</string>
     <string name="search_host_registration">Je cherche un hôte</string>
-
 
 
     <!-- Button -->
