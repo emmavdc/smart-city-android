@@ -99,7 +99,7 @@
 
     <!-- Profile -->
     <string name="edit_profile_registration">Mon profil</string>
-    <string name="absences_button">Mes absences</string>
+    <string name="absences_button">Absences</string>
     <string name="animal_type_button">Animaux acceptés</string>
     <string name="animals_button">Mes animaux</string>
     <string name="update_profile_button">Modifier</string>
@@ -110,6 +110,10 @@
     <!-- Bottom navigation menu -->
     <string name="home_space">Accueil</string>
     <string name="profile_space">Profil</string>
+    <string name="locality_space">Commune :</string>
+    <string name="slogan_space">Slogan :</string>
+    <string name="review_space">Mes avis :</string>
+    <string name="rating_space">Mes notes :</string>
 
 
 
