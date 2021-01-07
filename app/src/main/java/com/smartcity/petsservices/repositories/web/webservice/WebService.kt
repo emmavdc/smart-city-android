@@ -18,7 +18,7 @@ interface WebService {
     @POST("v2/users/actions/login")
     fun loginUser(@Body loginDto: LoginDto) : Call<TokenDto>
 
-    @GET("/v1/users/{id}")
+    @GET("/v2/users/{id}")
     fun getUser(@Path("id") userId: Int, @Header("Authorization") authHeader : String) : Call<UserDto>
 
 }

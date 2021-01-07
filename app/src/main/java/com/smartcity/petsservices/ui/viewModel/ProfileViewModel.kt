@@ -33,7 +33,7 @@ class ProfileViewModel (application: Application) : AndroidViewModel(application
     private var userMapper  = UserMapper
 
     fun getUser(token: Token){
-        webService.getUser(token.userId, "Bearer " + token.token).enqueue(object : Callback<UserDto> {
+          webService.getUser(token.userId, "Bearer " + token.token).enqueue(object : Callback<UserDto> {
             override fun onResponse(call: Call<UserDto>, response: Response<UserDto>) {
                 if (response.isSuccessful) {
                     System.out.println("chouette " + response.code() + "  "+ response.body())
@@ -42,7 +42,7 @@ class ProfileViewModel (application: Application) : AndroidViewModel(application
 
                 } else {
                     System.out.println("pas chouette " + response.code())
-                    _error.value = Error.NO_ERROR
+                    _error.value = Error.REQUEST_ERROR
                 }
             }
 

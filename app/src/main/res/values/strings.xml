@@ -111,14 +111,19 @@
     <!-- Bottom navigation menu -->
     <string name="home_space">Accueil</string>
     <string name="profile_space">Profil</string>
-    <string name="identity_space"> %1$s  %1$s</string>
+    <string name="firstname_space">%1$s</string>
+    <string name="lastname_space">%1$s</string>
     <string name="locality_space">Commune : %1$s</string>
     <string name="slogan_space">Slogan : %1$s</string>
     <string name="review_space">Mes avis :</string>
     <string name="rating_space">Mes notes : %1$s</string>
+    <string name="weight_max_space">Poids maximum d\'un animal : %1$s kg</string>
 
     <!-- Bearer -->
     <string name="bearer">Bearer </string>
+
+    <!-- sharedPref -->
+    <string name="sharedPref">sharedPref </string>
 
 
 </resources>

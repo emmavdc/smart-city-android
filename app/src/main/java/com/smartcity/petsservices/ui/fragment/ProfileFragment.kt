@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.smartcity.petsservices.R
 import com.smartcity.petsservices.databinding.FragmentProfileBinding
+import com.smartcity.petsservices.model.Error
 import com.smartcity.petsservices.model.Token
 import com.smartcity.petsservices.ui.viewModel.ProfileViewModel
 import java.util.*
@@ -29,8 +30,7 @@ class ProfileFragment : Fragment() {
         binding.viewModel = profileViewModel
 
         // get preferences
-        //sharedPref = this.requireActivity().getPreferences(Context.MODE_PRIVATE)
-        sharedPref = requireActivity().getSharedPreferences("test", Context.MODE_PRIVATE);
+        sharedPref = requireActivity().getSharedPreferences(getString(R.string.sharedPref), Context.MODE_PRIVATE);
 
 
         var userId = sharedPref.getInt(getString(R.string.user_id_payload), 0)
@@ -42,9 +42,67 @@ class ProfileFragment : Fragment() {
         val exp_date = Date(exp  * 1000)
        var jwt : Token =  Token(email, userId, exp_date, token)
 
+
+        profileViewModel.error.observe(viewLifecycleOwner){ error: Error -> this.displayErrorScreen(
+                error)
+        }
+
         getUser(jwt)
+        binding.identity.visibility = View.GONE
+        binding.errorLayout.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+        binding.absencesButton.visibility = View.GONE
+        binding.animalsTypeButton.visibility = View.GONE
+        binding.animalsButton.visibility = View.GONE
 
         return binding.root
+    }
+
+    private fun displayErrorScreen(error : Error){
+        binding.progressBar.visibility = View.GONE
+        when(error){
+            Error.NO_ERROR -> {
+                binding.identity.visibility = View.VISIBLE
+                if(profileViewModel.user.value!!.supplier.slogan == null){
+                    binding.slogan.visibility = View.GONE
+                }
+                if(profileViewModel.user.value!!.supplier.weightMax == null){
+                    binding.weightMax.visibility = View.GONE
+                }
+                if(profileViewModel.user.value!!.supplier.isAnimalWalker == null && profileViewModel.user.value!!.supplier.isHost == null){
+                    binding.evaluations.visibility = View.GONE
+                }
+                binding.errorLayout.visibility = View.GONE
+                return
+            }
+            Error.REQUEST_ERROR ->{
+                binding.errorLayout.visibility = View.VISIBLE
+                binding.connectivityError.visibility = View.GONE
+                binding.requestError.visibility = View.VISIBLE
+                binding.technicalError.visibility = View.GONE
+                binding.identity.visibility = View.GONE
+            }
+            Error.TECHNICAL_ERROR ->{
+                binding.errorLayout.visibility = View.VISIBLE
+                binding.connectivityError.visibility = View.GONE
+                binding.requestError.visibility = View.GONE
+                binding.technicalError.visibility = View.VISIBLE
+                binding.identity.visibility = View.GONE
+            }
+            else ->{
+                binding.errorLayout.visibility = View.VISIBLE
+                binding.connectivityError.visibility = View.VISIBLE
+                binding.requestError.visibility = View.GONE
+                binding.technicalError.visibility = View.GONE
+                binding.identity.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun displayButtonsAccordingRole(){
+        if(profileViewModel.user.value!!.supplier.isAnimalWalker != null || profileViewModel.user.value!!.supplier.isHost != null){
+
+        }
     }
 
     // ----------------- Get User & AsyncTask  -------------------------

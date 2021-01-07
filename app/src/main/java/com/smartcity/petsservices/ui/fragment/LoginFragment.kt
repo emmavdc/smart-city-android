@@ -46,7 +46,7 @@ class LoginFragment : Fragment() {
 
 
         //sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
-        sharedPref = requireActivity().getSharedPreferences("test", Context.MODE_PRIVATE);
+        sharedPref = requireActivity().getSharedPreferences(getString(R.string.sharedPref), Context.MODE_PRIVATE);
 
         emailEditText = binding.emailTextInputLayout.editText!!
         passwordEditText = binding.passwordTextInputLayout.editText!!
