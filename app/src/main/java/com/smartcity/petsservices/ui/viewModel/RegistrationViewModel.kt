@@ -6,9 +6,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.smartcity.petsservices.model.Error
+import com.smartcity.petsservices.model.Token
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.repositories.web.configuration.RetrofitConfigurationService
-import com.smartcity.petsservices.repositories.web.dto.UserDto
+import com.smartcity.petsservices.repositories.web.dto.TokenDto
+import com.smartcity.petsservices.services.mappers.TokenMapper
 import com.smartcity.petsservices.services.mappers.UserMapper
 import com.smartcity.petsservices.utils.NoConnectivityException
 import retrofit2.Call
@@ -38,6 +41,8 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     private val localityMediator = MediatorLiveData<Boolean>()
     val postalCode = MutableLiveData<String>()
     private val postalCodeMediator = MediatorLiveData<Boolean>()
+    val country = MutableLiveData<String>()
+    private val countryMediator = MediatorLiveData<Boolean>()
 
 
     init {
@@ -54,26 +59,48 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     }
 
     //TODO add connection error
+    private val _error: MutableLiveData<Error> = MutableLiveData()
+    val error: LiveData<Error> = _error
+
+    //jwt
+    private val _jwt : MutableLiveData<Token> = MutableLiveData()
+    val jwt : LiveData<Token> = _jwt
 
 
     private var webService = RetrofitConfigurationService.getInstance(application).webService()
     private var userMapper  = UserMapper
+    private  var tokenMapper = TokenMapper
 
     fun addUser(user: User){
-        webService.postUser(userMapper.mapToUserDto(user)!!).enqueue(object : Callback<UserDto> {
-            override fun onResponse(call: Call<UserDto>, response: Response<UserDto>) {
+
+        webService.postUser(userMapper.mapToUserDto(user)!!).enqueue(object : Callback<TokenDto> {
+            override fun onResponse(call: Call<TokenDto>, response: Response<TokenDto>) {
                 if (response.isSuccessful) {
-                    System.out.println("chouette")
+                    System.out.println("chouette " + response.code() + "  "+ response.body())
+                    System.out.println(response.body()!!.token)
+
+                    _error.value = Error.NO_ERROR
+                    _jwt.value = tokenMapper.mapToToken(response.body()!!)
                 } else {
-                    System.out.println("pas chouette")
+                    System.out.println("pas chouette " + response.code())
+                    //result.message = R.string.user_already_exist.toString()
+                    //result.code = response.code()
+                    if (response.code() == 409)
+                        _error.value = Error.USER_ALREADY_EXIST
+                    else
+                        _error.value = Error.REQUEST_ERROR
                 }
             }
 
-            override fun onFailure(call: Call<UserDto>, t: Throwable) {
+            override fun onFailure(call: Call<TokenDto>, t: Throwable) {
                 if (t is NoConnectivityException) {
                     System.out.println("error connectivity")
+                    //result.message = R.string.connectivity_error.toString()
+                    _error.value = Error.NO_CONNECTION
                 } else {
-                    System.out.println("error error")
+                    System.out.println("******************* " + t)
+                    //result = R.string.user_added.toString()
+                    _error.value = Error.TECHNICAL_ERROR
                 }
             }
 
@@ -110,7 +137,7 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     }
 
     private fun validateStreetNumber(){
-        streetNumberMediator.value = streetNumber.value!!.isNotEmpty()
+        streetNumberMediator.value = streetNumber.value!!.isNotEmpty() && Pattern.compile("^(\\d{1,3})\\w{0,3}\$").matcher(streetNumber.value).matches()
     }
 
     private fun validateLocality(){
@@ -120,6 +147,7 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     private fun validatePostalCode(){
         postalCodeMediator.value = postalCode.value!!.isNotEmpty() && Pattern.compile("^(\\d{4,10})\$").matcher(postalCode.value).matches()
     }
+
 
 
 
@@ -170,6 +198,8 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     fun getPostalCodeMediator(): LiveData<Boolean> {
         return postalCodeMediator
     }
+
+
 
 
 

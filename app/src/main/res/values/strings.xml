@@ -4,6 +4,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="profile_fragment_label">Profile Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -44,13 +45,15 @@
     <string name="search_walker_registration">Je cherche un promeneur</string>
     <string name="search_host_registration">Je cherche un hôte</string>
 
-    <!-- combobox -->
-
 
     <!-- Button -->
     <string name="registration_back_button">Retour</string>
     <string name="registration_button">Je m\'inscris</string>
 
+    <!-- Country -->
+    <string name="country_belgique">Belgique</string>
+    <string name="country_france">France</string>
+    <string name="country_luxembourg">Luxembourg</string>
 
     <!-- Error  -->
     <string name="form_error">Vous avez des champs incorrects!</string>
@@ -58,7 +61,7 @@
     <string name="email_format_error">Adresse mail n\'est pas valide!</string>
     <string name="email_empty_error">Adresse mail requise !</string>
     <string name="password_empty_error">Mot de passe requis!</string>
-    <string name="validation_password_format_error">Mot de passe incorrect</string>
+    <string name="validation_password_format_error">Mot de passe de validation incorrect</string>
     <string name="validation_password_empty_error">Mot de passe de validation requis !</string>
     <string name="lastname_format_error">Nom incorrect</string>
     <string name="lastname_empty_error">Nom requis !</string>
@@ -74,5 +77,44 @@
     <string name="locality_empty_error">Ville requis !</string>
     <string name="postale_code_format_error">Code postal incorrect</string>
     <string name="postale_code_empty_error">Code postal requis !</string>
+    <string name="country_error">Pays requis !</string>
+
+
+    <!-- Registration Message -->
+    <string name="user_added">Utilisateur enregistré</string>
+    <string name="user_already_exist">L\'adresse mail existe déjà !</string>
+    <string name="connectivity_error">Aucune connexion internet</string>
+    <string name="request_error">Une erreur s’est produite pendant votre demande</string>
+    <string name="technical_error">Erreur technique</string>
+    <string name="no_error">Pas d\'erreur</string>
+    <string name="bad_credentials">Identifiant ou mot de passe incorrect</string>
+
+    <!-- After Registration -->
+    <string name="welcome_popup">Merci de votre inscription ! Veuillez complèter votre profil !</string>
+
+    <!-- Set SharedPreferences  -->
+    <string name="email_payload">email</string>
+    <string name="exp_date_payload">expDate</string>
+    <string name="user_id_payload">userId</string>
+
+    <!-- Profile -->
+    <string name="edit_profile_registration">Mon profil</string>
+    <string name="absences_button">Absences</string>
+    <string name="animal_type_button">Animaux acceptés</string>
+    <string name="animals_button">Mes animaux</string>
+    <string name="update_profile_button">Modifier</string>
+    <string name="weight_max">Poids maximum d\'un animal</string>
+    <string name="supplier_rating">Note: </string>
+    <string name="supplier_ratings">Mes notes:</string>
+
+    <!-- Bottom navigation menu -->
+    <string name="home_space">Accueil</string>
+    <string name="profile_space">Profil</string>
+    <string name="locality_space">Commune :</string>
+    <string name="slogan_space">Slogan :</string>
+    <string name="review_space">Mes avis :</string>
+    <string name="rating_space">Mes notes :</string>
+
+
 
 </resources>
