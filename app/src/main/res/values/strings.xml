@@ -22,6 +22,7 @@
     <string name="required">* Champs requis</string>
     <!-- Title and field -->
     <string name="title_registration">Inscription</string>
+    <string name="pets_services_title">Pets Services</string>
     <string name="email_title">Adresse mail*</string>
     <string name="email_registration">Adresse mail</string>
     <string name="password_title">Mot de passe*</string>

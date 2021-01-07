@@ -63,17 +63,9 @@ class ProfileFragment : Fragment() {
         when(error){
             Error.NO_ERROR -> {
                 binding.identity.visibility = View.VISIBLE
-                if(profileViewModel.user.value!!.supplier.slogan == null){
-                    binding.slogan.visibility = View.GONE
-                }
-                if(profileViewModel.user.value!!.supplier.weightMax == null){
-                    binding.weightMax.visibility = View.GONE
-                }
-                if(profileViewModel.user.value!!.supplier.isAnimalWalker == null && profileViewModel.user.value!!.supplier.isHost == null){
-                    binding.evaluations.visibility = View.GONE
-                }
+                displayFieldsAccordingData()
+                displayButtonsAccordingRole()
                 binding.errorLayout.visibility = View.GONE
-                return
             }
             Error.REQUEST_ERROR ->{
                 binding.errorLayout.visibility = View.VISIBLE
@@ -101,7 +93,23 @@ class ProfileFragment : Fragment() {
 
     private fun displayButtonsAccordingRole(){
         if(profileViewModel.user.value!!.supplier.isAnimalWalker != null || profileViewModel.user.value!!.supplier.isHost != null){
+            binding.absencesButton.visibility = View.VISIBLE
+            binding.animalsTypeButton.visibility = View.VISIBLE
+        }
+        if(profileViewModel.user.value!!.customer.searchHost != null || profileViewModel.user.value!!.customer.searchWalker != null){
+            binding.animalsButton.visibility = View.VISIBLE
+        }
+    }
 
+    private fun displayFieldsAccordingData(){
+        if(profileViewModel.user.value!!.supplier.slogan == null){
+            binding.slogan.visibility = View.GONE
+        }
+        if(profileViewModel.user.value!!.supplier.weightMax == null){
+            binding.weightMax.visibility = View.GONE
+        }
+        if(profileViewModel.user.value!!.supplier.isAnimalWalker == null && profileViewModel.user.value!!.supplier.isHost == null){
+            binding.evaluations.visibility = View.GONE
         }
     }
 
