@@ -96,6 +96,7 @@
     <string name="email_payload">email</string>
     <string name="exp_date_payload">expDate</string>
     <string name="user_id_payload">userId</string>
+    <string name="token">token</string>
 
     <!-- Profile -->
     <string name="edit_profile_registration">Mon profil</string>
@@ -110,11 +111,14 @@
     <!-- Bottom navigation menu -->
     <string name="home_space">Accueil</string>
     <string name="profile_space">Profil</string>
-    <string name="locality_space">Commune :</string>
-    <string name="slogan_space">Slogan :</string>
+    <string name="identity_space"> %1$s  %1$s</string>
+    <string name="locality_space">Commune : %1$s</string>
+    <string name="slogan_space">Slogan : %1$s</string>
     <string name="review_space">Mes avis :</string>
-    <string name="rating_space">Mes notes :</string>
+    <string name="rating_space">Mes notes : %1$s</string>
 
+    <!-- Bearer -->
+    <string name="bearer">Bearer </string>
 
 
 </resources>

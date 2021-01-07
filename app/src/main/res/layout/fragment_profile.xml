@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.smartcity.petsservices.ui.viewModel.ProfileViewModel" />
     </data>
-
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -86,45 +86,23 @@
                     android:textSize="11dp" />
             </GridLayout>
 
-            <GridLayout android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/first_name"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:rowCount="1"
-                android:columnCount="2"
-                >
-
-                <TextView
-                    android:id="@+id/first_name"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/edit_profile_registration"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/last_name"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/edit_profile_registration"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:textStyle ="bold"
-                    android:textColor="@color/black"
-                    android:textSize="14dp"/>
-
-
-            </GridLayout>
-
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="@{@string/identity_space(viewModel.user.firstname, viewModel.user.lastname)}"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/locality"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/locality_space"
+                android:text="@{@string/locality_space(viewModel.user.locality)}"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
@@ -132,23 +110,23 @@
                 android:textColor="@color/black"
                 android:textSize="14dp"/>
 
-            <TextView
-                android:id="@+id/raking"
+            <!--<TextView
+                android:id="@+id/ranking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/rating_space"
+                android:text="@{@string/rating_space(viewModel.user.supplier.)}"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:textStyle ="bold"
                 android:textColor="@color/black"
-                android:textSize="14dp"/>
+                android:textSize="14dp"/>-->
 
             <TextView
                 android:id="@+id/slogan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/slogan_space"
+                android:text="@{@string/slogan_space(viewModel.user.supplier.slogan)}"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"

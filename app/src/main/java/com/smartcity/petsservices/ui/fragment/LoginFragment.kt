@@ -28,14 +28,10 @@ import com.smartcity.petsservices.ui.viewModel.LoginViewModel
  */
 class LoginFragment : Fragment() {
 
-    // TextInputLayout
-    lateinit var emailTextInputLayout: TextInputLayout
-    lateinit var passwordTextInputLayout: TextInputLayout
-    // Edit Text
+
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
 
-    //SharedPreferences
     lateinit var sharedPref : SharedPreferences
 
     private lateinit var binding : FragmentLoginBinding
@@ -48,13 +44,10 @@ class LoginFragment : Fragment() {
         binding.viewModel = loginViewModel
         binding.lifecycleOwner = this
 
-        // get preferences
-        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
 
-        // TextInputLayout
-        emailTextInputLayout = binding.emailTextInputLayout
-        passwordTextInputLayout = binding.passwordTextInputLayout
-        //EditText
+        //sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getSharedPreferences("test", Context.MODE_PRIVATE);
+
         emailEditText = binding.emailTextInputLayout.editText!!
         passwordEditText = binding.passwordTextInputLayout.editText!!
 
@@ -77,8 +70,6 @@ class LoginFragment : Fragment() {
             goToProfileActivity()
         }
 
-
-
         return binding.root
     }
 
@@ -87,6 +78,7 @@ class LoginFragment : Fragment() {
         var editor : SharedPreferences.Editor = sharedPref.edit()
         editor.putString(getString(R.string.email_payload), token.email)
         editor.putInt(getString(R.string.user_id_payload), token.userId!!)
+        editor.putString(getString(R.string.token), token.token)
         editor.putLong(getString(R.string.exp_date_payload), token.expDate!!.getTime()).apply()
     }
 
@@ -110,7 +102,7 @@ class LoginFragment : Fragment() {
             ).show()
             Error.BAD_CREDENTIALS -> Toast.makeText(
                 activity,
-                R.string.request_error,
+                R.string.bad_credentials,
                 Toast.LENGTH_SHORT
             ).show()
             else -> {
