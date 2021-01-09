@@ -16,7 +16,7 @@
     <string name="login_email">Adresse mail</string>
     <string name="login_password">Mot de passe</string>
     <string name="login_connection_button">Connexion</string>
-    <string name="login_registration">Pas encore de compte ? Inscrivez-vous !</string>
+    <string name="login_registration"><u>Pas encore de compte ? Inscrivez-vous !</u></string>
 
     <!-- Inscription screen -->
     <string name="required">* Champs requis</string>
