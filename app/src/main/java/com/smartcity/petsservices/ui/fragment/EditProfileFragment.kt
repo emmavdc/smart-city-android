@@ -2,18 +2,26 @@ package com.smartcity.petsservices.ui.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.AsyncTask
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.smartcity.petsservices.R
 import com.smartcity.petsservices.databinding.FragmentEditProfileBinding
+import com.smartcity.petsservices.model.Customer
+import com.smartcity.petsservices.model.Supplier
+import com.smartcity.petsservices.model.Token
+import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.ui.viewModel.EditProfileViewModel
+import java.util.*
 import kotlin.properties.Delegates
 
 class EditProfileFragment : Fragment() {
@@ -35,12 +43,10 @@ class EditProfileFragment : Fragment() {
     var isValidatePostalCode : Boolean = false
     var isRegister : Boolean = false
 
-    // check form for supplier
+    // check form for supplier and customer
     var isValidateSlogan : Boolean = false
     var isValidateSupplierLocality : Boolean = false
     var isValidateWeightMax : Boolean = false
-
-    // check form for customer
     var isValidateCustomerLocality : Boolean = false
 
     //SharedPreferences
@@ -65,6 +71,8 @@ class EditProfileFragment : Fragment() {
     var supplierLocality : String  = R.string.EMPTY.toString()
     var customerLocality : String = R.string.EMPTY.toString()
 
+    private lateinit var jwt : Token
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -74,14 +82,25 @@ class EditProfileFragment : Fragment() {
         binding.lifecycleOwner = this
         sharedPref = requireActivity().getSharedPreferences(getString(R.string.sharedPref), Context.MODE_PRIVATE);
 
-        //requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).isVisible = false
+
+        var userId = sharedPref.getInt(getString(R.string.user_id_payload), 0)
+        var token = sharedPref.getString(getString(R.string.token), "")!!
+        var email  = sharedPref.getString(getString(R.string.email_payload), "")!!
+        var exp  =sharedPref.getLong(getString(R.string.exp_date_payload), 0)!!
+
+        // convert long in date
+        val exp_date = Date(exp * 1000)
+        jwt =  Token(email, userId, exp_date, token)
+
 
 
         countryDropDown = binding.countryDropdown
-        // init country dropdown
-        initCountryDropDown()
-        completeFields()
 
+
+        completeFields()
+        displayFieldsAccordingRole()
+
+        initCountryDropDown()
 
         // Cancelled button
         binding.cancelledEditProfileButton.setOnClickListener {
@@ -90,14 +109,26 @@ class EditProfileFragment : Fragment() {
 
         // edit profile button
         binding.editProfileButton.setOnClickListener {
-           // save le user
+           updateUser()
+            Toast.makeText(activity, "Test", Toast.LENGTH_SHORT).show()
 
+            // go to profile
         }
-
         return binding.root
     }
 
-    // ----------------- Complete Fields -------------------------
+
+    private fun displayFieldsAccordingRole(){
+        binding.supplierLayout.visibility = View.GONE
+        binding.customerLayout.visibility = View.GONE
+        if(isHost || isAnimalWalker){
+            binding.supplierLayout.visibility = View.VISIBLE
+        }
+        if(searchAnimalWalker || searchHost){
+            binding.customerLayout.visibility = View.VISIBLE
+        }
+    }
+
     private fun completeFields(){
 
 
@@ -128,7 +159,8 @@ class EditProfileFragment : Fragment() {
         binding.streetNumberTextInputLayout.editText!!.setText(streetNumber)
         binding.cityTextInputLayout.editText!!.setText(locality)
         binding.postalCodeTextInputLayout.editText!!.setText(postalCode.toString())
-        //binding.countryDropdown.editText!!.setText(email)
+        binding.countryDropdown.text = country.toEditable()
+
 
         // pas besoin
         //binding.passwordTextInputLayout.editText!!.setText(password)
@@ -146,6 +178,23 @@ class EditProfileFragment : Fragment() {
         binding.customerCommuneTextInputLayout.editText!!.setText(customerLocality)
     }
 
+    fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
+
+    private fun addCustomer(searchHost: Boolean, searchAnimalWalker: Boolean, locality: String?) : Customer{
+        var l = if(locality.equals(getString(R.string.EMPTY))) locality else null
+
+        var customer = Customer(l, searchAnimalWalker, searchHost)
+        return customer
+    }
+
+    private fun addSuppplier(isHost: Boolean, isAnimalWalker: Boolean, slogan: String, locality: String, weightMax: Int?) : Supplier {
+        var l = if(locality.equals(getString(R.string.EMPTY))) null else locality
+        var s = if(slogan.equals(getString(R.string.EMPTY))) null else slogan
+
+        var supplier = Supplier(isHost, isAnimalWalker, s, l, weightMax)
+        return supplier
+    }
+
     // ----------------- Country Dropdown -------------------------
 
     private fun initCountryDropDown(){
@@ -161,6 +210,7 @@ class EditProfileFragment : Fragment() {
         )
         countryDropDown.setAdapter(adapter)
     }
+
 
     // ----------------- Companion d'objet -------------------------
     companion object {
@@ -227,4 +277,59 @@ class EditProfileFragment : Fragment() {
     }
 
 
+    // ----------------- Update User AsyncTask -------------------------
+    private fun updateUser(){
+        var email: String = binding.emailTextInputLayout.editText.toString()
+        var firstname: String = binding.firstnameTextInputLayout.editText.toString()
+        var lastname: String = binding.lastnameTextInputLayout.editText.toString()
+        var phone: String = binding.phoneTextInputLayout.editText.toString()
+        var streetNumber: String = binding.streetNumberTextInputLayout.editText.toString()
+        var streetName: String = binding.streetNameTextInputLayout.editText.toString()
+        var locality: String = binding.cityTextInputLayout.editText.toString()
+        var postalCode: Int = (binding.postalCodeTextInputLayout.editText.toString()).toInt()
+        var isHost: Boolean = binding.checkboxHost.isChecked
+        var isAnimalWalker: Boolean = binding.checkboxAnimalWalker.isChecked
+        var searchHost: Boolean =binding.checkboxSearchHost.isChecked
+        var searchAnimalWalker: Boolean = binding.checkboxSearchWalker.isChecked
+        var country : String = countryDropDown.text.toString()
+
+        var customer: Customer = addCustomer(searchHost, searchAnimalWalker, binding.customerCommuneTextInputLayout.editText.toString())
+        var supplier: Supplier = addSuppplier(
+                isHost,
+                isAnimalWalker,
+                binding.sloganTextInputLayout.editText.toString(),
+                binding.customerCommuneTextInputLayout.editText.toString(),
+                binding.weightMaxTextInputLayout.editText.toString().toInt())
+
+        var user = User(
+                email,
+                null,
+                firstname,
+                lastname,
+                phone,
+                locality,
+                postalCode,
+                streetNumber,
+                streetName,
+                country,
+                null,
+                customer,
+                supplier
+        )
+        UpdateUserTask().execute(user)
+    }
+
+    inner class UpdateUserTask : AsyncTask<User, Void, String>(){
+        override fun doInBackground(vararg users: User): String {
+            editProfileViewModel.updateUser(users[0],jwt)
+
+            return users[0].firstname
+        }
+
+        /*override fun onPostExecute(user: String) {
+            Toast.makeText(activity!!.applicationContext, "${user}", Toast.LENGTH_SHORT).show()
+
+        }*/
+
+    }
 }

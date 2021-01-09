@@ -92,7 +92,7 @@ class RegistrationFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // get preferences
-        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getSharedPreferences(getString(R.string.sharedPref), Context.MODE_PRIVATE);
 
         // TextInputLayout
         emailTextInputLayout = binding.emailTextInputLayout

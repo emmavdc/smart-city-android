@@ -1,7 +1,7 @@
 package com.smartcity.petsservices.model
 
 data class User (val email : String,
-                 val password : String,
+                 val password : String?,
                  val firstname : String,
                  val lastname : String,
                  val phone : String,

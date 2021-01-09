@@ -64,7 +64,7 @@ class ProfileFragment : Fragment() {
                     profileViewModel.user.value!!.locality,
                     profileViewModel.user.value!!.postalCode,
                     profileViewModel.user.value!!.country,
-                    profileViewModel.user.value!!.password,
+                    profileViewModel.user.value!!.password!!,
                     profileViewModel.user.value!!.supplier.isHost,
                     profileViewModel.user.value!!.supplier.isAnimalWalker,
                     profileViewModel.user.value!!.customer.searchHost,

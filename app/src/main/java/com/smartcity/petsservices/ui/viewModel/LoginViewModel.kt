@@ -31,9 +31,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application){
     private var loginMapper  = LoginMapper
     private  var tokenMapper = TokenMapper
 
-    var user = application.getSharedPreferences("preference_key", Context.MODE_PRIVATE);
-
-
 
     fun loginUser(login : Login){
         webService.loginUser(loginMapper.mapToLoginDto(login)).enqueue(object : Callback<TokenDto>{
