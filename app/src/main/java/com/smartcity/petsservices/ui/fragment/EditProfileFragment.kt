@@ -279,27 +279,27 @@ class EditProfileFragment : Fragment() {
 
     // ----------------- Update User AsyncTask -------------------------
     private fun updateUser(){
-        var email: String = binding.emailTextInputLayout.editText.toString()
-        var firstname: String = binding.firstnameTextInputLayout.editText.toString()
-        var lastname: String = binding.lastnameTextInputLayout.editText.toString()
-        var phone: String = binding.phoneTextInputLayout.editText.toString()
-        var streetNumber: String = binding.streetNumberTextInputLayout.editText.toString()
-        var streetName: String = binding.streetNameTextInputLayout.editText.toString()
-        var locality: String = binding.cityTextInputLayout.editText.toString()
-        var postalCode: Int = (binding.postalCodeTextInputLayout.editText.toString()).toInt()
+        var email: String = binding.emailTextInputLayout.editText!!.text.toString()
+        var firstname: String = binding.firstnameTextInputLayout.editText!!.text.toString()
+        var lastname: String = binding.lastnameTextInputLayout.editText!!.text.toString()
+        var phone: String = binding.phoneTextInputLayout.editText!!.text.toString()
+        var streetNumber: String = binding.streetNumberTextInputLayout.editText!!.text.toString()
+        var streetName: String = binding.streetNameTextInputLayout.editText!!.text.toString()
+        var locality: String = binding.cityTextInputLayout.editText!!.text.toString()
+        var postalCode: Int = (binding.postalCodeTextInputLayout.editText!!.text.toString()).toInt()
         var isHost: Boolean = binding.checkboxHost.isChecked
         var isAnimalWalker: Boolean = binding.checkboxAnimalWalker.isChecked
         var searchHost: Boolean =binding.checkboxSearchHost.isChecked
         var searchAnimalWalker: Boolean = binding.checkboxSearchWalker.isChecked
         var country : String = countryDropDown.text.toString()
 
-        var customer: Customer = addCustomer(searchHost, searchAnimalWalker, binding.customerCommuneTextInputLayout.editText.toString())
+        var customer: Customer = addCustomer(searchHost, searchAnimalWalker, binding.customerCommuneTextInputLayout.editText!!.text.toString())
         var supplier: Supplier = addSuppplier(
                 isHost,
                 isAnimalWalker,
-                binding.sloganTextInputLayout.editText.toString(),
-                binding.customerCommuneTextInputLayout.editText.toString(),
-                binding.weightMaxTextInputLayout.editText.toString().toInt())
+                binding.sloganTextInputLayout.editText!!.text.toString(),
+                binding.customerCommuneTextInputLayout.editText!!.text.toString(),
+                binding.weightMaxTextInputLayout.editText!!.text.toString().toInt())
 
         var user = User(
                 email,
