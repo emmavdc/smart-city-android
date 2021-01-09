@@ -180,8 +180,8 @@ class EditProfileFragment : Fragment() {
 
     fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
 
-    private fun addCustomer(searchHost: Boolean, searchAnimalWalker: Boolean, locality: String?) : Customer{
-        var l = if(locality.equals(getString(R.string.EMPTY))) locality else null
+    private fun addCustomer(searchHost: Boolean, searchAnimalWalker: Boolean, locality: String) : Customer{
+        var l = if(locality.equals(getString(R.string.EMPTY))) null else locality
 
         var customer = Customer(l, searchAnimalWalker, searchHost)
         return customer
@@ -294,12 +294,14 @@ class EditProfileFragment : Fragment() {
         var country : String = countryDropDown.text.toString()
 
         var customer: Customer = addCustomer(searchHost, searchAnimalWalker, binding.customerCommuneTextInputLayout.editText!!.text.toString())
+
         var supplier: Supplier = addSuppplier(
                 isHost,
                 isAnimalWalker,
                 binding.sloganTextInputLayout.editText!!.text.toString(),
-                binding.customerCommuneTextInputLayout.editText!!.text.toString(),
-                binding.weightMaxTextInputLayout.editText!!.text.toString().toInt())
+                binding.supplierCommuneTextInputLayout.editText!!.text.toString(),
+                if(binding.weightMaxTextInputLayout.editText!!.text.toString().equals(getString(R.string.EMPTY))) null else   binding.weightMaxTextInputLayout.editText!!.text.toString().toInt()
+              )
 
         var user = User(
                 email,

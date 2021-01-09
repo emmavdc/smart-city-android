@@ -133,10 +133,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun displayFieldsAccordingData(){
-        if(profileViewModel.user.value!!.supplier.slogan == null){
+        if(profileViewModel.user.value!!.supplier.slogan == null || ((!profileViewModel.user.value!!.supplier.isAnimalWalker) && (!profileViewModel.user.value!!.supplier.isHost))){
             binding.slogan.visibility = View.GONE
         }
-        if(profileViewModel.user.value!!.supplier.weightMax == null){
+        if(profileViewModel.user.value!!.supplier.weightMax == null || ((!profileViewModel.user.value!!.supplier.isAnimalWalker) && (!profileViewModel.user.value!!.supplier.isHost))){
             binding.weightMax.visibility = View.GONE
         }
         if(!(profileViewModel.user.value!!.supplier.isAnimalWalker) && !(profileViewModel.user.value!!.supplier.isHost)){

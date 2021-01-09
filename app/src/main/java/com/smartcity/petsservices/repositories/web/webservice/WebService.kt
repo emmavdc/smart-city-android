@@ -22,7 +22,7 @@ interface WebService {
     @GET("/v2/users/{id}")
     fun getUser(@Path("id") userId: Int, @Header("Authorization") authHeader : String) : Call<UserDto>
 
-    @PUT("v2/users{id}")
+    @PUT("v2/users/{id}")
     fun putUser(@Body userDto: UserDto, @Path("id") userId: Int, @Header("Authorization") authHeader : String) : Call<String>
 
 }
