@@ -61,7 +61,6 @@ class EditProfileFragment : Fragment() {
     lateinit var locality : String
     var postalCode by Delegates.notNull<Int>()
     lateinit var country : String
-    lateinit var password : String
     var isHost : Boolean = false
     var isAnimalWalker: Boolean = false
     var searchHost : Boolean = false
@@ -109,10 +108,10 @@ class EditProfileFragment : Fragment() {
 
         // edit profile button
         binding.editProfileButton.setOnClickListener {
+            // if nor error
            updateUser()
-            Toast.makeText(activity, "Test", Toast.LENGTH_SHORT).show()
-
-            // go to profile
+            NavHostFragment.findNavController(this).navigate(R.id.action_editProfileFragment_to_profileFragment)
+            // else show error
         }
         return binding.root
     }
@@ -141,7 +140,6 @@ class EditProfileFragment : Fragment() {
         locality = requireArguments().getString(ARG_LOCALITY)!!
         postalCode = requireArguments().getInt(ARG_POSTAL_CODE)!!
         country = requireArguments().getString(ARG_COUNTRY)!!
-        password = requireArguments().getString(ARG_PASSWORD)!!
         isHost = requireArguments().getBoolean(ARG_IS_HOST)!!
         isAnimalWalker = requireArguments().getBoolean(ARG_IS_ANIMAL_WALKER)!!
         searchAnimalWalker = requireArguments().getBoolean(ARG_IS_SEARCH_HOST)!!
@@ -162,16 +160,11 @@ class EditProfileFragment : Fragment() {
         binding.countryDropdown.text = country.toEditable()
 
 
-        // pas besoin
-        //binding.passwordTextInputLayout.editText!!.setText(password)
-
-
         binding.checkboxHost.isChecked = isHost
         binding.checkboxAnimalWalker.isChecked = isAnimalWalker
         binding.checkboxSearchHost.isChecked = searchHost
         binding.checkboxSearchWalker.isChecked = searchAnimalWalker
 
-        // CAN BE NULL
         binding.sloganTextInputLayout.editText!!.setText(slogan)
         binding.weightMaxTextInputLayout.editText!!.setText(if (weightMax != -1 ) weightMax.toString() else  getString(R.string.EMPTY))
         binding.supplierCommuneTextInputLayout.editText!!.setText(supplierLocality)
@@ -223,7 +216,6 @@ class EditProfileFragment : Fragment() {
         private const val ARG_LOCALITY = "ARG_LOCALITY"
         private const val ARG_POSTAL_CODE = "ARG_POSTAL_CODE"
         private const val ARG_COUNTRY = "ARG_COUNTRY"
-        private const val ARG_PASSWORD = "ARG_PASSWORD"
         private const val ARG_IS_HOST = "ARG_IS_HOST"
         private const val ARG_IS_ANIMAL_WALKER = "ARG_IS_ANIMAL_WALKER"
         private const val ARG_IS_SEARCH_HOST = "ARG_IS_SEARCH_HOST"
@@ -241,7 +233,6 @@ class EditProfileFragment : Fragment() {
                          locality: String,
                          postalCode: Int,
                          country: String,
-                         password: String,
                          isHost: Boolean,
                          isAnimalWalker: Boolean,
                          searchHost: Boolean,
@@ -260,7 +251,6 @@ class EditProfileFragment : Fragment() {
             args.putString(ARG_LOCALITY, locality!!)
             args.putInt(ARG_POSTAL_CODE, postalCode!!)
             args.putString(ARG_COUNTRY, country!!)
-            args.putString(ARG_PASSWORD, password!!)
 
             args.putBoolean(ARG_IS_HOST, isHost!!)
             args.putBoolean(ARG_IS_ANIMAL_WALKER, isAnimalWalker!!)

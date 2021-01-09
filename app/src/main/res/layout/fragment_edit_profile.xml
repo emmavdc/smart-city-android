@@ -293,60 +293,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--<Spinner
-                android:id="@+id/country_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />-->
-
-            <TextView
-                android:id="@+id/edit_password_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_password_title"
-                android:layout_marginStart="20dp"
-                android:textColor="@color/black"
-                android:textSize="14dp"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/password_text_input_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/new_password"
-                android:layout_margin="20dp"
-                app:boxStrokeColor = "@color/colorPrimary"
-                app:hintTextColor="@color/colorPrimary"
-                app:endIconMode="password_toggle"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:textSize="14dp"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/validation_password_text_input_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/confirmation_new_password"
-                android:layout_margin="20dp"
-                app:boxStrokeColor = "@color/colorPrimary"
-                app:hintTextColor="@color/colorPrimary"
-                app:endIconMode="password_toggle"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:textSize="14dp"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
             <TextView
                 android:id="@+id/edit_roles"
                 android:layout_width="match_parent"
@@ -498,16 +444,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/required"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/required"
-                android:layout_marginStart="20dp"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-                android:layout_marginTop="15dp"/>
 
             <GridLayout
                 android:layout_width="match_parent"
