@@ -14,6 +14,7 @@ import com.smartcity.petsservices.R
 import com.smartcity.petsservices.databinding.FragmentProfileBinding
 import com.smartcity.petsservices.model.Error
 import com.smartcity.petsservices.model.Token
+import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.ui.viewModel.ProfileViewModel
 import java.util.*
 
@@ -21,6 +22,7 @@ class ProfileFragment : Fragment() {
 
     lateinit var binding : FragmentProfileBinding
     lateinit var sharedPref : SharedPreferences
+    lateinit var user : User
     private lateinit var profileViewModel : ProfileViewModel
 
 
@@ -49,12 +51,34 @@ class ProfileFragment : Fragment() {
         }
 
         binding.updateProfileButton.setOnClickListener {
-            //val editProfileFragment : Bundle = EditProfileFragment.newArguments
-            NavHostFragment.findNavController(this).navigate(R.id.action_profileFragment_to_editProfileFragment)
+            var slogan =  if (profileViewModel.user.value!!.supplier.slogan == null ) getString(R.string.EMPTY) else  profileViewModel.user.value!!.supplier.slogan
+            var customerLocality =  if (profileViewModel.user.value!!.customer.locality == null )  getString(R.string.EMPTY) else  profileViewModel.user.value!!.customer.locality
+            var supplierLocality =  if (profileViewModel.user.value!!.supplier.locality == null )  getString(R.string.EMPTY) else  profileViewModel.user.value!!.supplier.locality
+            val editProfileFragment : Bundle = EditProfileFragment.newArguments(
+                    profileViewModel.user.value!!.email,
+                    profileViewModel.user.value!!.lastname,
+                    profileViewModel.user.value!!.firstname,
+                    profileViewModel.user.value!!.phone,
+                    profileViewModel.user.value!!.streetName,
+                    profileViewModel.user.value!!.streetNumber,
+                    profileViewModel.user.value!!.locality,
+                    profileViewModel.user.value!!.postalCode,
+                    profileViewModel.user.value!!.country,
+                    profileViewModel.user.value!!.password,
+                    profileViewModel.user.value!!.supplier.isHost,
+                    profileViewModel.user.value!!.supplier.isAnimalWalker,
+                    profileViewModel.user.value!!.customer.searchHost,
+                    profileViewModel.user.value!!.customer.searchWalker,
+                    slogan,
+                    profileViewModel.user.value!!.supplier.weightMax,
+                    supplierLocality,
+                    customerLocality)
+            NavHostFragment.findNavController(this).navigate(R.id.action_profileFragment_to_editProfileFragment, editProfileFragment)
         }
 
         getUser(jwt)
         binding.identity.visibility = View.GONE
+        binding.updateProfileButton.visibility = View.GONE
         binding.errorLayout.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
         binding.absencesButton.visibility = View.GONE
@@ -69,6 +93,7 @@ class ProfileFragment : Fragment() {
         when(error){
             Error.NO_ERROR -> {
                 binding.identity.visibility = View.VISIBLE
+                binding.updateProfileButton.visibility = View.VISIBLE
                 displayFieldsAccordingData()
                 displayButtonsAccordingRole()
                 binding.errorLayout.visibility = View.GONE

@@ -140,5 +140,27 @@
     <!-- sharedPref -->
     <string name="sharedPref">sharedPref </string>
 
+    <!--ARGS-->
+    <string name="ARG_EMAIL">ARGS_EMAIL</string>
+    <string name="ARG_LASTNAME">ARG_LASTNAME</string>
+    <string name="ARG_FIRSTNAME">ARG_FIRSTNAME</string>
+    <string name="ARG_PHONE">ARG_PHONE</string>
+    <string name="ARG_STREET_NAME">ARG_STREET_NAME</string>
+    <string name="ARG_STREET_NUMBER">ARG_STREET_NUMBER</string>
+    <string name="ARG_LOCALITY">ARG_LOCALITY</string>
+    <string name="ARG_POSTAL_CODE">ARG_POSTAL_CODE</string>
+    <string name="ARG_COUNTRY">ARG_COUNTRY</string>
+    <string name="ARG_PASSWORD">ARG_PASSWORD</string>
+    <string name="ARG_IS_HOST">ARG_IS_HOST</string>
+    <string name="ARG_IS_ANIMAL_WALKER">ARG_IS_ANIMAL_WALKER</string>
+    <string name="ARG_IS_SEARCH_HOST">ARG_IS_SEARCH_HOST</string>
+    <string name="ARG_IS_SEARCH_ANIMAL_WALKER">ARG_IS_SEARCH_ANIMAL_WALKER</string>
+    <string name="ARG_SLOGAN">ARG_SLOGAN</string>
+    <string name="ARG_WEIGHT_MAX">ARG_WEIGHT_MAX</string>
+    <string name="ARG_SUPPLIER_LOCALITY">ARG_SUPPLIER_LOCALITY</string>
+    <string name="ARG_CUSTOMER_LOCALITY">ARG_CUSTOMER_LOCALITY</string>
+
+    <!--ARGS-->
+    <string name="EMPTY"> </string>
 
 </resources>
