@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.smartcity.petsservices.R
 import com.smartcity.petsservices.databinding.FragmentEditProfileBinding
 import com.smartcity.petsservices.model.Customer
+import com.smartcity.petsservices.model.Error
 import com.smartcity.petsservices.model.Supplier
 import com.smartcity.petsservices.model.Token
 import com.smartcity.petsservices.model.User
@@ -91,7 +94,7 @@ class EditProfileFragment : Fragment() {
         val exp_date = Date(exp * 1000)
         jwt =  Token(email, userId, exp_date, token)
 
-
+        inputsVerifier()
 
         countryDropDown = binding.countryDropdown
 
@@ -101,6 +104,10 @@ class EditProfileFragment : Fragment() {
 
         initCountryDropDown()
 
+        editProfileViewModel.error.observe(viewLifecycleOwner){ error: Error -> this.displayErrorScreen(
+                error
+        ) }
+
         // Cancelled button
         binding.cancelledEditProfileButton.setOnClickListener {
             NavHostFragment.findNavController(this).navigate(R.id.action_editProfileFragment_to_profileFragment)
@@ -108,13 +115,13 @@ class EditProfileFragment : Fragment() {
 
         // edit profile button
         binding.editProfileButton.setOnClickListener {
-            // if nor error
-           updateUser()
-            NavHostFragment.findNavController(this).navigate(R.id.action_editProfileFragment_to_profileFragment)
-            // else show error
+                updateUser()
+                NavHostFragment.findNavController(this).navigate(R.id.action_editProfileFragment_to_profileFragment)
+                //showFieldsError()
         }
         return binding.root
     }
+
 
 
     private fun displayFieldsAccordingRole(){
@@ -203,6 +210,86 @@ class EditProfileFragment : Fragment() {
         )
         countryDropDown.setAdapter(adapter)
     }
+
+    // -----------------Fields Errors -------------------------
+    private fun inputsVerifier(){
+        emailTextChangedListener()
+        /*passwordTextChangedListener()
+        validationPasswordTextChangedListener()
+        lastnameTextChangedListener()
+        firstnameTextChangedListener()
+        phoneTextChangedListener()
+        streetNameTextChangedListener()
+        streetNumberTextChangedListener()
+        localityTextChangedListener()
+        postalCodeTextChangedListener()
+        countrytextChangedListener()*/
+
+    }
+
+
+    private  fun displayErrorScreen(error: Error){
+        when(error){
+            Error.TECHNICAL_ERROR -> Toast.makeText(
+                    activity,
+                    R.string.technical_error,
+                    Toast.LENGTH_SHORT
+            ).show()
+            Error.NO_CONNECTION -> Toast.makeText(
+                    activity,
+                    R.string.connectivity_error,
+                    Toast.LENGTH_SHORT
+            ).show()
+            Error.REQUEST_ERROR -> Toast.makeText(
+                    activity,
+                    R.string.request_error,
+                    Toast.LENGTH_SHORT
+            ).show()
+            Error.USER_ALREADY_EXIST -> Toast.makeText(
+                    activity,
+                    R.string.user_already_exist,
+                    Toast.LENGTH_SHORT
+            ).show()
+            else -> {
+                isRegister = true
+            }
+        }
+    }
+
+    private fun showFieldsError(){
+        emailCheckError()
+    }
+
+    private fun emailTextChangedListener(){
+        binding.emailTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                emailCheckError()
+            }
+        })
+    }
+
+    private fun emailCheckError(){
+        if (binding.emailTextInputLayout.editText!!.text.isEmpty()) {
+            binding.emailTextInputLayout.setErrorEnabled(true)
+            binding.emailTextInputLayout.error = getString(R.string.email_empty_error)
+        } else {
+            if (!(Patterns.EMAIL_ADDRESS.matcher(binding.emailTextInputLayout.editText!!.text).matches())) {
+                binding.emailTextInputLayout.setErrorEnabled(true)
+                binding.emailTextInputLayout.error =  getString(R.string.email_format_error)
+            } else {
+                binding.emailTextInputLayout.setErrorEnabled(false)
+                binding.emailTextInputLayout.error = null
+            }
+        }
+    }
+
 
 
     // ----------------- Companion d'objet -------------------------

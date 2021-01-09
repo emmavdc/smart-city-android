@@ -1,8 +1,10 @@
 package com.smartcity.petsservices.ui.viewModel
 
 import android.app.Application
+import android.util.Patterns
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.smartcity.petsservices.model.Error
 import com.smartcity.petsservices.model.Token
@@ -33,8 +35,6 @@ class EditProfileViewModel (application: Application) : AndroidViewModel(applica
                     _error.value = Error.NO_ERROR
                 } else {
                     System.out.println("pas chouette " + response.code())
-                    //result.message = R.string.user_already_exist.toString()
-                    //result.code = response.code()
                     if (response.code() == 409)
                         _error.value = Error.USER_ALREADY_EXIST
                     else

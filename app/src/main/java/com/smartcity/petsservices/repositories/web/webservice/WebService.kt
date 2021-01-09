@@ -13,9 +13,6 @@ interface WebService {
     @POST("v2/users")
     fun postUser(@Body userDto: UserDto) : Call<TokenDto>
 
-    /*@GET("pizza/{pizzaId}")
-    fun getPizza(@Path("pizzaId") pizzaId: Int?): Call<PizzaDto?>?*/
-
     @POST("v2/users/actions/login")
     fun loginUser(@Body loginDto: LoginDto) : Call<TokenDto>
 
