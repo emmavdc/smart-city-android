@@ -69,7 +69,7 @@
                     android:width="30dp"
                     android:backgroundTint="@color/colorPrimary"
                     android:text="@string/absences_button"
-                    android:textSize="11dp" />
+                    android:textSize="10dp" />
 
                 <Button
                     android:id="@+id/animals_type_button"
@@ -77,10 +77,11 @@
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="1"
-                    android:layout_marginEnd="4dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="0dp"
                     android:backgroundTint="@color/colorPrimary"
                     android:text="@string/animal_type_button"
-                    android:textSize="11dp" />
+                    android:textSize="10dp" />
 
                 <Button
                     android:id="@+id/animals_button"
@@ -88,10 +89,10 @@
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="2"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
                     android:backgroundTint="@color/colorPrimary"
                     android:text="@string/animals_button"
-                    android:textSize="11dp" />
+                    android:textSize="10dp" />
             </GridLayout>
 
 

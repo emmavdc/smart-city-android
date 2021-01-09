@@ -23,16 +23,21 @@
     <!-- Title and field -->
     <string name="title_registration">Inscription</string>
     <string name="pets_services_title">Pets Services</string>
+    <string name="edit_profile_title">Modifier mon profil</string>
     <string name="email_title">Adresse mail*</string>
     <string name="email_registration">Adresse mail</string>
     <string name="password_title">Mot de passe*</string>
     <string name="password_registration">Mot de passe</string>
+    <string name="edit_password_title">Changer le mot de passe :</string>
+    <string name="new_password">Nouveau mot de passe</string>
+    <string name="confirmation_new_password">Confirmation mot de passe</string>
     <string name="validation_password_registration">Validation mot de passe*</string>
     <string name="name_registration">Nom et prénom*</string>
     <string name="latsname_registration">Nom</string>
     <string name="fisrtname_registration">Prénom</string>
     <string name="phone_registration">Numéro de téléphone*</string>
     <string name="adress_registration">Adresse*</string>
+    <string name="edit_adress">Mon adresse : </string>
     <string name="street_name_registration">Rue</string>
     <string name="city_registration">Ville</string>
     <string name="street_number_registration">Numéro</string>
@@ -40,6 +45,13 @@
     <string name="country_title">Pays*</string>
     <string name="country_registration">Pays</string>
     <string name="role_registration">Rôles (Sélectionnez au moins un rôle)</string>
+    <string name="edit_roles">Mes rôles :</string>
+    <string name="edit_profile_as_supplier">En tant qu\'offreur de service :</string>
+    <string name="edit_profile_supplier_slogan">Slogan</string>
+    <string name="edit_profile_supplier_commune">Commune</string>
+    <string name="edit_profile_supplier_weight_max">Poids maximum</string>
+    <string name="edit_profile_as_customer">En tant que demandeur de service :</string>
+    <string name="edit_profile_customer_commune">Commune</string>
     <!-- checkbox -->
     <string name="animal_walker_registration">Je promène</string>
     <string name="host_registration">J\'accueil</string>
@@ -50,6 +62,8 @@
     <!-- Button -->
     <string name="registration_back_button">Retour</string>
     <string name="registration_button">Je m\'inscris</string>
+    <string name="edit_profile_button">Valider</string>
+    <string name="cancelled_edit_profile_button">Annuler</string>
 
     <!-- Country -->
     <string name="country_belgique">Belgique</string>

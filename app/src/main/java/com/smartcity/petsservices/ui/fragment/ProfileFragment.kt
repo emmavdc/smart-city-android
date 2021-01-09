@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import com.smartcity.petsservices.R
 import com.smartcity.petsservices.databinding.FragmentProfileBinding
 import com.smartcity.petsservices.model.Error
@@ -39,12 +40,17 @@ class ProfileFragment : Fragment() {
         var exp  =sharedPref.getLong(getString(R.string.exp_date_payload), 0)!!
 
         // convert long in date
-        val exp_date = Date(exp  * 1000)
+        val exp_date = Date(exp * 1000)
        var jwt : Token =  Token(email, userId, exp_date, token)
 
 
         profileViewModel.error.observe(viewLifecycleOwner){ error: Error -> this.displayErrorScreen(
                 error)
+        }
+
+        binding.updateProfileButton.setOnClickListener {
+            //val editProfileFragment : Bundle = EditProfileFragment.newArguments
+            NavHostFragment.findNavController(this).navigate(R.id.action_profileFragment_to_editProfileFragment)
         }
 
         getUser(jwt)
@@ -58,7 +64,7 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
-    private fun displayErrorScreen(error : Error){
+    private fun displayErrorScreen(error: Error){
         binding.progressBar.visibility = View.GONE
         when(error){
             Error.NO_ERROR -> {
@@ -67,14 +73,14 @@ class ProfileFragment : Fragment() {
                 displayButtonsAccordingRole()
                 binding.errorLayout.visibility = View.GONE
             }
-            Error.REQUEST_ERROR ->{
+            Error.REQUEST_ERROR -> {
                 binding.errorLayout.visibility = View.VISIBLE
                 binding.connectivityError.visibility = View.GONE
                 binding.requestError.visibility = View.VISIBLE
                 binding.technicalError.visibility = View.GONE
                 binding.identity.visibility = View.GONE
             }
-            Error.TECHNICAL_ERROR ->{
+            Error.TECHNICAL_ERROR -> {
                 binding.errorLayout.visibility = View.VISIBLE
                 binding.connectivityError.visibility = View.GONE
                 binding.requestError.visibility = View.GONE
@@ -92,11 +98,11 @@ class ProfileFragment : Fragment() {
     }
 
     private fun displayButtonsAccordingRole(){
-        if(profileViewModel.user.value!!.supplier.isAnimalWalker != null || profileViewModel.user.value!!.supplier.isHost != null){
+        if(profileViewModel.user.value!!.supplier.isAnimalWalker || profileViewModel.user.value!!.supplier.isHost){
             binding.absencesButton.visibility = View.VISIBLE
             binding.animalsTypeButton.visibility = View.VISIBLE
         }
-        if(profileViewModel.user.value!!.customer.searchHost != null || profileViewModel.user.value!!.customer.searchWalker != null){
+        if(profileViewModel.user.value!!.customer.searchHost || profileViewModel.user.value!!.customer.searchWalker){
             binding.animalsButton.visibility = View.VISIBLE
         }
     }
@@ -108,7 +114,7 @@ class ProfileFragment : Fragment() {
         if(profileViewModel.user.value!!.supplier.weightMax == null){
             binding.weightMax.visibility = View.GONE
         }
-        if(profileViewModel.user.value!!.supplier.isAnimalWalker == null && profileViewModel.user.value!!.supplier.isHost == null){
+        if(!(profileViewModel.user.value!!.supplier.isAnimalWalker) && !(profileViewModel.user.value!!.supplier.isHost)){
             binding.evaluations.visibility = View.GONE
         }
     }
