@@ -361,6 +361,7 @@
                     android:layout_margin="20dp"
                     app:boxStrokeColor = "@color/colorPrimary"
                     app:hintTextColor="@color/colorPrimary"
+                    app:endIconMode="clear_text"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -379,6 +380,7 @@
                     android:layout_margin="20dp"
                     app:boxStrokeColor = "@color/colorPrimary"
                     app:hintTextColor="@color/colorPrimary"
+                    app:endIconMode="clear_text"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -397,6 +399,7 @@
                     android:layout_margin="20dp"
                     app:boxStrokeColor = "@color/colorPrimary"
                     app:hintTextColor="@color/colorPrimary"
+                    app:endIconMode="clear_text"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -433,6 +436,7 @@
                     android:layout_margin="20dp"
                     app:boxStrokeColor = "@color/colorPrimary"
                     app:hintTextColor="@color/colorPrimary"
+                    app:endIconMode="clear_text"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
