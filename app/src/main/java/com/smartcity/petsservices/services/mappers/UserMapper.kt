@@ -25,14 +25,37 @@ object UserMapper {
     }
 
     private fun mapToCustomerDto(customer: Customer) : CustomerDto{
-        return CustomerDto(customer.commune, customer.searchWalker, customer.searchHost)
+        return CustomerDto(customer.locality, customer.searchWalker, customer.searchHost)
     }
 
     private fun mapToSupplierDto(supplier: Supplier) : SupplierDto{
         return SupplierDto(supplier.isHost,
                 supplier.isAnimalWalker,
                 supplier.slogan,
-                supplier.commune,
+                supplier.locality,
                 supplier.weightMax)
+    }
+
+    fun mapToUser(userDto: UserDto) : User{
+        return User(userDto.email,
+                userDto.password,
+                userDto.firstname,
+                userDto.lastname,
+                userDto.phone,
+                userDto.locality,
+                userDto.postalCode, userDto.streetNumber, userDto.streetName, userDto.country, userDto.picture, mapToCustomer(userDto.customer), mapToSupplier(userDto.supplier))
+
+    }
+
+    fun mapToCustomer(customerDto: CustomerDto) :Customer{
+        return Customer(customerDto.locality, customerDto.searchWalker, customerDto.searchHost)
+    }
+
+    fun mapToSupplier(supplierDto: SupplierDto) :Supplier{
+        return Supplier(supplierDto.isHost,
+                supplierDto.isAnimalWalker,
+                supplierDto.slogan,
+                supplierDto.locality,
+                supplierDto.weightMax)
     }
 }

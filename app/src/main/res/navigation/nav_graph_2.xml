@@ -15,6 +15,10 @@
             android:id="@+id/action_profileFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
 
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+
     </fragment>
 
     <fragment
@@ -25,6 +29,18 @@
 
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.smartcity.petsservices.ui.fragment.EditProfileFragment"
+        android:label="edit_fragment"
+        tools:layout="@layout/fragment_edit_profile">
+
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
 
     </fragment>

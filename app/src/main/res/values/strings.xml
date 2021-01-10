@@ -16,22 +16,28 @@
     <string name="login_email">Adresse mail</string>
     <string name="login_password">Mot de passe</string>
     <string name="login_connection_button">Connexion</string>
-    <string name="login_registration">Pas encore de compte ? Inscrivez-vous !</string>
+    <string name="login_registration"><u>Pas encore de compte ? Inscrivez-vous !</u></string>
 
     <!-- Inscription screen -->
     <string name="required">* Champs requis</string>
     <!-- Title and field -->
     <string name="title_registration">Inscription</string>
+    <string name="pets_services_title">Pets Services</string>
+    <string name="edit_profile_title">Modifier mon profil</string>
     <string name="email_title">Adresse mail*</string>
     <string name="email_registration">Adresse mail</string>
     <string name="password_title">Mot de passe*</string>
     <string name="password_registration">Mot de passe</string>
+    <string name="edit_password_title">Changer le mot de passe :</string>
+    <string name="new_password">Nouveau mot de passe</string>
+    <string name="confirmation_new_password">Confirmation mot de passe</string>
     <string name="validation_password_registration">Validation mot de passe*</string>
     <string name="name_registration">Nom et prénom*</string>
     <string name="latsname_registration">Nom</string>
     <string name="fisrtname_registration">Prénom</string>
     <string name="phone_registration">Numéro de téléphone*</string>
     <string name="adress_registration">Adresse*</string>
+    <string name="edit_adress">Mon adresse : </string>
     <string name="street_name_registration">Rue</string>
     <string name="city_registration">Ville</string>
     <string name="street_number_registration">Numéro</string>
@@ -39,6 +45,15 @@
     <string name="country_title">Pays*</string>
     <string name="country_registration">Pays</string>
     <string name="role_registration">Rôles (Sélectionnez au moins un rôle)</string>
+    <string name="edit_roles">Mes rôles :</string>
+    <string name="edit_profile_as_supplier">En tant qu\'offreur de service :</string>
+    <string name="edit_profile_supplier_slogan">Slogan</string>
+    <string name="edit_profile_supplier_commune">Commune</string>
+    <string name="edit_profile_supplier_weight_max">Poids maximum</string>
+    <string name="edit_profile_as_customer">En tant que demandeur de service :</string>
+    <string name="edit_profile_customer_commune">Commune</string>
+    <string name="inscription">Vous êtes inscrit !</string>
+
     <!-- checkbox -->
     <string name="animal_walker_registration">Je promène</string>
     <string name="host_registration">J\'accueil</string>
@@ -49,6 +64,8 @@
     <!-- Button -->
     <string name="registration_back_button">Retour</string>
     <string name="registration_button">Je m\'inscris</string>
+    <string name="edit_profile_button">Valider</string>
+    <string name="cancelled_edit_profile_button">Annuler</string>
 
     <!-- Country -->
     <string name="country_belgique">Belgique</string>
@@ -78,6 +95,7 @@
     <string name="postale_code_format_error">Code postal incorrect</string>
     <string name="postale_code_empty_error">Code postal requis !</string>
     <string name="country_error">Pays requis !</string>
+    <string name="weight_max_format_error">Poids maximum incorrect</string>
 
 
     <!-- Registration Message -->
@@ -96,6 +114,7 @@
     <string name="email_payload">email</string>
     <string name="exp_date_payload">expDate</string>
     <string name="user_id_payload">userId</string>
+    <string name="token">token</string>
 
     <!-- Profile -->
     <string name="edit_profile_registration">Mon profil</string>
@@ -109,12 +128,23 @@
 
     <!-- Bottom navigation menu -->
     <string name="home_space">Accueil</string>
+    <string name="interraction_between_user"><u>L\'interaction avec les autres utilisateurs <b>sera bientôt disponible!</b></u></string>
     <string name="profile_space">Profil</string>
-    <string name="locality_space">Commune :</string>
-    <string name="slogan_space">Slogan :</string>
+    <string name="firstname_space">%1$s</string>
+    <string name="lastname_space">%1$s</string>
+    <string name="locality_space">Commune : %1$s</string>
+    <string name="slogan_space">Slogan : %1$s</string>
     <string name="review_space">Mes avis :</string>
-    <string name="rating_space">Mes notes :</string>
+    <string name="rating_space">Mes notes : %1$s</string>
+    <string name="weight_max_space">Poids maximum d\'un animal : %1$s kg</string>
 
+    <!-- Bearer -->
+    <string name="bearer">Bearer </string>
 
+    <!-- sharedPref -->
+    <string name="sharedPref">sharedPref </string>
+
+    <!--ARGS-->
+    <string name="EMPTY"> </string>
 
 </resources>

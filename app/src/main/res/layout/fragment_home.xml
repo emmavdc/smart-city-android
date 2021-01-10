@@ -7,13 +7,11 @@
 
     </data>
 
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        tools:context=".ui.fragment.RegistrationFragment">
+        tools:context=".ui.fragment.HomeFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,48 +24,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Test"
+                android:text="@string/pets_services_title"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="5dp"
                 android:textStyle ="bold"
                 android:textColor="@color/black"
                 android:textSize="30dp"/>
 
-            <GridLayout android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/interraction_between_user"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:rowCount="1"
-                android:columnCount="3"
-                >
-                <Button
-                    android:id="@+id/absences_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/absences_button"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:textSize="11dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:layout_gravity="right"/>
-                <Button
-                    android:id="@+id/animals_type_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/animal_type_button"
-                    android:layout_marginEnd="20dp"
-                    android:textSize="11dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:layout_gravity="right"/>
-                <Button
-                    android:id="@+id/animals_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/animals_button"
-                    android:layout_marginEnd="20dp"
-                    android:textSize="11dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:layout_gravity="right"/>
-            </GridLayout>
+                android:gravity="center"
+                android:text="@string/interraction_between_user"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="100dp"
+                android:textStyle ="bold"
+                android:textColor="@color/red"
+                android:textSize="14dp"/>
 
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="530dp"
+                android:columnCount="2"
+                android:rowCount="2">
+
+                <Button
+                    android:id="@+id/host_registration"
+                    android:layout_width="175dp"
+                    android:layout_height="137dp"
+                    android:layout_margin="20dp"
+                    android:text="@string/host_registration"
+                    android:textSize="11dp"
+                    android:backgroundTint="@color/colorPrimary"
+                   />
+
+                <Button
+                    android:id="@+id/animal_walker_registration"
+                    android:layout_width="175dp"
+                    android:layout_height="137dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/animal_walker_registration"
+                    android:textSize="11dp" />
+
+                <Button
+                    android:id="@+id/search_host_registration"
+                    android:layout_width="175dp"
+                    android:layout_height="137dp"
+                    android:layout_margin="20dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/search_host_registration"
+                    android:textSize="11dp" />
+
+                <Button
+                    android:id="@+id/search_walker_registration"
+                    android:layout_width="175dp"
+                    android:layout_height="137dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/search_walker_registration"
+                    android:textSize="10dp" />
+            </GridLayout>
         </LinearLayout>
     </ScrollView>
 

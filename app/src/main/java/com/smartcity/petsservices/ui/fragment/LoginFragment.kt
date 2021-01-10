@@ -13,7 +13,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.textfield.TextInputLayout
 import com.smartcity.petsservices.R
 import com.smartcity.petsservices.databinding.FragmentLoginBinding
 import com.smartcity.petsservices.model.Error
@@ -23,19 +22,12 @@ import com.smartcity.petsservices.ui.activity.MainActivity
 import com.smartcity.petsservices.ui.viewModel.LoginViewModel
 
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class LoginFragment : Fragment() {
 
-    // TextInputLayout
-    lateinit var emailTextInputLayout: TextInputLayout
-    lateinit var passwordTextInputLayout: TextInputLayout
-    // Edit Text
+
     lateinit var emailEditText: EditText
     lateinit var passwordEditText: EditText
 
-    //SharedPreferences
     lateinit var sharedPref : SharedPreferences
 
     private lateinit var binding : FragmentLoginBinding
@@ -48,13 +40,8 @@ class LoginFragment : Fragment() {
         binding.viewModel = loginViewModel
         binding.lifecycleOwner = this
 
-        // get preferences
-        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getSharedPreferences(getString(R.string.sharedPref), Context.MODE_PRIVATE);
 
-        // TextInputLayout
-        emailTextInputLayout = binding.emailTextInputLayout
-        passwordTextInputLayout = binding.passwordTextInputLayout
-        //EditText
         emailEditText = binding.emailTextInputLayout.editText!!
         passwordEditText = binding.passwordTextInputLayout.editText!!
 
@@ -77,8 +64,6 @@ class LoginFragment : Fragment() {
             goToProfileActivity()
         }
 
-
-
         return binding.root
     }
 
@@ -87,6 +72,7 @@ class LoginFragment : Fragment() {
         var editor : SharedPreferences.Editor = sharedPref.edit()
         editor.putString(getString(R.string.email_payload), token.email)
         editor.putInt(getString(R.string.user_id_payload), token.userId!!)
+        editor.putString(getString(R.string.token), token.token)
         editor.putLong(getString(R.string.exp_date_payload), token.expDate!!.getTime()).apply()
     }
 
@@ -110,7 +96,7 @@ class LoginFragment : Fragment() {
             ).show()
             Error.BAD_CREDENTIALS -> Toast.makeText(
                 activity,
-                R.string.request_error,
+                R.string.bad_credentials,
                 Toast.LENGTH_SHORT
             ).show()
             else -> {
