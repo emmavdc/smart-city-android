@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.textfield.TextInputLayout
 import com.smartcity.petsservices.R
 import com.smartcity.petsservices.databinding.FragmentRegistrationBinding
 import com.smartcity.petsservices.model.*
@@ -25,42 +24,12 @@ import com.smartcity.petsservices.ui.viewModel.RegistrationViewModel
 import java.util.regex.Pattern
 
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
+
 class RegistrationFragment : Fragment() {
 
     lateinit var binding: FragmentRegistrationBinding
     lateinit var registrationViewModel : RegistrationViewModel
-    // TextInputLayout
-    lateinit var emailTextInputLayout: TextInputLayout
-    lateinit var passwordTextInputLayout: TextInputLayout
-    lateinit var passwordValidationTextInputLayout: TextInputLayout
-    lateinit var firstnameTextInputLayout: TextInputLayout
-    lateinit var lastnameTextInputLayout: TextInputLayout
-    lateinit var phoneTextInputLayout: TextInputLayout
-    lateinit var streetNumberTextInputLayout: TextInputLayout
-    lateinit var streetNameTextInputLayout: TextInputLayout
-    lateinit var cityTextInputLayout: TextInputLayout
-    lateinit var postalCodeTextInputLayout: TextInputLayout
-    lateinit var countryTextInputLayout: TextInputLayout
-    // Edit Text
-    lateinit var emailEditText: EditText
-    lateinit var passwordEditText: EditText
-    lateinit var passwordValidationEditText: EditText
-    lateinit var firstnameEditText: EditText
-    lateinit var lastnameEditText: EditText
-    lateinit var phoneEditText: EditText
-    lateinit var streetNumberEditText: EditText
-    lateinit var streetNameEditText: EditText
-    lateinit var cityEditText: EditText
-    lateinit var postalCodeEditText: EditText
-    lateinit var countryDropDown :AutoCompleteTextView
-    // Check Box
-    lateinit var isHostCheckBox: CheckBox
-    lateinit var isAnimalWalkerCheckBox: CheckBox
-    lateinit var searchAnimalWalkerCheckBox: CheckBox
-    lateinit var searchHostCheckBox: CheckBox
+    lateinit var countryDropDown : AutoCompleteTextView
 
     // check form
     var isValidateEmail : Boolean = false
@@ -75,10 +44,7 @@ class RegistrationFragment : Fragment() {
     var isValidatePostalCode : Boolean = false
     var isRegister : Boolean = false
 
-    //SharedPreferences
     lateinit var sharedPref : SharedPreferences
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,42 +57,9 @@ class RegistrationFragment : Fragment() {
         binding.viewModel = registrationViewModel
         binding.lifecycleOwner = this
 
-        // get preferences
         sharedPref = requireActivity().getSharedPreferences(getString(R.string.sharedPref), Context.MODE_PRIVATE);
-
-        // TextInputLayout
-        emailTextInputLayout = binding.emailTextInputLayout
-        passwordTextInputLayout = binding.passwordTextInputLayout
-        passwordValidationTextInputLayout = binding.validationPasswordTextInputLayout
-        firstnameTextInputLayout = binding.firstnameTextInputLayout
-        lastnameTextInputLayout = binding.lastnameTextInputLayout
-        phoneTextInputLayout = binding.phoneTextInputLayout
-        streetNumberTextInputLayout = binding.streetNumberTextInputLayout
-        streetNameTextInputLayout = binding.streetNameTextInputLayout
-        cityTextInputLayout = binding.cityTextInputLayout
-        postalCodeTextInputLayout = binding.postalCodeTextInputLayout
-        countryTextInputLayout = binding.countryTextInputLayout
-
-        //EditText
-        emailEditText = binding.emailTextInputLayout.editText!!
-        passwordEditText = binding.passwordTextInputLayout.editText!!
-        passwordValidationEditText = binding.validationPasswordTextInputLayout.editText!!
-        firstnameEditText = binding.firstnameTextInputLayout.editText!!
-        lastnameEditText = binding.lastnameTextInputLayout.editText!!
-        phoneEditText = binding.phoneTextInputLayout.editText!!
-        streetNumberEditText = binding.streetNumberTextInputLayout.editText!!
-        streetNameEditText = binding.streetNameTextInputLayout.editText!!
-        cityEditText = binding.cityTextInputLayout.editText!!
-        postalCodeEditText = binding.postalCodeTextInputLayout.editText!!
         countryDropDown = binding.countryDropdown
 
-        // CHeck Box
-        isHostCheckBox = binding.checkboxHost
-        isAnimalWalkerCheckBox = binding.checkboxAnimalWalker
-        searchHostCheckBox = binding.checkboxSearchHost
-        searchAnimalWalkerCheckBox = binding.checkboxSearchWalker
-
-        // init country dropdown
         initCountryDropDown()
 
         // Back button
@@ -218,14 +151,13 @@ class RegistrationFragment : Fragment() {
         )
             if(isRegister){
 
-                Toast.makeText(activity, "Vous êtes inscrit !", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString((R.string.inscription)), Toast.LENGTH_SHORT).show()
             }
         }
 
         registrationViewModel.jwt.observe(viewLifecycleOwner){ token: Token -> this.savePreferedValue(
             token
         )
-            //navigate here ?
             goToProfileActivity()
         }
 
@@ -240,19 +172,6 @@ class RegistrationFragment : Fragment() {
     private fun addSuppplier(isHost: Boolean, isAnimalWalker: Boolean) : Supplier {
         var supplier = Supplier(isHost, isAnimalWalker, null, null, null)
         return supplier
-    }
-
-    private fun fillFields(){
-        //emailEditText.setText("samy.demarthe@domain.be")
-        passwordEditText.setText("235")
-        firstnameEditText.setText("Samy");
-        lastnameEditText.setText("Demarthe");
-        passwordValidationEditText.setText("235");
-        phoneEditText.setText("0497898965");
-        streetNameEditText.setText("Rue de l'Ecluse");
-        streetNumberEditText.setText("12");
-        cityEditText.setText("Lobbes");
-        postalCodeEditText.setText("6540");
     }
 
     // ----------------- Country Dropdown -------------------------
@@ -334,10 +253,10 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun validateRoles():Boolean{
-        return isHostCheckBox.isChecked
-                || isAnimalWalkerCheckBox.isChecked
-                || searchAnimalWalkerCheckBox.isChecked
-                || searchHostCheckBox.isChecked
+        return binding.checkboxHost.isChecked
+                || binding.checkboxAnimalWalker.isChecked
+                || binding.checkboxSearchWalker.isChecked
+                || binding.checkboxSearchHost.isChecked
     }
 
     private fun showFieldsError(){
@@ -371,7 +290,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun emailTextChangedListener(){
-        emailEditText.addTextChangedListener(object : TextWatcher {
+        binding.emailTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -386,7 +305,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun passwordTextChangedListener(){
-        passwordEditText.addTextChangedListener(object : TextWatcher {
+        binding.passwordTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -401,7 +320,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun validationPasswordTextChangedListener(){
-        passwordValidationEditText.addTextChangedListener(object : TextWatcher {
+        binding.validationPasswordTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -416,7 +335,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun lastnameTextChangedListener(){
-        lastnameEditText.addTextChangedListener(object : TextWatcher {
+        binding.lastnameTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -431,7 +350,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun firstnameTextChangedListener(){
-        firstnameEditText.addTextChangedListener(object : TextWatcher {
+        binding.firstnameTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -446,7 +365,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun phoneTextChangedListener(){
-        phoneEditText.addTextChangedListener(object : TextWatcher {
+        binding.phoneTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -461,7 +380,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun streetNameTextChangedListener(){
-        streetNameEditText.addTextChangedListener(object : TextWatcher {
+        binding.streetNameTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -476,7 +395,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun streetNumberTextChangedListener(){
-        streetNumberEditText.addTextChangedListener(object : TextWatcher {
+        binding.streetNumberTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -491,7 +410,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun localityTextChangedListener(){
-        cityEditText.addTextChangedListener(object : TextWatcher {
+        binding.cityTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -506,7 +425,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun postalCodeTextChangedListener(){
-        postalCodeEditText.addTextChangedListener(object : TextWatcher {
+        binding.postalCodeTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -537,157 +456,155 @@ class RegistrationFragment : Fragment() {
 
 
     private fun emailCheckError(){
-        if (emailEditText.text.isEmpty()) {
-            emailTextInputLayout.setErrorEnabled(true)
-            emailTextInputLayout.error = getString(R.string.email_empty_error)
+        if (binding.emailTextInputLayout.editText!!.text.isEmpty()) {
+            binding.emailTextInputLayout.setErrorEnabled(true)
+            binding.emailTextInputLayout.error = getString(R.string.email_empty_error)
         } else {
-            if (!(Patterns.EMAIL_ADDRESS.matcher(emailEditText.text).matches())) {
-                emailTextInputLayout.setErrorEnabled(true)
-                emailTextInputLayout.error =  getString(R.string.email_format_error)
+            if (!(Patterns.EMAIL_ADDRESS.matcher(binding.emailTextInputLayout.editText!!.text).matches())) {
+                binding.emailTextInputLayout.setErrorEnabled(true)
+                binding.emailTextInputLayout.error =  getString(R.string.email_format_error)
             } else {
-                emailTextInputLayout.setErrorEnabled(false)
-                emailTextInputLayout.error = null
+                binding.emailTextInputLayout.setErrorEnabled(false)
+                binding.emailTextInputLayout.error = null
             }
         }
     }
 
     private fun passwordCheckError(){
-        if (passwordEditText.text.isEmpty()) {
-            passwordTextInputLayout.setErrorEnabled(true)
-            passwordTextInputLayout.error = getString(R.string.password_empty_error)
+        if (binding.passwordTextInputLayout.editText!!.text.isEmpty()) {
+            binding.passwordTextInputLayout.setErrorEnabled(true)
+            binding.passwordTextInputLayout.error = getString(R.string.password_empty_error)
         } else {
-            passwordTextInputLayout.setErrorEnabled(true)
-            passwordTextInputLayout.error = null
+            binding.passwordTextInputLayout.setErrorEnabled(true)
+            binding.passwordTextInputLayout.error = null
         }
     }
 
     private fun validationPasswordCheckError(){
-        if (passwordValidationEditText.text.isEmpty()) {
-            passwordValidationTextInputLayout.setErrorEnabled(true)
-            passwordValidationTextInputLayout.error = getString(R.string.validation_password_empty_error)
+        if (binding.validationPasswordTextInputLayout.editText!!.text.isEmpty()) {
+            binding.validationPasswordTextInputLayout.setErrorEnabled(true)
+            binding.validationPasswordTextInputLayout.error = getString(R.string.validation_password_empty_error)
         } else {
-            if (!((passwordValidationEditText.text.toString()).equals(passwordEditText.text.toString()))) {
-                passwordValidationTextInputLayout.setErrorEnabled(true)
-                passwordValidationTextInputLayout.error = getString(R.string.validation_password_format_error)
+            if (!((binding.validationPasswordTextInputLayout.editText!!.text.toString()).equals(binding.passwordTextInputLayout.editText!!.text.toString()))) {
+                binding.validationPasswordTextInputLayout.setErrorEnabled(true)
+                binding.validationPasswordTextInputLayout.error = getString(R.string.validation_password_format_error)
             }
             else {
-                passwordValidationTextInputLayout.setErrorEnabled(false)
-                passwordValidationTextInputLayout.error = null
+                binding.validationPasswordTextInputLayout.setErrorEnabled(false)
+                binding.validationPasswordTextInputLayout.error = null
             }
         }
     }
 
     private fun lastnameCheckError(){
-        if (lastnameEditText.text.isEmpty()) {
-            lastnameTextInputLayout.setErrorEnabled(true)
-            lastnameTextInputLayout.error = getString(R.string.lastname_empty_error)
+        if (binding.lastnameTextInputLayout.editText!!.text.isEmpty()) {
+            binding.lastnameTextInputLayout.setErrorEnabled(true)
+            binding.lastnameTextInputLayout.error = getString(R.string.lastname_empty_error)
         } else {
-            if (!(Pattern.compile("^[a-zéèçàïôëA-Z]{1,50}(-| )?([a-zéèçàïôëA-Z]{1,50})?$").matcher(
-                    lastnameEditText.text
+            if (!(Pattern.compile("^[a-zéèçàïôëA-Z]{1,50}(-| )?([a-zéèçàïôëA-Z]{1,50})?$").matcher(binding.lastnameTextInputLayout.editText!!.text
                 ).matches())) {
-                lastnameTextInputLayout.setErrorEnabled(true)
-                lastnameTextInputLayout.error = getString(R.string.lastname_format_error)
+                binding.lastnameTextInputLayout.setErrorEnabled(true)
+                binding.lastnameTextInputLayout.error = getString(R.string.lastname_format_error)
             } else {
-                lastnameTextInputLayout.setErrorEnabled(false)
-                lastnameTextInputLayout.error = null
+                binding.lastnameTextInputLayout.setErrorEnabled(false)
+                binding.lastnameTextInputLayout.error = null
             }
         }
     }
 
     private fun firstnameCheckError(){
-        if (firstnameEditText.text.isEmpty()) {
-            firstnameTextInputLayout.setErrorEnabled(true)
-            firstnameTextInputLayout.error = getString(R.string.firstname_empty_error)
+        if (binding.firstnameTextInputLayout.editText!!.text.isEmpty()) {
+            binding.firstnameTextInputLayout.setErrorEnabled(true)
+            binding.firstnameTextInputLayout.error = getString(R.string.firstname_empty_error)
         } else {
             if (!(Pattern.compile("^[a-zéèçàïôëA-Z]{1,50}(-| )?([a-zéèçàïôëA-Z]{1,50})?$").matcher(
-                    firstnameEditText.text
+                            binding.firstnameTextInputLayout.editText!!.text
                 ).matches())) {
-                firstnameTextInputLayout.setErrorEnabled(true)
-                firstnameTextInputLayout.error = getString(R.string.firstname_format_error)
+                binding.firstnameTextInputLayout.setErrorEnabled(true)
+                binding.firstnameTextInputLayout.error = getString(R.string.firstname_format_error)
             } else {
-                firstnameTextInputLayout.setErrorEnabled(false)
-                firstnameTextInputLayout.error = null
+                binding.firstnameTextInputLayout.setErrorEnabled(false)
+                binding.firstnameTextInputLayout.error = null
             }
         }
     }
 
     private fun phoneCheckError(){
-        if (phoneEditText.text.isEmpty()) {
-            phoneTextInputLayout.setErrorEnabled(true)
-            phoneTextInputLayout.error = getString(R.string.phone_empty_error)
+        if (binding.phoneTextInputLayout.editText!!.text.isEmpty()) {
+            binding.phoneTextInputLayout.setErrorEnabled(true)
+            binding.phoneTextInputLayout.error = getString(R.string.phone_empty_error)
         } else {
-            if (!(Patterns.PHONE.matcher(phoneEditText.text).matches())) {
-                phoneTextInputLayout.setErrorEnabled(true)
-                phoneTextInputLayout.error = getString(R.string.phone_format_error)
+            if (!(Patterns.PHONE.matcher(binding.phoneTextInputLayout.editText!!.text).matches())) {
+                binding.phoneTextInputLayout.setErrorEnabled(true)
+                binding.phoneTextInputLayout.error = getString(R.string.phone_format_error)
             } else {
-                phoneTextInputLayout.setErrorEnabled(false)
-                phoneTextInputLayout.error = null
+                binding.phoneTextInputLayout.setErrorEnabled(false)
+                binding.phoneTextInputLayout.error = null
             }
         }
     }
 
     private fun streetNameCheckError(){
-        if (streetNameEditText.text.isEmpty()) {
-            streetNameTextInputLayout.setErrorEnabled(true)
-            streetNameTextInputLayout.error = getString(R.string.street_name_empty_error)
+        if (binding.streetNameTextInputLayout.editText!!.text.isEmpty()) {
+            binding.streetNameTextInputLayout.setErrorEnabled(true)
+            binding.streetNameTextInputLayout.error = getString(R.string.street_name_empty_error)
         }
         else {
-            if (!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(
-                    streetNameEditText.text
+            if (!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(binding.streetNameTextInputLayout.editText!!.text
                 ).matches())) {
-                streetNameTextInputLayout.setErrorEnabled(true)
-                streetNameTextInputLayout.error = getString(R.string.street_name_format_error)
+                binding.streetNameTextInputLayout.setErrorEnabled(true)
+                binding.streetNameTextInputLayout.error = getString(R.string.street_name_format_error)
             } else {
-                streetNameTextInputLayout.setErrorEnabled(false)
-                streetNameTextInputLayout.error = null
+                binding.streetNameTextInputLayout.setErrorEnabled(false)
+                binding.streetNameTextInputLayout.error = null
 
             }
         }
     }
 
     private fun streetNumberCheckError(){
-        if (streetNumberEditText.text.isEmpty()) {
-            streetNumberTextInputLayout.setErrorEnabled(true)
-            streetNumberTextInputLayout.error = getString(R.string.street_number_empty_error)
+        if (binding.streetNumberTextInputLayout.editText!!.text.isEmpty()) {
+            binding.streetNumberTextInputLayout.setErrorEnabled(true)
+            binding.streetNumberTextInputLayout.error = getString(R.string.street_number_empty_error)
         } else {
-            if (!( Pattern.compile("^(\\d{1,3})\\w{0,3}\$").matcher(streetNumberEditText.text).matches())){
-                streetNumberTextInputLayout.setErrorEnabled(true)
-                streetNumberTextInputLayout.error = getString(R.string.street_number_format_error)
+            if (!( Pattern.compile("^(\\d{1,3})\\w{0,3}\$").matcher(binding.streetNumberTextInputLayout.editText!!.text).matches())){
+                binding.streetNumberTextInputLayout.setErrorEnabled(true)
+                binding.streetNumberTextInputLayout.error = getString(R.string.street_number_format_error)
             }
             else {
-                streetNumberTextInputLayout.setErrorEnabled(false)
-                streetNumberTextInputLayout.error = null
+                binding.streetNumberTextInputLayout.setErrorEnabled(false)
+                binding.streetNumberTextInputLayout.error = null
             }
         }
     }
 
     private fun localityCheckError(){
-        if (cityEditText.text.isEmpty()) {
-            cityTextInputLayout.setErrorEnabled(true)
-            cityTextInputLayout.error = getString(R.string.locality_empty_error)
+        if (binding.cityTextInputLayout.editText!!.text.isEmpty()) {
+            binding.cityTextInputLayout.setErrorEnabled(true)
+            binding.cityTextInputLayout.error = getString(R.string.locality_empty_error)
         } else {
-            if (!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(cityEditText.text).matches())) {
-                cityTextInputLayout.setErrorEnabled(true)
-                cityTextInputLayout.error = getString(R.string.locality_format_error)
+            if (!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(binding.cityTextInputLayout.editText!!.text).matches())) {
+                binding.cityTextInputLayout.setErrorEnabled(true)
+                binding.cityTextInputLayout.error = getString(R.string.locality_format_error)
             } else {
-                cityTextInputLayout.setErrorEnabled(false)
-                cityTextInputLayout.error = null
+                binding.cityTextInputLayout.setErrorEnabled(false)
+                binding.cityTextInputLayout.error = null
 
             }
         }
     }
 
     private fun postalCodeCheckError(){
-        if (postalCodeEditText.text.isEmpty()) {
-            postalCodeTextInputLayout.setErrorEnabled(true)
-            postalCodeTextInputLayout.error = getString(R.string.postale_code_empty_error)
+        if (binding.postalCodeTextInputLayout.editText!!.text.isEmpty()) {
+            binding.postalCodeTextInputLayout.setErrorEnabled(true)
+            binding.postalCodeTextInputLayout.error = getString(R.string.postale_code_empty_error)
         } else {
-            if (!(Pattern.compile("^(\\d{4,10})\$").matcher(postalCodeEditText.text).matches())) {
-                postalCodeTextInputLayout.setErrorEnabled(true)
-                postalCodeTextInputLayout.error = getString(R.string.postale_code_format_error)
+            if (!(Pattern.compile("^(\\d{4,10})\$").matcher(binding.postalCodeTextInputLayout.editText!!.text).matches())) {
+                binding.postalCodeTextInputLayout.setErrorEnabled(true)
+                binding.postalCodeTextInputLayout.error = getString(R.string.postale_code_format_error)
             } else {
-                postalCodeTextInputLayout.setErrorEnabled(true)
-                postalCodeTextInputLayout.error = null
+                binding.postalCodeTextInputLayout.setErrorEnabled(true)
+                binding.postalCodeTextInputLayout.error = null
 
             }
         }
@@ -695,12 +612,12 @@ class RegistrationFragment : Fragment() {
 
     private fun countryCheckError(){
         if(countryDropDown.text.toString() == getString(R.string.EMPTY)){
-            countryTextInputLayout.setErrorEnabled(true)
-            countryTextInputLayout.error = getString(R.string.country_error)
+            binding.countryTextInputLayout.setErrorEnabled(true)
+            binding.countryTextInputLayout.error = getString(R.string.country_error)
         }
         else{
-            countryTextInputLayout.setErrorEnabled(false)
-            countryTextInputLayout.error = null
+            binding.countryTextInputLayout.setErrorEnabled(false)
+            binding.countryTextInputLayout.error = null
         }
     }
 
@@ -713,19 +630,19 @@ class RegistrationFragment : Fragment() {
     private fun addUser(){
 
 
-            var email: String = emailEditText.text.toString()
-            var password: String = passwordEditText.text.toString()
-            var firstname: String = firstnameEditText.text.toString()
-            var lastname: String = lastnameEditText.text.toString()
-            var phone: String = phoneEditText.text.toString()
-            var streetNumber: String = streetNumberEditText.text.toString()
-            var streetName: String = streetNameEditText.text.toString()
-            var locality: String = cityEditText.text.toString()
-            var postalCode: Int = (postalCodeEditText.text.toString()).toInt()
-            var isHost: Boolean = isHostCheckBox.isChecked
-            var isAnimalWalker: Boolean = isAnimalWalkerCheckBox.isChecked
-            var searchHost: Boolean = searchHostCheckBox.isChecked
-            var searchAnimalWalker: Boolean = searchAnimalWalkerCheckBox.isChecked
+            var email: String = binding.emailTextInputLayout.editText!!.text.toString()
+            var password: String = binding.passwordTextInputLayout.editText!!.text.toString()
+            var firstname: String = binding.firstnameTextInputLayout.editText!!.text.toString()
+            var lastname: String = binding.lastnameTextInputLayout.editText!!.text.toString()
+            var phone: String = binding.phoneTextInputLayout.editText!!.text.toString()
+            var streetNumber: String = binding.streetNumberTextInputLayout.editText!!.text.toString()
+            var streetName: String = binding.streetNameTextInputLayout.editText!!.text.toString()
+            var locality: String = binding.cityTextInputLayout.editText!!.text.toString()
+            var postalCode: Int = (binding.postalCodeTextInputLayout.editText!!.text.toString()).toInt()
+            var isHost: Boolean = binding.checkboxHost.isChecked
+            var isAnimalWalker: Boolean = binding.checkboxAnimalWalker.isChecked
+            var searchHost: Boolean = binding.checkboxSearchHost.isChecked
+            var searchAnimalWalker: Boolean = binding.checkboxSearchWalker.isChecked
             var country : String = countryDropDown.text.toString()
 
             var customer: Customer = addCustomer(searchHost, searchAnimalWalker)
@@ -746,9 +663,6 @@ class RegistrationFragment : Fragment() {
                 customer,
                 supplier
             )
-
-            //return user
-
             AddUserTask().execute(user)
     }
 
@@ -759,12 +673,6 @@ class RegistrationFragment : Fragment() {
 
             return users[0].firstname
         }
-
-        /*override fun onPostExecute(user: String) {
-            Toast.makeText(activity!!.applicationContext, "${user}", Toast.LENGTH_SHORT).show()
-
-        }*/
-
     }
 
 

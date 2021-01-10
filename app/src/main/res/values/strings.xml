@@ -52,6 +52,8 @@
     <string name="edit_profile_supplier_weight_max">Poids maximum</string>
     <string name="edit_profile_as_customer">En tant que demandeur de service :</string>
     <string name="edit_profile_customer_commune">Commune</string>
+    <string name="inscription">Vous êtes inscrit !</string>
+
     <!-- checkbox -->
     <string name="animal_walker_registration">Je promène</string>
     <string name="host_registration">J\'accueil</string>
