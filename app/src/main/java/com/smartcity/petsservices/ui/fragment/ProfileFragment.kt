@@ -153,7 +153,7 @@ class ProfileFragment : Fragment() {
         override fun doInBackground(vararg token: Token): String {
             profileViewModel.getUser(token[0])
 
-            return ""
+            return R.string.EMPTY.toString()
         }
     }
 
