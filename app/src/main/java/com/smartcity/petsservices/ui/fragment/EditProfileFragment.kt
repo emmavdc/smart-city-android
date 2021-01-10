@@ -83,8 +83,8 @@ class EditProfileFragment : Fragment() {
 
 
         var userId = sharedPref.getInt(getString(R.string.user_id_payload), 0)
-        var token = sharedPref.getString(getString(R.string.token), "")!!
-        var email  = sharedPref.getString(getString(R.string.email_payload), "")!!
+        var token = sharedPref.getString(getString(R.string.token), R.string.EMPTY.toString())!!
+        var email  = sharedPref.getString(getString(R.string.email_payload), R.string.EMPTY.toString())!!
         var exp  =sharedPref.getLong(getString(R.string.exp_date_payload), 0)!!
 
         // convert long in date
@@ -94,13 +94,8 @@ class EditProfileFragment : Fragment() {
         countryDropDown = binding.countryDropdown
 
         inputsVerifier()
-
-
-
-
         completeFields()
         displayFieldsAccordingRole()
-
         initCountryDropDown()
 
         editProfileViewModel.error.observe(viewLifecycleOwner){ error: Error -> this.displayErrorScreen(
@@ -128,7 +123,6 @@ class EditProfileFragment : Fragment() {
         }
         return binding.root
     }
-
 
 
     private fun displayFieldsAccordingRole(){
@@ -775,11 +769,5 @@ class EditProfileFragment : Fragment() {
 
             return users[0].firstname
         }
-
-        /*override fun onPostExecute(user: String) {
-            Toast.makeText(activity!!.applicationContext, "${user}", Toast.LENGTH_SHORT).show()
-
-        }*/
-
     }
 }
