@@ -12,7 +12,6 @@ object TokenMapper {
 
     fun mapToToken(tokenDto: TokenDto) : Token{
         val parsedJWT = JWT(tokenDto.token);
-        //val value : Value? = parsedJWT.getClaim("value").asObject()
         val allClaims: Map<String, Claim> = parsedJWT.getClaims()
         val value: Value? = allClaims.getValue("value").asObject<Value>(Value::class.java)
         val userId : Int = value!!.userId

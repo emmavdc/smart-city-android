@@ -1,6 +1,5 @@
 package com.smartcity.petsservices.repositories.web.dto
 
-import com.squareup.moshi.JsonClass
 
 data class UserDto(val email : String,
                    val password : String?,

@@ -1,6 +1,5 @@
 package com.smartcity.petsservices.repositories.web.webservice
 
-import androidx.room.Update
 import com.smartcity.petsservices.repositories.web.dto.LoginDto
 import com.smartcity.petsservices.repositories.web.dto.TokenDto
 import com.smartcity.petsservices.repositories.web.dto.UserDto
