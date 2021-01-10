@@ -13,7 +13,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.textfield.TextInputLayout
 import com.smartcity.petsservices.R
 import com.smartcity.petsservices.databinding.FragmentLoginBinding
 import com.smartcity.petsservices.model.Error
@@ -23,9 +22,6 @@ import com.smartcity.petsservices.ui.activity.MainActivity
 import com.smartcity.petsservices.ui.viewModel.LoginViewModel
 
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class LoginFragment : Fragment() {
 
 
@@ -44,8 +40,6 @@ class LoginFragment : Fragment() {
         binding.viewModel = loginViewModel
         binding.lifecycleOwner = this
 
-
-        //sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
         sharedPref = requireActivity().getSharedPreferences(getString(R.string.sharedPref), Context.MODE_PRIVATE);
 
         emailEditText = binding.emailTextInputLayout.editText!!
