@@ -28,10 +28,22 @@
                 android:gravity="center"
                 android:text="@string/pets_services_title"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="5dp"
                 android:textStyle ="bold"
                 android:textColor="@color/black"
                 android:textSize="30dp"/>
+
+            <TextView
+                android:id="@+id/interraction_between_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/interraction_between_user"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="100dp"
+                android:textStyle ="bold"
+                android:textColor="@color/red"
+                android:textSize="14dp"/>
 
             <GridLayout
                 android:layout_width="match_parent"

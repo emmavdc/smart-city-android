@@ -36,8 +36,6 @@ class EditProfileFragment : Fragment() {
 
     // check form
     var isValidateEmail : Boolean = false
-    var isValidatePassword : Boolean = false
-    var isValidateValidationPassword : Boolean = false
     var isValidateFirstname : Boolean = false
     var isValidateLastname : Boolean = false
     var isValidatePhone : Boolean = false
@@ -45,10 +43,8 @@ class EditProfileFragment : Fragment() {
     var isValidateStreetNumber : Boolean = false
     var isValidateLocality : Boolean = false
     var isValidatePostalCode : Boolean = false
-    var isRegister : Boolean = false
 
     // check form for supplier and customer
-    var isValidateSlogan : Boolean = false
     var isValidateSupplierLocality : Boolean = false
     var isValidateWeightMax : Boolean = false
     var isValidateCustomerLocality : Boolean = false
@@ -95,9 +91,11 @@ class EditProfileFragment : Fragment() {
         val exp_date = Date(exp * 1000)
         jwt =  Token(email, userId, exp_date, token)
 
+        countryDropDown = binding.countryDropdown
+
         inputsVerifier()
 
-        countryDropDown = binding.countryDropdown
+
 
 
         completeFields()
@@ -116,12 +114,16 @@ class EditProfileFragment : Fragment() {
 
         // edit profile button
         binding.editProfileButton.setOnClickListener {
-            if(validateForm()){
+            if(validateForm() && validateRoles()){
                 updateUser()
             }
             else{
-                showFieldsError()
-                Toast.makeText(activity, R.string.form_error, Toast.LENGTH_SHORT).show()
+                if(!validateForm()){
+                    Toast.makeText(activity, R.string.form_error, Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Toast.makeText(activity, R.string.roles_error, Toast.LENGTH_SHORT).show()
+                }
             }
         }
         return binding.root
@@ -249,24 +251,37 @@ class EditProfileFragment : Fragment() {
     private fun inputsVerifier(){
         emailTextChangedListener()
         lastnameTextChangedListener()
-        /*
-
+        localityTextChangedListener()
+        postalCodeTextChangedListener()
         firstnameTextChangedListener()
         phoneTextChangedListener()
         streetNameTextChangedListener()
         streetNumberTextChangedListener()
-        localityTextChangedListener()
-        postalCodeTextChangedListener()
-        countrytextChangedListener()*/
+        supplierLocalityTextChangedListener()
+        customerLocalityTextChangedListener()
+        supplierWeightMaxTextChangedListener()
 
     }
 
     private fun validateForm():Boolean{
-        return isValidateEmail && isValidateLastname
+        return isValidateEmail
+                && isValidateFirstname
+                && isValidateLastname
+                && isValidatePhone
+                && isValidateStreetName
+                && isValidateStreetNumber
+                && isValidateLocality
+                && isValidatePostalCode
+                && isValidateCustomerLocality
+                && isValidateSupplierLocality
+                && isValidateWeightMax
     }
 
-    private fun showFieldsError(){
-        emailCheckError()
+    private fun validateRoles():Boolean{
+        return binding.checkboxHost.isChecked
+                || binding.checkboxAnimalWalker.isChecked
+                || binding.checkboxSearchHost.isChecked
+                || binding.checkboxSearchWalker.isChecked
     }
 
     private fun emailTextChangedListener(){
@@ -298,6 +313,143 @@ class EditProfileFragment : Fragment() {
             }
         })
     }
+
+    private fun firstnameTextChangedListener(){
+        binding.firstnameTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                firstnameCheckError()
+            }
+        })
+    }
+
+    private fun phoneTextChangedListener(){
+        binding.phoneTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                phoneCheckError()
+            }
+        })
+    }
+
+    private fun streetNameTextChangedListener(){
+        binding.streetNameTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                streetNameCheckError()
+            }
+        })
+    }
+
+    private fun streetNumberTextChangedListener(){
+        binding.streetNumberTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                streetNumberCheckError()
+            }
+        })
+    }
+
+    private fun localityTextChangedListener(){
+        binding.cityTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                localityCheckError()
+            }
+        })
+    }
+
+    private fun postalCodeTextChangedListener(){
+        binding.postalCodeTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                postalCodeCheckError()
+            }
+        })
+    }
+
+    private fun supplierLocalityTextChangedListener(){
+        binding.supplierCommuneTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                supplierLocalityCheckError()
+            }
+        })
+    }
+
+    private fun customerLocalityTextChangedListener(){
+        binding.customerCommuneTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                customerLocalityCheckError()
+            }
+        })
+    }
+
+    private fun supplierWeightMaxTextChangedListener(){
+        binding.weightMaxTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                supplierWeightMaxCheckError()
+            }
+        })
+    }
+
+    // ----------------- Check Error -------------------------
 
     private fun emailCheckError(){
         if (binding.emailTextInputLayout.editText!!.text.isEmpty()) {
@@ -333,6 +485,178 @@ class EditProfileFragment : Fragment() {
                 binding.lastnameTextInputLayout.setErrorEnabled(false)
                 binding.lastnameTextInputLayout.error = null
                 isValidateLastname = true
+            }
+        }
+    }
+
+    private fun firstnameCheckError(){
+        if (binding.firstnameTextInputLayout.editText!!.text.isEmpty()) {
+            binding.firstnameTextInputLayout.setErrorEnabled(true)
+            binding.firstnameTextInputLayout.error = getString(R.string.firstname_empty_error)
+            isValidateFirstname = false
+        } else {
+            if (!(Pattern.compile("^[a-zéèçàïôëA-Z]{1,50}(-| )?([a-zéèçàïôëA-Z]{1,50})?$").matcher(
+                            binding.firstnameTextInputLayout.editText!!.text
+                    ).matches())) {
+                binding.firstnameTextInputLayout.setErrorEnabled(true)
+                binding.firstnameTextInputLayout.error = getString(R.string.firstname_format_error)
+                isValidateFirstname = false
+            } else {
+                binding.firstnameTextInputLayout.setErrorEnabled(false)
+                binding.firstnameTextInputLayout.error = null
+                isValidateFirstname = true
+            }
+        }
+    }
+
+    private fun phoneCheckError(){
+        if (binding.phoneTextInputLayout.editText!!.text.isEmpty()) {
+            binding.phoneTextInputLayout.setErrorEnabled(true)
+            binding.phoneTextInputLayout.error = getString(R.string.phone_empty_error)
+            isValidatePhone = false
+        } else {
+            if (!(Patterns.PHONE.matcher(binding.phoneTextInputLayout.editText!!.text).matches())) {
+                binding.phoneTextInputLayout.setErrorEnabled(true)
+                binding.phoneTextInputLayout.error = getString(R.string.phone_format_error)
+                isValidatePhone = false
+            } else {
+                binding.phoneTextInputLayout.setErrorEnabled(false)
+                binding.phoneTextInputLayout.error = null
+                isValidatePhone = true
+            }
+        }
+    }
+
+    private fun streetNameCheckError(){
+        if (binding.streetNameTextInputLayout.editText!!.text.isEmpty()) {
+            binding.streetNameTextInputLayout.setErrorEnabled(true)
+            binding.streetNameTextInputLayout.error = getString(R.string.street_name_empty_error)
+            isValidateStreetName = false
+        }
+        else {
+            if (!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(
+                            binding.streetNameTextInputLayout.editText!!.text
+                    ).matches())) {
+                binding.streetNameTextInputLayout.setErrorEnabled(true)
+                binding.streetNameTextInputLayout.error = getString(R.string.street_name_format_error)
+                isValidateStreetName = false
+            } else {
+                binding.streetNameTextInputLayout.setErrorEnabled(false)
+                binding.streetNameTextInputLayout.error = null
+                isValidateStreetName = true
+
+            }
+        }
+    }
+
+    private fun streetNumberCheckError(){
+        if (binding.streetNumberTextInputLayout.editText!!.text.isEmpty()) {
+            binding.streetNumberTextInputLayout.setErrorEnabled(true)
+            binding.streetNumberTextInputLayout.error = getString(R.string.street_number_empty_error)
+            isValidateStreetNumber = false
+        } else {
+            if (!( Pattern.compile("^(\\d{1,3})\\w{0,3}\$").matcher(binding.streetNumberTextInputLayout.editText!!.text).matches())){
+                binding.streetNumberTextInputLayout.setErrorEnabled(true)
+                binding.streetNumberTextInputLayout.error = getString(R.string.street_number_format_error)
+                isValidateStreetNumber = false
+            }
+            else {
+                binding.streetNumberTextInputLayout.setErrorEnabled(false)
+                binding.streetNumberTextInputLayout.error = null
+                isValidateStreetNumber = true
+            }
+        }
+    }
+
+    private fun localityCheckError(){
+        if (binding.cityTextInputLayout.editText!!.text.isEmpty()) {
+            binding.cityTextInputLayout.setErrorEnabled(true)
+            binding.cityTextInputLayout.error = getString(R.string.locality_empty_error)
+            isValidateLocality = false
+        } else {
+            if (!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(binding.cityTextInputLayout.editText!!.text).matches())) {
+                binding.cityTextInputLayout.setErrorEnabled(true)
+                binding.cityTextInputLayout.error = getString(R.string.locality_format_error)
+                isValidateLocality = false
+            } else {
+                binding.cityTextInputLayout.setErrorEnabled(false)
+                binding.cityTextInputLayout.error = null
+                isValidateLocality = true
+
+            }
+        }
+    }
+
+    private fun supplierLocalityCheckError(){
+        if (binding.supplierCommuneTextInputLayout.editText!!.text.isEmpty()) {
+            binding.supplierCommuneTextInputLayout.setErrorEnabled(false)
+            binding.supplierCommuneTextInputLayout.error = null
+            isValidateSupplierLocality = true
+        } else {
+            if (!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(binding.supplierCommuneTextInputLayout.editText!!.text).matches())) {
+                binding.supplierCommuneTextInputLayout.setErrorEnabled(true)
+                binding.supplierCommuneTextInputLayout.error = getString(R.string.locality_format_error)
+                isValidateSupplierLocality = false
+            } else {
+                binding.supplierCommuneTextInputLayout.setErrorEnabled(false)
+                binding.supplierCommuneTextInputLayout.error = null
+                isValidateSupplierLocality = true
+
+            }
+        }
+    }
+
+    private fun customerLocalityCheckError(){
+        if (binding.customerCommuneTextInputLayout.editText!!.text.isEmpty()) {
+            binding.customerCommuneTextInputLayout.setErrorEnabled(false)
+            binding.customerCommuneTextInputLayout.error = null
+            isValidateCustomerLocality = true
+        } else {
+            if (!(Pattern.compile("^\\s*[a-zA-Z]{1}[a-zA-Z][a-zA-Z '-]*\$").matcher(binding.customerCommuneTextInputLayout.editText!!.text).matches())) {
+                binding.customerCommuneTextInputLayout.setErrorEnabled(true)
+                binding.customerCommuneTextInputLayout.error = getString(R.string.locality_format_error)
+                isValidateCustomerLocality = false
+            } else {
+                binding.customerCommuneTextInputLayout.setErrorEnabled(false)
+                binding.customerCommuneTextInputLayout.error = null
+                isValidateCustomerLocality = true
+            }
+        }
+    }
+
+    private fun supplierWeightMaxCheckError(){
+        if (binding.weightMaxTextInputLayout.editText!!.text.isEmpty()) {
+            binding.weightMaxTextInputLayout.setErrorEnabled(false)
+            binding.weightMaxTextInputLayout.error = null
+            isValidateWeightMax = true
+        } else {
+            if (!(Pattern.compile("^(\\d{1,10})\$").matcher(binding.weightMaxTextInputLayout.editText!!.text).matches())) {
+                binding.weightMaxTextInputLayout.setErrorEnabled(true)
+                binding.weightMaxTextInputLayout.error = getString(R.string.weight_max_format_error)
+                isValidateWeightMax = false
+            } else {
+                binding.weightMaxTextInputLayout.setErrorEnabled(false)
+                binding.weightMaxTextInputLayout.error = null
+                isValidateWeightMax = true
+            }
+        }
+    }
+
+    private fun postalCodeCheckError(){
+        if (binding.postalCodeTextInputLayout.editText!!.text.isEmpty()) {
+            binding.postalCodeTextInputLayout.setErrorEnabled(true)
+            binding.postalCodeTextInputLayout.error = getString(R.string.postale_code_empty_error)
+            isValidatePostalCode = false
+        } else {
+            if (!(Pattern.compile("^(\\d{4,10})\$").matcher(binding.postalCodeTextInputLayout.editText!!.text).matches())) {
+                binding.postalCodeTextInputLayout.setErrorEnabled(true)
+                binding.postalCodeTextInputLayout.error = getString(R.string.postale_code_format_error)
+                isValidatePostalCode = false
+            } else {
+                binding.postalCodeTextInputLayout.setErrorEnabled(true)
+                binding.postalCodeTextInputLayout.error = null
+                isValidatePostalCode = true
+
             }
         }
     }

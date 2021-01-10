@@ -305,6 +305,7 @@ class RegistrationFragment : Fragment() {
         var editor : SharedPreferences.Editor = sharedPref.edit()
         editor.putString(getString(R.string.email_payload), token.email)
         editor.putInt(getString(R.string.user_id_payload), token.userId!!)
+        editor.putString(getString(R.string.token), token.token)
         editor.putLong(getString(R.string.exp_date_payload), token.expDate!!.getTime()).apply()
     }
 
@@ -693,7 +694,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun countryCheckError(){
-        if(countryDropDown.text.toString() == ""){
+        if(countryDropDown.text.toString() == getString(R.string.EMPTY)){
             countryTextInputLayout.setErrorEnabled(true)
             countryTextInputLayout.error = getString(R.string.country_error)
         }
