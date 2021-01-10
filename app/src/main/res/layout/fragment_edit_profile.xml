@@ -116,18 +116,6 @@
                     android:textSize="14dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <!--<EditText
-                android:id="@+id/phone_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="@string/phone_registration"
-                android:autofillHints="@string/phone_registration"
-                android:layout_margin="20dp"
-                android:textSize="14dp"/>-->
-
             <TextView
                 android:id="@+id/edit_adress"
                 android:layout_width="match_parent"
@@ -162,17 +150,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--<EditText
-                    android:id="@+id/street_name_edit_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:hint="@string/street_name_registration"
-                    android:autofillHints="@string/street_name_registration"
-                    android:layout_margin="20dp"
-                    android:textSize="14dp"/>-->
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/street_number_text_input_layout"
                     android:layout_width="176dp"
@@ -196,17 +173,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--<EditText
-                    android:id="@+id/street_number_edit_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:hint="@string/street_number_registration"
-                    android:autofillHints="@string/street_number_registration"
-                    android:layout_margin="20dp"
-                    android:textSize="14dp"/>-->
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/city_text_input_layout"
                     android:layout_width="176dp"
@@ -226,17 +192,6 @@
                         android:textSize="14dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <!--<EditText
-                    android:id="@+id/city_edit_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:hint="@string/city_registration"
-                    android:autofillHints="@string/city_registration"
-                    android:layout_margin="20dp"
-                    android:textSize="14dp"/>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/postal_code_text_input_layout"
@@ -260,17 +215,6 @@
                         android:textSize="14dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <!--<EditText
-                    android:id="@+id/postal_code_edit_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPostalAddress"
-                    android:hint="@string/postal_code_registration"
-                    android:autofillHints="@string/postal_code_registration"
-                    android:layout_margin="20dp"
-                    android:textSize="14dp"/>-->
             </GridLayout>
 
             <com.google.android.material.textfield.TextInputLayout

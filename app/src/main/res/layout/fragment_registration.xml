@@ -32,7 +32,6 @@
                 android:textColor="@color/black"
                 android:textSize="30dp"/>
 
-
             <TextView
                 android:id="@+id/email_title"
                 android:layout_width="match_parent"
@@ -65,16 +64,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--<EditText
-                android:id="@+id/email_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:hint="@string/email_registration"
-                android:autofillHints="@string/email_registration"
-                android:layout_margin="20dp"
-                android:textSize="14dp"/>-->
 
             <TextView
                 android:id="@+id/password_title"
@@ -105,16 +94,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--<EditText
-                android:id="@+id/password_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="@string/password_registration"
-                android:autofillHints="@string/password_registration"
-                android:layout_margin="20dp"
-                android:textSize="14dp"/>-->
 
             <TextView
                 android:id="@+id/validation_password_title"
@@ -146,16 +125,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--<EditText
-                android:id="@+id/validation_password_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="@string/validation_password_registration"
-                android:autofillHints="@string/validation_password_registration"
-                android:layout_margin="20dp"
-                android:textSize="14dp"/>-->
 
             <TextView
                 android:id="@+id/name_title"
@@ -190,18 +159,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--<EditText
-                android:id="@+id/lastname_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="@string/latsname_registration"
-                android:autofillHints="@string/latsname_registration"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:textSize="14dp"/>-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/firstname_text_input_layout"
@@ -224,16 +181,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--<EditText
-                android:id="@+id/firstname_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="@string/fisrtname_registration"
-                android:autofillHints="@string/fisrtname_registration"
-                android:layout_margin="20dp"
-                android:textSize="14dp"/>-->
 
             <TextView
                 android:id="@+id/phone_title"
@@ -265,16 +212,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--<EditText
-                android:id="@+id/phone_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="@string/phone_registration"
-                android:autofillHints="@string/phone_registration"
-                android:layout_margin="20dp"
-                android:textSize="14dp"/>-->
 
             <TextView
                 android:id="@+id/address_title"
@@ -311,16 +248,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--<EditText
-                    android:id="@+id/street_name_edit_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:hint="@string/street_name_registration"
-                    android:autofillHints="@string/street_name_registration"
-                    android:layout_margin="20dp"
-                    android:textSize="14dp"/>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/street_number_text_input_layout"
@@ -346,16 +273,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--<EditText
-                    android:id="@+id/street_number_edit_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:hint="@string/street_number_registration"
-                    android:autofillHints="@string/street_number_registration"
-                    android:layout_margin="20dp"
-                    android:textSize="14dp"/>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/city_text_input_layout"
@@ -378,16 +295,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--<EditText
-                    android:id="@+id/city_edit_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:hint="@string/city_registration"
-                    android:autofillHints="@string/city_registration"
-                    android:layout_margin="20dp"
-                    android:textSize="14dp"/>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/postal_code_text_input_layout"
@@ -413,16 +320,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--<EditText
-                    android:id="@+id/postal_code_edit_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPostalAddress"
-                    android:hint="@string/postal_code_registration"
-                    android:autofillHints="@string/postal_code_registration"
-                    android:layout_margin="20dp"
-                    android:textSize="14dp"/>-->
             </GridLayout>
 
             <TextView
@@ -454,11 +351,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--<Spinner
-                android:id="@+id/country_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />-->
             <TextView
                 android:id="@+id/role_title"
                 android:layout_width="match_parent"
@@ -541,11 +433,6 @@
                     android:backgroundTint="@color/colorPrimary"
                     android:layout_gravity="right"/>
             </GridLayout>
-
-
-
-
-
         </LinearLayout>
     </ScrollView>
 
