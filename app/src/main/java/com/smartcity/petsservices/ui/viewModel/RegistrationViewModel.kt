@@ -41,9 +41,6 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     private val localityMediator = MediatorLiveData<Boolean>()
     val postalCode = MutableLiveData<String>()
     private val postalCodeMediator = MediatorLiveData<Boolean>()
-    val country = MutableLiveData<String>()
-    private val countryMediator = MediatorLiveData<Boolean>()
-
 
     init {
         emailMediator.addSource(email) { validateEmail() }
@@ -58,11 +55,8 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
         postalCodeMediator.addSource(postalCode) { validatePostalCode() }
     }
 
-    //TODO add connection error
     private val _error: MutableLiveData<Error> = MutableLiveData()
     val error: LiveData<Error> = _error
-
-    //jwt
     private val _jwt : MutableLiveData<Token> = MutableLiveData()
     val jwt : LiveData<Token> = _jwt
 
@@ -76,15 +70,10 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
         webService.postUser(userMapper.mapToUserDto(user)!!).enqueue(object : Callback<TokenDto> {
             override fun onResponse(call: Call<TokenDto>, response: Response<TokenDto>) {
                 if (response.isSuccessful) {
-                    System.out.println("chouette " + response.code() + "  "+ response.body())
                     System.out.println(response.body()!!.token)
-
                     _error.value = Error.NO_ERROR
                     _jwt.value = tokenMapper.mapToToken(response.body()!!)
                 } else {
-                    System.out.println("pas chouette " + response.code())
-                    //result.message = R.string.user_already_exist.toString()
-                    //result.code = response.code()
                     if (response.code() == 409)
                         _error.value = Error.USER_ALREADY_EXIST
                     else
@@ -94,12 +83,9 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
 
             override fun onFailure(call: Call<TokenDto>, t: Throwable) {
                 if (t is NoConnectivityException) {
-                    System.out.println("error connectivity")
-                    //result.message = R.string.connectivity_error.toString()
                     _error.value = Error.NO_CONNECTION
                 } else {
-                    System.out.println("******************* " + t)
-                    //result = R.string.user_added.toString()
+                    System.out.println(t)
                     _error.value = Error.TECHNICAL_ERROR
                 }
             }
