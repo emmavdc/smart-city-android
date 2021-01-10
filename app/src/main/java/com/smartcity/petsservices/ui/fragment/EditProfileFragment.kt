@@ -25,6 +25,7 @@ import com.smartcity.petsservices.model.Token
 import com.smartcity.petsservices.model.User
 import com.smartcity.petsservices.ui.viewModel.EditProfileViewModel
 import java.util.*
+import java.util.regex.Pattern
 import kotlin.properties.Delegates
 
 class EditProfileFragment : Fragment() {
@@ -115,9 +116,13 @@ class EditProfileFragment : Fragment() {
 
         // edit profile button
         binding.editProfileButton.setOnClickListener {
+            if(validateForm()){
                 updateUser()
-                NavHostFragment.findNavController(this).navigate(R.id.action_editProfileFragment_to_profileFragment)
-                //showFieldsError()
+            }
+            else{
+                showFieldsError()
+                Toast.makeText(activity, R.string.form_error, Toast.LENGTH_SHORT).show()
+            }
         }
         return binding.root
     }
@@ -212,21 +217,6 @@ class EditProfileFragment : Fragment() {
     }
 
     // -----------------Fields Errors -------------------------
-    private fun inputsVerifier(){
-        emailTextChangedListener()
-        /*passwordTextChangedListener()
-        validationPasswordTextChangedListener()
-        lastnameTextChangedListener()
-        firstnameTextChangedListener()
-        phoneTextChangedListener()
-        streetNameTextChangedListener()
-        streetNumberTextChangedListener()
-        localityTextChangedListener()
-        postalCodeTextChangedListener()
-        countrytextChangedListener()*/
-
-    }
-
 
     private  fun displayErrorScreen(error: Error){
         when(error){
@@ -251,9 +241,28 @@ class EditProfileFragment : Fragment() {
                     Toast.LENGTH_SHORT
             ).show()
             else -> {
-                isRegister = true
+                NavHostFragment.findNavController(this).navigate(R.id.action_editProfileFragment_to_profileFragment)
             }
         }
+    }
+
+    private fun inputsVerifier(){
+        emailTextChangedListener()
+        lastnameTextChangedListener()
+        /*
+
+        firstnameTextChangedListener()
+        phoneTextChangedListener()
+        streetNameTextChangedListener()
+        streetNumberTextChangedListener()
+        localityTextChangedListener()
+        postalCodeTextChangedListener()
+        countrytextChangedListener()*/
+
+    }
+
+    private fun validateForm():Boolean{
+        return isValidateEmail && isValidateLastname
     }
 
     private fun showFieldsError(){
@@ -275,17 +284,55 @@ class EditProfileFragment : Fragment() {
         })
     }
 
+    private fun lastnameTextChangedListener(){
+        binding.lastnameTextInputLayout.editText!!.addTextChangedListener(object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                lastnameCheckError()
+            }
+        })
+    }
+
     private fun emailCheckError(){
         if (binding.emailTextInputLayout.editText!!.text.isEmpty()) {
             binding.emailTextInputLayout.setErrorEnabled(true)
             binding.emailTextInputLayout.error = getString(R.string.email_empty_error)
+            isValidateEmail = false
         } else {
             if (!(Patterns.EMAIL_ADDRESS.matcher(binding.emailTextInputLayout.editText!!.text).matches())) {
                 binding.emailTextInputLayout.setErrorEnabled(true)
                 binding.emailTextInputLayout.error =  getString(R.string.email_format_error)
+                isValidateEmail = false
             } else {
                 binding.emailTextInputLayout.setErrorEnabled(false)
                 binding.emailTextInputLayout.error = null
+                isValidateEmail = true
+            }
+        }
+    }
+
+    private fun lastnameCheckError(){
+        if (binding.lastnameTextInputLayout.editText!!.text.isEmpty()) {
+            binding.lastnameTextInputLayout.setErrorEnabled(true)
+            binding.lastnameTextInputLayout.error = getString(R.string.lastname_empty_error)
+            isValidateLastname = false
+        } else {
+            if (!(Pattern.compile("^[a-zéèçàïôëA-Z]{1,50}(-| )?([a-zéèçàïôëA-Z]{1,50})?$").matcher(
+                            binding.lastnameTextInputLayout.editText!!.text
+                    ).matches())) {
+                binding.lastnameTextInputLayout.setErrorEnabled(true)
+                binding.lastnameTextInputLayout.error = getString(R.string.lastname_format_error)
+                isValidateLastname = false
+            } else {
+                binding.lastnameTextInputLayout.setErrorEnabled(false)
+                binding.lastnameTextInputLayout.error = null
+                isValidateLastname = true
             }
         }
     }
