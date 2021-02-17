@@ -1,2 +1,2 @@
 # smart-city-android
-##Vandecasteele Emma - 3IGA
+## Vandecasteele Emma - 3IGA
