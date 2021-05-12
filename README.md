@@ -1,2 +1,3 @@
 # smart-city-android
-## Vandecasteele Emma - 3IGA
+
+2020/2021 - Emma Vandecasteele - 3IGA
